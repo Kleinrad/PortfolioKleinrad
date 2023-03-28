@@ -77,13 +77,23 @@
   -webkit-box-sizing: border-box;
   height: 10px;
   width: 1.5em;
-  margin-left: 2vw;
-  border-top: 3px solid #000;
-  border-bottom: 3px solid #000;
 }
 
-.menu_btn:hover {
-  height: 15px;
-  transition: 0.15s ease-out;
+.menu_btn::before {
+  display: block;
+  content: "";
+  height: 3px;
+  width: 100%;
+  background-color: black;
+  transform: translate3d(0, -2px, 0);
+}
+
+.menu_btn::after {
+  display: block;
+  content: "";
+  height: 3px;
+  width: 100%;
+  background-color: black;
+  transform: translate3d(0, 2px, 0);
 }
 </style>
