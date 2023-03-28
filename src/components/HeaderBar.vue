@@ -14,8 +14,8 @@
         <span>en</span>
       </div>
       <div class="menu_btn" id="header_menu_btn">
-        <span id="menu_default"></span>
-        <span id="menu_focus"></span>
+        <div id="menu_default"></div>
+        <div id="menu_focus"></div>
       </div>
     </div>
   </header>
@@ -29,14 +29,61 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #000;
+  background-color: #fff;
   z-index: 100;
 }
 
 .header_inner {
   display: flex;
-  justify-content: right;
+  align-items: center;
   height: 100%;
   padding: 3vw 5vw 1.2vw;
+}
+
+.header_nav {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50vw;
+  min-width: fit-content;
+  font-size: 1.2em;
+}
+
+.header_nav > span {
+  margin: 0 1vw;
+  display: flex;
+  align-items: flex-end;
+}
+
+.header_language {
+  display: flex;
+  align-items: flex-end;
+  min-width: fit-content;
+  font-size: 1.2em;
+}
+
+.header_language > span {
+  margin: 0 0.5vw;
+}
+
+.header_logo {
+  margin-right: auto;
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+
+.menu_btn {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  height: 10px;
+  width: 1.5em;
+  margin-left: 2vw;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+}
+
+.menu_btn:hover {
+  height: 15px;
+  transition: 0.15s ease-out;
 }
 </style>
