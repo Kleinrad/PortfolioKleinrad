@@ -38,6 +38,7 @@ export default {
   background-color: rgba(0, 0, 0, 0);
   padding: 0;
   border: none;
+  cursor: pointer;
 }
 
 .menu_default, .menu_focus {

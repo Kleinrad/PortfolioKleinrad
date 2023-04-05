@@ -27,7 +27,9 @@ export default {
     position: absolute;
     left: 0;
     width: 100vw;
+    z-index: 0;
     overflow: hidden;
+    background-color: #fff;
 }
 
 </style>

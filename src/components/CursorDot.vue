@@ -1,5 +1,9 @@
 <template>
-    <div :style="{top: cursor.y + 'px', left: cursor.x + 'px', width: this.width + 'vw', height: this.height + 'vw'}" id="cursor_dot"></div>
+        <div 
+            :style="{top: cursor.y + 'px', left: cursor.x + 'px', width: this.width + 'vw', height: this.height + 'vw'}"
+            :class="{'cursor-pointer': pointer}"
+            id="cursor_dot"
+         ></div>
 </template>
 
 <script>
@@ -16,10 +20,12 @@ export default {
       base_width: 1,
       base_height: 1,
       squash_factor: 0.2,
+      pointer: false,
     };
   },
   mounted() {
     document.addEventListener("mousemove", this.onMouseMove);
+    document.addEventListener("mouseover", this.onMouseover);
   },
   methods: {
     onMouseMove(e) {
@@ -35,6 +41,15 @@ export default {
       });
       this.width = width;
       this.height = height;
+    },
+    onMouseover(event) {
+      const cursorType = getComputedStyle(event.target).cursor;
+
+      if (cursorType === 'pointer') {
+        this.pointer = true;
+      } else {
+        this.pointer = false;
+    }
     },
     squashDot(width, height, pos1, pos2) {
       const xDiff = Math.abs(pos1.x - pos2.x);
@@ -67,11 +82,21 @@ export default {
 <style scoped>
 #cursor_dot{
   position: absolute;
-  background-color: #000;
+  background-color: #edf6f4;
   pointer-events: none;
+  cursor: pointer;
   border-radius: 50%;
-  z-index: 1000;
-  transform: translate(-50%, -50%);
+  z-index: 100;
   mix-blend-mode: difference;
+  backface-visibility: hidden;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease-in-out, background-color 0.1s ease-in-out;
 }
+
+.cursor-pointer {
+    background-color: var(--primary-color) !important;
+    mix-blend-mode: multiply !important;
+    transform: scale(2.5) translate(-18.75%, -18.75%) !important;
+}
+
 </style>

@@ -50,7 +50,7 @@ export default {
   left: 0;
   width: 100%;
   background-color: #fff;
-  z-index: 100;
+  z-index: 10;
 }
 
 .header_inner {

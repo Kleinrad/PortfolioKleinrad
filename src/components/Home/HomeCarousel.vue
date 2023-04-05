@@ -60,7 +60,10 @@ export default {
     transform: translate(100%, 0);
     animation: carousel_second 15s linear infinite;
 }
-.carousel_container > span{ transition: 0.5s ease-in-out; }
+.carousel_container > span{ 
+    transition: 0.5s ease-in-out; 
+    cursor: default;
+}
 
 .carousel_container > span:hover{
     transform: translateY(-1svh);
