@@ -16,11 +16,12 @@
   justify-content: space-evenly;
   width: 30vw;
   min-width: fit-content;
-  font-size: 1.2em;
+  font-size: 1vw;
+  font-weight: 600;
 }
 
 .header_nav > span {
-  margin: 0 1vw;
+  margin: 0 3vw;
   display: flex;
   align-items: flex-end;
   cursor: pointer;

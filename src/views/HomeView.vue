@@ -2,16 +2,18 @@
   <div>
     <HeaderBar @menu-close="showMenu=false" @menu-open="showMenu=true"></HeaderBar>
     <MenuFull v-if="showMenu"></MenuFull>
-    <div class="main_page">
-      <HomeBanner></HomeBanner>
-    </div>
+    <Transition name="fade">
+      <div class="main_page" v-if="!showMenu">
+        <HomeBanner></HomeBanner>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script>
 import HeaderBar from "@/components/Header/HeaderBar.vue";
 import MenuFull from "@/components/MenuFull.vue";
-import HomeBanner from "@/components/HomeBanner.vue";
+import HomeBanner from "@/components/Home/HomeBanner.vue";
 
 export default {
   name: "HomeView",
@@ -30,15 +32,39 @@ export default {
 
 <style scoped>
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+
 HeaderBar {
   position: fixed;
-  z-index: 1;
+  z-index: 10;
 }
 
 MenuFull {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 5;
+}
+
+.fade-out {
+  animation: fadeOut .2s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }  
 }
 </style>

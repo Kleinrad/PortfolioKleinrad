@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header_inner">
       <div class="header_logo">
-        <span class="header_logo_text">#Demosite</span>
+        <span class="header_logo_text">#demosite</span>
       </div>
       <HeaderNav :class="{'close_header': menu_open, 'open_header': !menu_open}"></HeaderNav>
       <HeaderLang :class="{'close_header': menu_open, 'open_header': !menu_open}"></HeaderLang>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import MenuButton from "@/components/MenuButton.vue";
+import MenuButton from "@/components/Header/MenuButton.vue";
 import HeaderNav from "@/components/Header/HeaderNav.vue";
 import HeaderLang from "@/components/Header/HeaderLang.vue";
 
@@ -62,8 +62,8 @@ export default {
 
 .header_logo {
   margin-right: auto;
-  font-weight: bolder;
-  font-size: 1.5em;
+  font-weight: 700;
+  font-size: 1.5vw;
 }
 
 .close_header {

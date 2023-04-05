@@ -39,6 +39,7 @@
     flex-direction: column;
     justify-content: center;
     font-size: 4em;
+    font-weight: 1000;
     height: 50vh;
     text-align: left;
     margin: auto;
@@ -63,7 +64,7 @@
 
 .menu_inner > span:hover {
     margin: 0 1vw;
-    color: red;
+    color: var(--primary-color);
     transition: transform 0.35s, color 0.3 cubic-bezier(.39,.575,.565,1);
 }
 
