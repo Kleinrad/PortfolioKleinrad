@@ -96,7 +96,7 @@ export default {
 .cursor-pointer {
     background-color: var(--primary-color) !important;
     mix-blend-mode: multiply !important;
-    transform: scale(2.5) translate(-18.75%, -18.75%) !important;
+    transform: scale(2.2) translate(-22.5%, -22.5%) !important;
 }
 
 </style>

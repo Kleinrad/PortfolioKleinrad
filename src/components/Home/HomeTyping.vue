@@ -79,7 +79,7 @@
     font-size: 5vw;
     letter-spacing: 0.02em;
     font-weight: bold;
-    height: 15vw;
+    height: 20vw;
     text-align: left;
     margin-bottom: 2.5vw;
     margin-left: 5vw;

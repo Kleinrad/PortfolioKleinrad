@@ -30,9 +30,14 @@ export default {
   cursor: default;
 }
 
+.header_language > span:hover {
+  opacity: 0.8;
+}
+
 .not_selected {
   opacity: 0.4;
   cursor: pointer !important;
+  transition: 0.1s;
 }
 
 </style>
