@@ -7,20 +7,19 @@
         <span :class="{
             'hover_text': hover
         }">Reach out to me</span>
-        <span :class="{
-            'hover_arrow': hover,
-            'arrow': true,
-        }">&#129130;</span>
+        <ArrowButton :hover="hover"></ArrowButton>
     </div>
 
 </template>
 
 <script>
+import ArrowButton from "@/components/ArrowButton.vue"
+
 export default {
     name: "BannerContact",
     data() {
         return {
-            hover: true,
+            hover: false,
         };
     },
     mounted() {
@@ -34,6 +33,9 @@ export default {
             this.hover = false;
             console.log("leave");
         },
+    },
+    components: {
+        ArrowButton,
     },
 };
 </script>
@@ -64,12 +66,6 @@ export default {
     transition: 1s ease;
 }
 
-.arrow{
-    font-size: 1.5vw;
-    margin-left: 1vw;
-    transition: 0.2;
-}
-
 
 .hover_text {
     position: relative;
@@ -90,31 +86,7 @@ export default {
     transform: scale(.8) translate(-40%, 10%);; 
 }
 
-.hover_arrow {
-    animation: arrow 0.5s ease forwards;
-}
 
-@keyframes arrow {
-    0% {
-        transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-    49% {
-        transform: translate3d(0.5vw, 0, 0.5vw);
-        color: black;
-        opacity: 0;
-    }
-    50% {
-        color: var(--primary-color);
-        opacity: 0;
-        transform: translate3d(-0.5vw, 0, -0.5vw);
-    }
-    100% {
-        transform: translate3d(0, 0, 0);
-        color: var(--primary-color);
-        opacity: 1;
-    }
-}
 
 @keyframes underline {
     0% {
