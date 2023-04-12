@@ -29,12 +29,16 @@ export default {
                     id: 3,
                     name: "AmongHTL",
                     media: "",
-                }, 
-            ]
+                },
+            ],
+            project_count: 0,
         };
     },
     components: {
         ProjectItem,
+    },
+    mounted() {
+        this.project_count = this.projects.length;
     },
 };
 </script>
@@ -43,7 +47,7 @@ export default {
 .projects_wrapper {
     position: relative;
     width: 100%;
-    height: calc(45vw*3);
+    height: calc(45vw*v-bind(project_count));
     background-color:  var(--background-color);
 }
 
