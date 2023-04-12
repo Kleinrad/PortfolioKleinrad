@@ -32,17 +32,17 @@ export default {
 
 .arrow {
     font-size: 1.5vw;
-    transition: 1s;
+    transition: 0.5s;
 }
 
 .arrow:first-child {
     transform: rotate3d(0, 1, 0, -90deg);
     opacity: 0;
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 .arrow:last-child {
-    transform: rotate3d(0, 1, 0, 0deg) translate(-50%, 0);
+    transform: rotate3d(0, 1, 0, 0deg) translate(-70%, 0);
     opacity: 1;
 }
 

@@ -31,8 +31,7 @@ export default {
 
 <style scoped>
 .banner_wrapper {
-    position: absolute;
-    left: 0;
+    position: relative;
     height: 100svh;
     width: 100%;
     z-index: 0;

@@ -1,9 +1,11 @@
 <template>
-        <div 
-            :style="{top: cursor.y + 'px', left: cursor.x + 'px', width: this.width + 'vw', height: this.height + 'vw'}"
-            :class="{'cursor-pointer': pointer}"
-            id="cursor_dot"
-         ></div>
+  <div :class="{'cursor_wrapper': true, 'wrapper_pointer': pointer}">
+    <div 
+        :style="{top: cursor.y + 'px', left: cursor.x + 'px', width: this.width + 'vw', height: this.height + 'vw'}"
+        :class="{'cursor-pointer': pointer}"
+        id="cursor_dot"
+      ></div>
+  </div>
 </template>
 
 <script>
@@ -15,6 +17,7 @@ export default {
         x: 0,
         y: 0,
       },
+      scrollY: 0,
       width: 0,
       height: 0,
       base_width: 1,
@@ -80,6 +83,22 @@ export default {
 </script>
 
 <style scoped>
+.cursor_wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: transparent;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.wrapper_pointer {
+  mix-blend-mode: multiply !important;
+}
+
 #cursor_dot{
   position: absolute;
   background-color: #edf6f4;
@@ -87,15 +106,13 @@ export default {
   cursor: pointer;
   border-radius: 50%;
   z-index: 100;
-  mix-blend-mode: difference;
   backface-visibility: hidden;
   transform: translate(-50%, -50%);
   transition: transform 0.3s ease-in-out, background-color 0.1s ease-in-out;
 }
 
 .cursor-pointer {
-    background-color: var(--primary-color) !important;
-    mix-blend-mode: multiply !important;
+    background-color: var(--accent-color) !important;
     transform: scale(2.2) translate(-22.5%, -22.5%) !important;
 }
 

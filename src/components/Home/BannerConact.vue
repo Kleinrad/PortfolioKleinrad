@@ -43,7 +43,7 @@ export default {
 <style scoped>
 .banner_contact {
     position: absolute;
-    margin-top: 5vw;
+    margin-top: 2.5vw;
     margin-left: 7vw;
 
     display: flex;
@@ -51,17 +51,18 @@ export default {
 
     font-size: 1.1vw;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .circle{
     content: "";
     position: absolute;
     z-index: -1;
-    width: 7vw;
-    height: 7vw;
+    width: 6vw;
+    height: 6vw;
     border-radius: 50%;
     opacity: 0.7;
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
     transform: translate(-30%, 10%);
     transition: 1s ease;
 }

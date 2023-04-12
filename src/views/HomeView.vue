@@ -1,19 +1,19 @@
 <template>
-  <div>
-    <HeaderBar @menu-close="showMenu=false" @menu-open="showMenu=true"></HeaderBar>
-    <MenuFull v-if="showMenu"></MenuFull>
-    <Transition name="fade">
-      <div class="main_page" v-if="!showMenu">
-        <HomeBanner></HomeBanner>
-      </div>
-    </Transition>
-  </div>
+  <HeaderBar @menu-close="showMenu=false" @menu-open="showMenu=true"></HeaderBar>
+  <MenuFull v-if="showMenu"></MenuFull>
+  <Transition name="fade">
+    <div class="main_page" v-if="!showMenu">
+      <HomeBanner></HomeBanner>
+    </div>
+  </Transition>
+  <ProjectsOverview></ProjectsOverview>
 </template>
 
 <script>
 import HeaderBar from "@/components/Header/HeaderBar.vue";
 import MenuFull from "@/components/MenuFull.vue";
 import HomeBanner from "@/components/Home/HomeBanner.vue";
+import ProjectsOverview from "@/components/Home/Projects/ProjectsOverview.vue";
 
 export default {
   name: "HomeView",
@@ -26,6 +26,7 @@ export default {
     HeaderBar,
     MenuFull,
     HomeBanner,
+    ProjectsOverview,
   },
 };
 </script>
@@ -42,6 +43,16 @@ export default {
   opacity: 0;
 }
 
+.main_page {
+  position: relative;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+HomeBanner {
+  height: 120svh;
+}
 
 HeaderBar {
   position: fixed;

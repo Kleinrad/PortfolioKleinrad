@@ -64,7 +64,7 @@
 
 .menu_inner > span:hover {
     margin: 0 1vw;
-    color: var(--primary-color);
+    color: var(--accent-color);
     transition: transform 0.35s, color 0.3 cubic-bezier(.39,.575,.565,1);
 }
 

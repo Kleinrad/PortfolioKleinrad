@@ -67,7 +67,7 @@ export default {
 
 .carousel_container > span:hover{
     transform: translateY(-1svh);
-    text-shadow: 0px 1svh 0px var(--primary-color);
+    text-shadow: 0px 1svh 0px var(--accent-color);
     transition: 0.5s ease-in-out;
 }
 
