@@ -83,7 +83,6 @@
     text-align: left;
     margin-bottom: 2.5vw;
     margin-left: 5vw;
-    color: black;
 }
 
 .typing_cursor{

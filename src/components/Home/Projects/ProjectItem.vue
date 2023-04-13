@@ -40,6 +40,7 @@ export default {
     background-position: center;
     opacity: 0;
     animation: fadeIn 0.5s 1.8s forwards;
+    filter: brightness(0.3) saturate(0.85);
 }
 .project_item {
     position: relative;
@@ -94,7 +95,6 @@ export default {
     z-index: 1;
     background-color: transparent;
     cursor: default;
-    filter: brightness(0.5) saturate(0.85);
 }
 
 .project_video {
@@ -103,10 +103,11 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    height: 125%;
+    height: 135%;
     z-index: 0;
     opacity: 0;
     animation: fadeIn 0.5s 1.8s forwards;
+    filter: brightness(0.3) saturate(0.85);
 }
 
 @keyframes morph {

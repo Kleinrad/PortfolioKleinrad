@@ -17,7 +17,6 @@ export default {
         x: 0,
         y: 0,
       },
-      scrollY: 0,
       width: 0,
       height: 0,
       base_width: 1,
@@ -26,6 +25,10 @@ export default {
       pointer: false,
     };
   },
+  props: {
+    'dynamic' : Boolean,
+    'pos': Object,
+  },
   mounted() {
     document.addEventListener("mousemove", this.onMouseMove);
     document.addEventListener("mouseover", this.onMouseover);
@@ -33,17 +36,20 @@ export default {
   methods: {
     onMouseMove(e) {
       //smooth cursor
-      this.cursor.x = this.cursor.x + (e.clientX - this.cursor.x) / 2;
-      this.cursor.y = this.cursor.y + (e.clientY - this.cursor.y) / 2;
+      this.cursor.x = this.dynamic ? this.cursor.x + (e.clientX - this.cursor.x) / 2 : this.pos.x;
+      this.cursor.y = this.dynamic ? this.cursor.y + (e.clientY - this.cursor.y) / 2 : this.pos.y;
       //calculate cursor size
       this.width = this.base_width;
       this.height = this.base_width;
-      const { width, height } = this.squashDot(this.width, this.height, this.cursor, {
-        x: e.clientX,
-        y: e.clientY,
-      });
-      this.width = width;
-      this.height = height;
+      if (this.dynamic){
+        const { width, height } = this.squashDot(this.width, this.height, this.cursor, {
+          x: e.clientX,
+          y: e.clientY,
+        });
+        
+        this.width = width;
+        this.height = height;
+      }
     },
     onMouseover(event) {
       const cursorType = getComputedStyle(event.target).cursor;
