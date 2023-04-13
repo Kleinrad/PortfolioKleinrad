@@ -49,7 +49,8 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--background-color);
+  transition: var(--bg-transition);
   z-index: 10;
 }
 

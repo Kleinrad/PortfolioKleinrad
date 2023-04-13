@@ -18,7 +18,7 @@ export default {
                 {
                     id: 1,
                     name: "Autumn",
-                    media: "https://www.youtube.com/embed/OxoY1ocx72U?controls=1&mute=1&rel=0&autoplay=1&loop=1&playlist=OxoY1ocx72U",
+                    media: "https://www.youtube.com/embed/OxoY1ocx72U?controls=1&mute=1&rel=0&autoplay=1&loop=1",
                 }, 
                 {
                     id: 2,
@@ -28,7 +28,7 @@ export default {
                 {
                     id: 3,
                     name: "AmongHTL",
-                    media: "",
+                    media: "https://www.youtube.com/embed/7OwdxQSfSx0?controls=0&autoplay=1&mute=1&loop=1",
                 },
             ],
             project_count: 0,
@@ -46,9 +46,11 @@ export default {
 <style scoped>
 .projects_wrapper {
     position: relative;
+    scroll-snap-align: start;
     width: 100%;
     height: calc(45vw*v-bind(project_count));
     background-color:  var(--background-color);
+    transition: var(--bg-transition);
 }
 
 .item_wrapper {

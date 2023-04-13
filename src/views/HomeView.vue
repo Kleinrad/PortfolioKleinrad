@@ -2,11 +2,11 @@
   <HeaderBar @menu-close="showMenu=false" @menu-open="showMenu=true"></HeaderBar>
   <MenuFull v-if="showMenu"></MenuFull>
   <Transition name="fade">
-    <div class="main_page" v-if="!showMenu">
+    <div class="mainPage" v-if="!showMenu">
       <HomeBanner></HomeBanner>
+      <ProjectsOverview></ProjectsOverview>
     </div>
   </Transition>
-  <ProjectsOverview></ProjectsOverview>
 </template>
 
 <script>
@@ -41,13 +41,6 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-.main_page {
-  position: relative;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
 }
 
 HomeBanner {

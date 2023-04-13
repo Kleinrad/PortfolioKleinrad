@@ -4,4 +4,6 @@
     --secondary-color: #97b1bb;
     --background-color: #fff;
     --font-color: #000;
+
+    --bg-transition: background-color 0.5s ease;
   }

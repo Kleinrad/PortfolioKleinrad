@@ -35,7 +35,7 @@ export default {
   -webkit-box-sizing: border-box;
   width: 2.6vw;
   height: 2.6vw;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   padding: 0;
   border: none;
   cursor: pointer;
@@ -67,7 +67,7 @@ export default {
   content: "";
   width: 100%;
   height: 2px;
-  background-color: black;
+  background-color: var(--font-color);
   transition: 0.2s;
 }
 

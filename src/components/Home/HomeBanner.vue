@@ -32,11 +32,13 @@ export default {
 <style scoped>
 .banner_wrapper {
     position: relative;
+    scroll-snap-align: start;
     height: 100svh;
     width: 100%;
     z-index: 0;
     overflow: hidden;
-    background-color: #fff;
+    background-color: var(--background-color);
+    transition: var(--bg-transition);
 }
 
 .banner_text{
