@@ -65,12 +65,12 @@ export default {
                     this.drawTo(x, v_seg * (i+1), i == this.projectCount-1);
                     len_c += Math.round(v_seg);
                 }else{
-                    this.drawTo(x, v_seg * i + (len_m - len_c));
+                    this.drawTo(x, v_seg * i + (len_m - len_c), i == this.projectCount-1);
                     break
                 }
 
                 if (i != this.projectCount-1 && len_m - len_c > 76){
-                    this.drawTo(i%2 != 0 ? right_b : left_b, v_seg * (i+1), len_m - (len_c+76) <= v_seg);
+                    this.drawTo(i%2 != 0 ? right_b : left_b, v_seg * (i+1));
                     len_c += 76;
                 }else if (i != this.projectCount-1){
                     this.drawTo(x + (i%2==0 ? (len_m-len_c) : -(len_m-len_c)), v_seg * (i+1));
@@ -140,7 +140,7 @@ export default {
             let x_rel = x / (100*this.resolution) * this.canvas.width;
             let y_rel = y / (100*this.resolution) * this.canvas.height;
 
-            let timeFactor = 3;
+            let timeFactor = 1;
             //calculate random control points use time as seed
             let time_ms = new Date().getTime();
             let x1 = (((Math.cos(time_ms/(1000/timeFactor))+1) * (Math.cos(time_ms/(1500/timeFactor))+1) * (Math.cos(time_ms/(3000/timeFactor))+1))/8)*.5+.25;

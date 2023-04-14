@@ -32,6 +32,11 @@ export default {
                     name: "AmongHTL",
                     media: "https://www.youtube.com/embed/7OwdxQSfSx0?controls=0&autoplay=1&mute=1&loop=1",
                 },
+                {
+                    id: 3,
+                    name: "AmongHT2L",
+                    media: "https://www.youtube.com/embed/7OwdxQSfSx0?controls=0&autoplay=1&mute=1&loop=1",
+                },
             ],
             project_count: 0,
             edgeLine: true,
