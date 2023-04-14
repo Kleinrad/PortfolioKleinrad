@@ -1,8 +1,8 @@
 <template>
     <div class="projects_wrapper" @mouseenter="edgeLine=false" @mouseleave="edgeLine=true">
-        <ProjectLine :lineLength="lineLength" :projectCount="projects.length"></ProjectLine>
-        <div class="item_wrapper" v-for="project in projects">
-            <ProjectItem  :key="project.id" :fullSize="false" :project="project" maxHeight="30vw" maxWidth="60vw"></ProjectItem>
+        <ProjectLine :lineLength="lineLength" :projectCount="projects.length" :dotDist="dotDistance"></ProjectLine>
+        <div class="item_wrapper" v-for="project, i in projects">
+            <ProjectItem  :key="project.id" :fullSize="false" :project="project" :full-size="i == activeVideo" maxHeight="30vw" maxWidth="60vw"></ProjectItem>
         </div>
     </div>
 </template>
@@ -32,11 +32,6 @@ export default {
                     name: "AmongHTL",
                     media: "https://www.youtube.com/embed/7OwdxQSfSx0?controls=0&autoplay=1&mute=1&loop=1",
                 },
-                {
-                    id: 3,
-                    name: "AmongHT2L",
-                    media: "https://www.youtube.com/embed/7OwdxQSfSx0?controls=0&autoplay=1&mute=1&loop=1",
-                },
             ],
             project_count: 0,
             edgeLine: true,
@@ -46,6 +41,14 @@ export default {
         lineLength: {
             type: Number,
             default: 0,
+        },
+        dotDistance: {
+            type: Number,
+            default: 0,
+        },
+        activeVideo: {
+            type: Number,
+            default: -1,
         },
     },
     components: {

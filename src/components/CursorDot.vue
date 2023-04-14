@@ -1,8 +1,8 @@
 <template>
-  <div :class="{'cursor_wrapper': true, 'wrapper_pointer': pointer}">
+  <div :class="{'cursor_wrapper': dynamic, 'wrapper_pointer': pointer, 'absolute_wrapper': !dynamic}">
     <div 
         :style="{top: cursor.y + 'px', left: cursor.x + 'px', width: this.width + 'vw', height: this.height + 'vw'}"
-        :class="{'cursor-pointer': pointer}"
+        :class="{'cursor-pointer': pointer, 'abs_trans' : !dynamic}"
         id="cursor_dot"
       ></div>
   </div>
@@ -23,11 +23,19 @@ export default {
       base_height: 1,
       squash_factor: 0.2,
       pointer: false,
+      last_point_abs: {
+        x: 0,
+        y: 0,
+      },
+
+      abs_trans_x: 0,
+      abs_trans_y: 0,
     };
   },
   props: {
     'dynamic' : Boolean,
     'pos': Object,
+    'abs_top_offset': Number,
   },
   mounted() {
     document.addEventListener("mousemove", this.onMouseMove);
@@ -36,8 +44,8 @@ export default {
   methods: {
     onMouseMove(e) {
       //smooth cursor
-      this.cursor.x = this.dynamic ? this.cursor.x + (e.clientX - this.cursor.x) / 2 : this.pos.x;
-      this.cursor.y = this.dynamic ? this.cursor.y + (e.clientY - this.cursor.y) / 2 : this.pos.y;
+      this.cursor.x = this.dynamic ? this.cursor.x + (e.clientX - this.cursor.x) / 2 : this.last_point_abs.x;
+      this.cursor.y = this.dynamic ? this.cursor.y + (e.clientY - this.cursor.y) / 2 : this.last_point_abs.y;
       //calculate cursor size
       this.width = this.base_width;
       this.height = this.base_width;
@@ -83,7 +91,18 @@ export default {
         const newHeight = height * y_factor;
         return { width: newWidth, height: newHeight };
       }
-    }
+    },
+  },
+  watch: {
+    dynamic: function (val) {
+      if (!val){
+        let point_b = {x: this.cursor.x, y: this.cursor.y - this.abs_top_offset};
+        let pos_diff = {x: this.pos.x - point_b.x, y: this.pos.y - point_b.y};
+        this.abs_trans_x = pos_diff.x+"px";
+        this.abs_trans_y = pos_diff.y+"px";
+        this.last_point_abs = point_b;
+      }
+    },
   },
 };
 </script>
@@ -99,6 +118,23 @@ export default {
   background-color: transparent;
   pointer-events: none;
   mix-blend-mode: difference;
+}
+
+.absolute_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.abs_trans{
+  background-color: var(--font-color) !important;
+  transform: translate(-50%, -50%) translateX(v-bind(abs_trans_x)) translateY(v-bind(abs_trans_y)) scale(1.4) !important;
+  transition: 1s cubic-bezier(.15,-0.03,.19,.83);
 }
 
 .wrapper_pointer {

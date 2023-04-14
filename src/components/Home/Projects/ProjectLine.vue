@@ -9,12 +9,13 @@ export default {
             canvas: null,
             ctx: null,
             lastDst: 0,
+            lastDotDst: 0,
             lastReal: {x: 0, y: 0},
             lastBr: {x: 0, y: 0},
             bezierPoints: [],
             resolution: 1,
-            wigglyLines: 0,
-            linesDrawn: 0,
+            segments: [],
+            segmentParams: [],
         };
     },
     props: {
@@ -34,6 +35,10 @@ export default {
             type: Number,
             default: 2,
         },
+        dotDist: {
+            type: Number,
+            default: 10,
+        },
     },
     methods: {
         updateSize() {
@@ -42,13 +47,53 @@ export default {
             this.canvas.width = width;
             this.canvas.height = height;
         },
+        drawCircle(t){
+            let t_rel = (100+76*(this.projectCount-1)) * (t/100);
+            let seg = -1
+            let seg_c = 0
+            this.segments.every((s, i) => {
+                seg_c += s;
+                if(t_rel / seg_c < 1){
+                    seg = i;
+                    return false;
+                }
+                return true;
+            });
+
+            let t_seg_rel = t_rel - (seg_c - this.segments[seg]);
+            let t_seg = t_seg_rel / this.segments[seg];
+            
+            if (this.segmentParams[seg] != undefined){
+                let pos = {x: 0, y: 0};
+                if (t_seg < 0.1 && seg != 0){
+                    let p1 = this.getBezierShort(0.9, this.segmentParams[seg-1]);
+                    let p2 = this.getBezierShort(0.1, this.segmentParams[seg]);
+                    let cp = this.getBezierShort(1, this.segmentParams[seg-1]);
+                    t_seg = t_seg*10 / 2 + 0.5;
+                    pos = this.getQuadraticXY(t_seg, p1.x, p1.y, cp.x, cp.y, p2.x, p2.y);
+                }else if (t_seg > 0.9 && seg != this.segments.length-1 && this.segmentParams[seg+1] != undefined){
+                    let p1 = this.getBezierShort(0.9, this.segmentParams[seg]);
+                    let p2 = this.getBezierShort(0.1, this.segmentParams[seg+1]);
+                    let cp = this.getBezierShort(0, this.segmentParams[seg+1]);
+                    t_seg = (t_seg-0.9)*10 / 2;
+                    pos = this.getQuadraticXY(t_seg, p1.x, p1.y, cp.x, cp.y, p2.x, p2.y);
+                }else{
+                    pos = this.getBezierShort(t_seg, this.segmentParams[seg]);
+                }
+                this.ctx.beginPath();
+                this.ctx.arc(pos.x, pos.y, 10, 0, 2 * Math.PI);
+                this.ctx.fillStyle = this.lineColor;
+                this.ctx.fill();
+            }
+        },
         drawLine(dst){
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            if (dst <= 0) return;
             this.ctx.beginPath();
-            this.linesDrawn = 0;
             this.ctx.strokeStyle = this.lineColor;
             this.ctx.lineWidth = this.lineWidth;
-            this.bezierPoints = []
+            this.bezierPoints = [];
+            this.segmentParams = [];
             this.lastReal = {x: 0, y: 0}
             this.lastBr = {x: 0, y: 0}
             let len_c = 0;
@@ -58,7 +103,7 @@ export default {
 
             let v_seg = (100*this.resolution) / this.projectCount;
 
-            this.moveTo(right_b , 0);
+            this.moveTo(right_b , 1);
             for(let i = 0; i < this.projectCount; i++){
                 let x = i%2 == 0 ? right_b : left_b;
                 if (len_m - len_c > v_seg){
@@ -78,6 +123,10 @@ export default {
                 }
             }
             this.ctx.stroke();
+            this.connectBezier();
+            this.drawCircle(this.lastDotDst);
+        },
+        connectBezier(){
             for(let i = 0; i < this.bezierPoints.length-1; i++){
                 let rect_x = this.bezierPoints[i][1].x;
                 let rect_y = this.bezierPoints[i][1].y;
@@ -128,7 +177,6 @@ export default {
         },
         drawTo(x,y, forceEnd=false){
             this.bezierPoints.push(this.brezierTo(x,y, forceEnd));
-            this.linesDrawn++;
         },
         lineTo(x, y){
             let x_rel = x / (100*this.resolution) * this.canvas.width;
@@ -152,7 +200,9 @@ export default {
             
             let bP1 = this.getBezierXY(0.1, this.lastBr.x, this.lastBr.y, abs_para.x1, abs_para.y1, abs_para.x2, abs_para.y2, abs_para.x_rel, abs_para.y_rel)
             let bP2 = this.getBezierXY(0.9, this.lastBr.x, this.lastBr.y, abs_para.x1, abs_para.y1, abs_para.x2, abs_para.y2, abs_para.x_rel, abs_para.y_rel)
-
+            
+            this.segmentParams.push({s: {x: this.lastBr.x, y: this.lastBr.y}, cp1: {x: abs_para.x1, y: abs_para.y1}, cp2: {x: abs_para.x2, y: abs_para.y2}, e: {x: abs_para.x_rel, y: abs_para.y_rel}})
+            
             this.lastBr = {x: abs_para.x_rel, y: abs_para.y_rel}
             this.lastReal = {x: x_rel, y: y_rel}
             return [bP1, bP2, {x: abs_para.x_rel, y: abs_para.y_rel}];
@@ -192,7 +242,16 @@ export default {
                 y: Math.pow(1-t,3) * sy + 3 * t * Math.pow(1 - t, 2) * cp1y 
                 + 3 * t * t * (1 - t) * cp2y + t * t * t * ey
             };
-        }
+        },
+        getBezierShort(t, obj){
+            return this.getBezierXY(t, obj.s.x, obj.s.y, obj.cp1.x, obj.cp1.y, obj.cp2.x, obj.cp2.y, obj.e.x, obj.e.y);
+        },
+        getQuadraticXY(t, sx, sy, cp1x, cp1y, ex, ey) {
+            return {
+                x: Math.pow(1-t,2) * sx + 2 * t * (1 - t) * cp1x + t * t * ex,
+                y: Math.pow(1-t,2) * sy + 2 * t * (1 - t) * cp1y + t * t * ey
+            };
+        },
     },
     mounted() {
         this.canvas = document.getElementById("project_canvas");
@@ -200,10 +259,15 @@ export default {
         this.updateSize();
         window.addEventListener("resize", this.updateSize);
 
+        for (let i = 0; i < (this.projectCount-1)*2+1; i++) {
+            this.segments.push(i % 2 == 0 ? 100/this.projectCount : 76);
+        }
+
         setInterval(() => {
             this.lastDst = Math.min(this.lastDst + 0.4, this.lineLength);
+            this.lastDotDst = this.dotDist < this.lastDotDst ? Math.max(this.lastDotDst - 0.15, this.dotDist) : Math.min(this.lastDotDst + 0.15, this.dotDist);
             this.drawLine(this.lastDst);
-        }, 20);
+        }, 15);
     },
 }
 </script>
