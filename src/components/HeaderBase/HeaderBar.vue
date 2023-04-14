@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import MenuButton from "@/components/Header/MenuButton.vue";
-import HeaderNav from "@/components/Header/HeaderNav.vue";
-import HeaderLang from "@/components/Header/HeaderLang.vue";
+import MenuButton from "@/components/HeaderBase/MenuButton.vue";
+import HeaderNav from "@/components/HeaderBase/HeaderNav.vue";
+import HeaderLang from "@/components/HeaderBase/HeaderLang.vue";
 
 export default {
 

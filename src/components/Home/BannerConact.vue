@@ -27,11 +27,9 @@ export default {
     methods: {
         onHover() {
             this.hover = true;
-            console.log("hover");
         },
         onLeave(){
             this.hover = false;
-            console.log("leave");
         },
     },
     components: {

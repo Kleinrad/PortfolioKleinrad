@@ -28,7 +28,9 @@ export default {
         "fullSize": {
             type: Boolean,
             default: false,
-        }
+        },
+        "maxWidth": String,
+        "maxHeight": String,
     },
 };
 </script>
@@ -53,11 +55,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: morph-size-reverse 2s forwards;
 }
 
 .project_item_active {
-    width: 70vw;
-    height: 35vw;
+    width: v-bind(maxWidth);
+    height: v-bind(maxHeight);
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
     animation: morph-size 2s forwards, 20s morph 2s alternate-reverse infinite !important;
 }
@@ -163,6 +166,27 @@ export default {
         transform: scale(1);
     }
 
+}
+
+@keyframes morph-size-reverse{
+    0%{
+        border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%;
+        transform: scale(1);
+    }
+    20%{
+        border-radius: 35% 28% 16% 7% / 35% 28% 16% 7%;
+    }
+    35%{
+        border-radius: 40% 36% 43% 34% / 40% 36% 43% 34%;
+    }
+    60%{
+        border-radius: 40% 35% 41% 33% / 40% 35% 41% 33%;
+        transform: scale(0.8);
+    }
+    100%{
+        border-radius: 0%;
+        transform: scale(1);
+    }
 }
 
 @keyframes fadeIn {

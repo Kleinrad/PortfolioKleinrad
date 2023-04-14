@@ -1,13 +1,15 @@
 <template>
-    <div class="projects_wrapper">
+    <div class="projects_wrapper" @mouseenter="edgeLine=false" @mouseleave="edgeLine=true">
+        <ProjectLine :lineLength="lineLength" :projectCount="projects.length"></ProjectLine>
         <div class="item_wrapper" v-for="project in projects">
-            <ProjectItem  :key="project.id" :fullSize="false" :project="project"></ProjectItem>
+            <ProjectItem  :key="project.id" :fullSize="false" :project="project" maxHeight="30vw" maxWidth="60vw"></ProjectItem>
         </div>
     </div>
 </template>
 
 <script>
 import ProjectItem from "@/components/Home/Projects/ProjectItem.vue";
+import ProjectLine from "@/components/Home/Projects/ProjectLine.vue";
 import MapReduceImg from "@/assets/images/MapReduce.webp";
 
 export default {
@@ -32,18 +34,36 @@ export default {
                 },
             ],
             project_count: 0,
+            edgeLine: true,
         };
+    },
+    props: {
+        lineLength: {
+            type: Number,
+            default: 0,
+        },
     },
     components: {
         ProjectItem,
+        ProjectLine,
     },
     mounted() {
         this.project_count = this.projects.length;
-    },
+    }
 };
 </script>
 
 <style scoped>
+
+ProjectLine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
 .projects_wrapper {
     position: relative;
     scroll-snap-align: start;
@@ -64,11 +84,11 @@ export default {
 }
 
 /* shift all even 20% right and all odd 20% left */
-.item_wrapper:nth-child(odd) {
-    transform: translateX(12%);
+.item_wrapper:nth-child(even) {
+    transform: translateX(4%);
 }
 
-.item_wrapper:nth-child(even) {
+.item_wrapper:nth-child(odd) {
     transform: translateX(-12%);
 }
 
