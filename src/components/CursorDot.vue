@@ -43,6 +43,9 @@ export default {
   },
   methods: {
     onMouseMove(e) {
+      this.updateCursor(e);
+    },
+    updateCursor(e){
       //smooth cursor
       this.cursor.x = this.dynamic ? this.cursor.x + (e.clientX - this.cursor.x) / 2 : this.last_point_abs.x;
       this.cursor.y = this.dynamic ? this.cursor.y + (e.clientY - this.cursor.y) / 2 : this.last_point_abs.y;
@@ -96,11 +99,15 @@ export default {
   watch: {
     dynamic: function (val) {
       if (!val){
+        let width = document.getElementsByClassName("cursor_wrapper")[0].offsetWidth;
+        let height = document.getElementsByClassName("cursor_wrapper")[0].offsetHeight;
+
         let point_b = {x: this.cursor.x, y: this.cursor.y - this.abs_top_offset};
-        let pos_diff = {x: this.pos.x - point_b.x, y: this.pos.y - point_b.y};
+        let pos_diff = {x: this.pos.x/100*width - point_b.x, y: this.pos.y/100*height - point_b.y};
         this.abs_trans_x = pos_diff.x+"px";
         this.abs_trans_y = pos_diff.y+"px";
         this.last_point_abs = point_b;
+        this.updateCursor();
       }
     },
   },

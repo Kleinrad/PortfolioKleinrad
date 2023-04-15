@@ -16,6 +16,9 @@ export default {
             resolution: 1,
             segments: [],
             segmentParams: [],
+            circleR: 0,
+
+            interval: null,
         };
     },
     props: {
@@ -81,7 +84,7 @@ export default {
                     pos = this.getBezierShort(t_seg, this.segmentParams[seg]);
                 }
                 this.ctx.beginPath();
-                this.ctx.arc(pos.x, pos.y, 10, 0, 2 * Math.PI);
+                this.ctx.arc(pos.x, pos.y, this.circleR, 0, 2 * Math.PI);
                 this.ctx.fillStyle = this.lineColor;
                 this.ctx.fill();
             }
@@ -252,22 +255,36 @@ export default {
                 y: Math.pow(1-t,2) * sy + 2 * t * (1 - t) * cp1y + t * t * ey
             };
         },
+
+        update(){
+            this.lastDst = Math.min(this.lastDst + 0.4, this.lineLength);
+            this.lastDotDst = this.dotDist < this.lastDotDst ? Math.max(this.lastDotDst - 0.2, this.dotDist) : Math.min(this.lastDotDst + 0.2, this.dotDist);
+            this.drawLine(this.lastDst);
+        }
     },
     mounted() {
         this.canvas = document.getElementById("project_canvas");
         this.ctx = this.canvas.getContext("2d");
         this.updateSize();
         window.addEventListener("resize", this.updateSize);
+        this.circleR = (this.canvas.width)*0.0075;
 
         for (let i = 0; i < (this.projectCount-1)*2+1; i++) {
-            this.segments.push(i % 2 == 0 ? 100/this.projectCount : 76);
+            this.segments.push(i % 2 == 0 ? 100/this.projectCount : 50);
         }
-
-        setInterval(() => {
-            this.lastDst = Math.min(this.lastDst + 0.4, this.lineLength);
-            this.lastDotDst = this.dotDist < this.lastDotDst ? Math.max(this.lastDotDst - 0.15, this.dotDist) : Math.min(this.lastDotDst + 0.15, this.dotDist);
-            this.drawLine(this.lastDst);
-        }, 15);
+    },
+    watch: {
+        lineLength: function(newVal){
+            if (newVal > 0 && this.interval == null) {
+                this.interval = setInterval(this.update, 20);
+            }else if (newVal == 0 && this.interval != null) {
+                clearInterval(this.interval);
+                this.interval = null;
+                this.drawLine(0);
+                this.lastDst = 0;
+                this.lastDotDst = 0;
+            }
+        },
     },
 }
 </script>
