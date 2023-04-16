@@ -45,7 +45,7 @@ export default {
       wrapper_top: 0, //positon of wrapper to transition to
       wrapperY: 0,  //wrapper top offset
       scrollDirection: 0, //1 = down, -1 = up, 0 = no scroll
-      scrollSpeed: 1, //scroll speed multiplier
+      scrollSpeed: 0.5, //scroll speed multiplier
 
       currMenuPoint: -1,
       pLine: -1,
@@ -80,29 +80,30 @@ export default {
       this.scrollInput = Math.min(Math.max(this.scrollInput + scrollDelta*this.scrollSpeed, 0), this.height);
       this.scrollCounter = Math.floor(this.scrollInput/(100*this.scrollSpeed))*(100*this.scrollSpeed);
       this.wrapper_top = this.scrollInput;
-      this.scrollSpeed = 1;
+      this.scrollSpeed = 0.5;
       return;
     },
     checkEvent() {
       this.scrollEvents.every((event, i) => {
-        if(this.scrollCounter == event.start || event.permenent){
+        let elementBounds = document.getElementById(event.id).getBoundingClientRect();
+        let currScore = Math.floor((elementBounds.height+event.top) / (this.scrollSpeed*100))*(this.scrollSpeed*100)-this.scrollCounter;
+        let triggerPoint = Math.floor((elementBounds.height*(1-event.trigger)) / (this.scrollSpeed*100))*(this.scrollSpeed*100);
+        if(currScore == triggerPoint || event.permenent){
           
           if((this.scrollDirection == 1 && event.on_down_scroll && !event.permenent)
-            || this.scrollCounter > event.start){
+            || currScore < triggerPoint){
             event.on_down_scroll();
           }
           if((this.scrollDirection == -1 && event.on_up_scroll && !event.permenent)
-            || this.scrollCounter < event.start){
+            || currScore > triggerPoint){
             event.on_up_scroll();
           }
         }
-        if(event.length && this.scrollCounter >= event.start && this.scrollCounter <= event.start + event.length){
-          if(event.on_scroll && 
-            (this.scrollDirection == -1 && this.scrollCounter > event.start ||
-             this.scrollDirection == 1 && this.scrollCounter < event.start + event.length) ){
-            event.on_scroll();
+        if(event.continuous && currScore <= triggerPoint && elementBounds.bottom >= 0){
+          if(event.on_scroll){
+            event.on_scroll({bounds: elementBounds, triggerPoint: triggerPoint, currScore: currScore});
           }
-          if(event.length + event.start == this.scrollCounter && event.on_scroll_end){
+          if(currScore == 0 && event.on_scroll_end){
             event.on_scroll_end();
           }
         }
@@ -131,7 +132,8 @@ export default {
   },
   mounted() {
     this.scrollEvents =  [
-        {start: Math.round(document.getElementById("banner").scrollHeight/100)*100-150, 
+        {id: "banner", 
+         trigger: 0.4,
          permenent: true,
           on_down_scroll: ()=>{
             this.currMenuPoint = 0;
@@ -154,8 +156,9 @@ export default {
             document.documentElement.style.setProperty("--font-color", this.colors.fontColor[0]);
           }
         },
-        {start: Math.round(document.getElementById("projects").getBoundingClientRect().top/100)*100,
-         length: Math.round((document.getElementById("projects").scrollHeight)/100)*100, 
+        {id: "projects",
+         trigger: -0.1,
+         continuous: true,
           on_down_scroll: ()=>{
             this.pLine = 100;
             this.item_active = -1;
@@ -165,16 +168,11 @@ export default {
             this.show_cursor = true;
             this.item_active = -1;
           },
-          on_scroll: ()=>{
-            this.project_Dot_pos = Math.min(100,Math.max(((this.scrollCounter - this.scrollEvents[1].start)) 
-                                    / (this.scrollEvents[1].length) * 100, 0.2));
+          on_scroll: (obj)=>{
+            let offCenter = Math.max(((obj.bounds.height-(obj.currScore))/obj.bounds.height),0) * (this.viewHeight/2);
+            this.project_Dot_pos = Math.min(100,Math.max((obj.triggerPoint-(obj.currScore - offCenter))/obj.triggerPoint*100, 0.2));
             this.scrollSpeed = 0.2;
           },
-          on_scroll_end: ()=>{
-            console.log("end");
-            this.project_Dot_pos = 100;
-            this.currMenuPoint = 1;
-          }
         },
       ],
 
@@ -189,7 +187,7 @@ export default {
     this.viewHeight = window.innerHeight;
 
     for(let i=0; i<this.scrollEvents.length; i++){
-      this.scrollEvents[i]['scrollDistance'] = 0;
+      this.scrollEvents[i]['top'] = document.getElementById(this.scrollEvents[i].id).getBoundingClientRect().top;
     }
 
     this.handleScroll();

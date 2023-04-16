@@ -35,6 +35,7 @@ export default {
             ],
             project_count: 0,
             edgeLine: true,
+            activeVideo: -1,
         };
     },
     props: {
@@ -45,11 +46,7 @@ export default {
         dotDistance: {
             type: Number,
             default: 0,
-        },
-        activeVideo: {
-            type: Number,
-            default: -1,
-        },
+        }
     },
     components: {
         ProjectItem,
@@ -57,7 +54,15 @@ export default {
     },
     mounted() {
         this.project_count = this.projects.length;
-    }
+    },
+    watch: {
+        dotDistance: function(newVal, oldVal) {
+            this.activeVideo = Math.floor(Math.max(0,newVal-5)/100 * this.project_count);
+            if(newVal < 5) {
+                this.activeVideo = -1;
+            }
+        },
+    },
 };
 </script>
 

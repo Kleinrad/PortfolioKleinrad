@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'project_item':true, 'project_item_active': fullSize}" @click="fullSize = !fullSize">
+    <div id="pItem" :class="{'project_item':true, 'project_item_active': fullSize}" @click="fullSize = !fullSize">
         <span id="cover"></span>
         <img id="cover" :class="{'image_background' : project.media.includes('webp') && fullSize}" v-if="project.media.includes('webp') && fullSize" :src="project.media" alt="project image">
         <iframe
