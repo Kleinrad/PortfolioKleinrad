@@ -17,6 +17,10 @@ export default {
         x: 0,
         y: 0,
       },
+      preDynamic: {
+        x: 0,
+        y: 0,
+      },
       width: 0,
       height: 0,
       base_width: 1,
@@ -99,6 +103,8 @@ export default {
   watch: {
     dynamic: function (val) {
       if (!val){
+        this.preDynamic.x = this.cursor.x;
+        this.preDynamic.y = this.cursor.y;
         let width = document.getElementsByClassName("cursor_wrapper")[0].offsetWidth;
         let height = document.getElementsByClassName("cursor_wrapper")[0].offsetHeight;
 
@@ -108,6 +114,9 @@ export default {
         this.abs_trans_y = pos_diff.y+"px";
         this.last_point_abs = point_b;
         this.updateCursor();
+      }else{
+        this.cursor = this.preDynamic;
+        this.preDynamic = {x: 0, y: 0};
       }
     },
   },

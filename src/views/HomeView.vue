@@ -40,17 +40,19 @@ export default {
       dynamic_cursor: true,
       show_cursor: true,
 
-      scrollCounter: 0,
-      wrapper_top: 0,
-      wrapperY: 0,
-      scrollDirection: 0,
-      scrollSpeed: 1,
+      scrollInput: 0, //raw scroll distance
+      scrollCounter: 0, //scroll distance in 100px * scrollSpeed increments
+      wrapper_top: 0, //positon of wrapper to transition to
+      wrapperY: 0,  //wrapper top offset
+      scrollDirection: 0, //1 = down, -1 = up, 0 = no scroll
+      scrollSpeed: 1, //scroll speed multiplier
 
       currMenuPoint: -1,
       pLine: -1,
       project_Dot_pos: 0,
       item_active: -1,
       height: 0,
+      viewHeight: 0,
 
       scrollEvents: [],
 
@@ -75,10 +77,9 @@ export default {
     handleScroll(scrollDelta) {
       this.checkEvent()
       if(scrollDelta == undefined) return;
-      this.scrollCounter = Math.min(Math.max(this.scrollCounter + scrollDelta*this.scrollSpeed, 0),
-                            Math.round(this.height/100)*100);
-      this.wrapper_top = this.scrollCounter;
-      console.log(this.scrollSpeed);
+      this.scrollInput = Math.min(Math.max(this.scrollInput + scrollDelta*this.scrollSpeed, 0), this.height);
+      this.scrollCounter = Math.floor(this.scrollInput/(100*this.scrollSpeed))*(100*this.scrollSpeed);
+      this.wrapper_top = this.scrollInput;
       this.scrollSpeed = 1;
       return;
     },
@@ -130,7 +131,7 @@ export default {
   },
   mounted() {
     this.scrollEvents =  [
-        {start: Math.round(document.getElementById("banner").scrollHeight/100)*100-100, 
+        {start: Math.round(document.getElementById("banner").scrollHeight/100)*100-150, 
          permenent: true,
           on_down_scroll: ()=>{
             this.currMenuPoint = 0;
@@ -152,9 +153,9 @@ export default {
             document.documentElement.style.setProperty("--background-color", this.colors.backgroundColor[0]);
             document.documentElement.style.setProperty("--font-color", this.colors.fontColor[0]);
           }
-          },
-        {start: Math.round(document.getElementById("banner").scrollHeight/100)*100,
-         length: Math.round(document.getElementById("projects").scrollHeight/100)*100, 
+        },
+        {start: Math.round(document.getElementById("projects").getBoundingClientRect().top/100)*100,
+         length: Math.round((document.getElementById("projects").scrollHeight)/100)*100, 
           on_down_scroll: ()=>{
             this.pLine = 100;
             this.item_active = -1;
@@ -165,13 +166,19 @@ export default {
             this.item_active = -1;
           },
           on_scroll: ()=>{
-            this.project_Dot_pos = (this.scrollCounter - (this.scrollEvents[1].start)) / this.scrollEvents[1].length * 100;
+            this.project_Dot_pos = Math.min(100,Math.max(((this.scrollCounter - this.scrollEvents[1].start)) 
+                                    / (this.scrollEvents[1].length) * 100, 0.2));
             this.scrollSpeed = 0.2;
           },
+          on_scroll_end: ()=>{
+            console.log("end");
+            this.project_Dot_pos = 100;
+            this.currMenuPoint = 1;
+          }
         },
       ],
 
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("scroll", this.scrollIntercept, { passive: false });
     window.addEventListener("wheel", this.scrollIntercept, { passive: false });
     //phone scroll
     window.addEventListener("touchmove", this.scrollIntercept, { passive: false });
@@ -179,6 +186,7 @@ export default {
     window.addEventListener("touchend", this.endTouchScroll, { passive: false });
 
     this.height = document.getElementsByClassName("scroll_wrapper")[0].scrollHeight;
+    this.viewHeight = window.innerHeight;
 
     for(let i=0; i<this.scrollEvents.length; i++){
       this.scrollEvents[i]['scrollDistance'] = 0;
