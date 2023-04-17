@@ -67,6 +67,7 @@ export default {
       }
     },
     onMouseover(event) {
+      if(!this.dynamic) return;
       const cursorType = getComputedStyle(event.target).cursor;
 
       if (cursorType === 'pointer') {

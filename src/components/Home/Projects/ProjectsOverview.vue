@@ -10,6 +10,7 @@
 <script>
 import ProjectItem from "@/components/Home/Projects/ProjectItem.vue";
 import ProjectLine from "@/components/Home/Projects/ProjectLine.vue";
+
 import MapReduceImg from "@/assets/images/MapReduce.webp";
 
 export default {
@@ -21,16 +22,34 @@ export default {
                     id: 1,
                     name: "Autumn",
                     media: "https://www.youtube.com/embed/OxoY1ocx72U?controls=1&mute=1&rel=0&autoplay=1&loop=1",
+                    text: "Autumn offers an innovative autonomous drone solution aimed at simplifying complex tasks, such as construction and forest monitoring, by generating accurate environment models and enabling real-time progress monitoring.",
+                    text_long: "Computers nowadays are integrated into a wide variety of processes. Ranging from computeraided construction to software-based monitoring of forests. Autumn proposes a solution of using an autonomous and universally deployable drone to simplify these tasks. The drone generates a realistic model of the environment, which can be used to extract measurements or capture the momentary progress. Furthermore, Autumn uses technologies that enable the drone to work independently of any external localisation mechanism, which allows for deployment in secluded areas. This characteristic can be realised by using a SLAM algorithm, needed to map the environment in combination with an RRT* algorithm, which handles the path-planning.",
+                    technologies: ["C++", "ROS", "GitHub", "LaTeX"],
+                    links: {
+                        "GitHub": "https://github.com/F-WuTS/Autumn",
+                        "Paper": process.env.BASE_URL + "Autumn_Paper.pdf",
+                    }
                 }, 
                 {
                     id: 2,
                     name: "MapReduce",
                     media: MapReduceImg,
+                    text: "The project simulates MapReduce technology using a simple system built with C++17 and meson. It utilizes TCP protocol, asio library, and protocol buffers for efficient data structure serialization.",
+                    technologies: ["C++", "Protocol Buffers", "GitHub", "LaTeX"],
+                    links: {
+                        "GitHub": "https://github.com/Kleinrad/MapReduce_Kleinrad",
+                        "Paper": process.env.BASE_URL + "MapReduce_Paper.pdf",
+                    }
                 }, 
                 {
                     id: 3,
                     name: "AmongHTL",
                     media: "https://www.youtube.com/embed/7OwdxQSfSx0?controls=0&autoplay=1&mute=1&loop=1",
+                    technologies: ["HTML5", "CSS3", "JavaScript", "Node.js", "Socket.io", "GitHub"],
+                    text: "AmongHTL is a web-based multiplayer game, inspired by the popular game Among Us. It is built with HTML5, CSS3, JavaScript, Node.js, and Socket.io.",
+                    links: {
+                        "GitHub": "https://github.com/AmongHTBLuVA/AmongHTL"
+                    }
                 },
             ],
             project_count: 0,

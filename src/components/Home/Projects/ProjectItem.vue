@@ -10,17 +10,28 @@
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         <span :class="{'project_name':true, 'project_name_active':fullSize}">{{ project.name }}</span>
-        <div class="project_technologies">
-
+        <div class="project_content" v-if="fullSize">
+            <div class="project_technologies">
+                <TechnologyItem v-for="technology in project.technologies" :key="technology"
+                :name="technology" :logo="logoUrl[technology]"></TechnologyItem>
+            </div>
+            <span class="project_text">{{ project.text }}</span>
+            <div class="project_links">
+                <a v-for="link, name in project.links" :key="name" :href="link" target="_blank">{{ name }}</a>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import TechnologyItem from "@/components/TechnologyItem.vue";
+import logoUrl from "@/assets/logos.json";
+ 
 export default {
     name: "ProjectItem",
     data() {
         return {
+            logoUrl: logoUrl
         };
     },
     props: {
@@ -31,6 +42,9 @@ export default {
         },
         "maxWidth": String,
         "maxHeight": String,
+    },
+    components: {
+        TechnologyItem,
     },
 };
 </script>
@@ -58,10 +72,29 @@ export default {
     animation: morph-size-reverse 2s forwards;
 }
 
+.project_content {
+    position: relative;
+    box-sizing: border-box;
+    padding: 2vw;
+    width: 40vw;
+    height: 20vw;
+    margin-top: 3vw;
+    border-radius: 10%;
+    background-color: rgba(16, 16, 16, 0.531);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    mix-blend-mode: normal;
+    cursor: default;
+    opacity: 0;
+    animation: fadeIn 0.5s 3s forwards;
+}
+
 .project_item_active {
     width: v-bind(maxWidth);
     height: v-bind(maxHeight);
-    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    box-shadow: 0px 4px 100px #5affcb1f;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out, box-shadow 1s 0.5s ease-in-out;
     animation: morph-size 2s forwards, 20s morph 2s alternate-reverse infinite !important;
 }
 
@@ -70,6 +103,7 @@ export default {
     z-index: 2;
     font-size: 2.5vw;
     font-weight: 600;
+    color: var(--font-color);
 }
 
 .project_name_active{
@@ -84,8 +118,37 @@ export default {
     left: 50%;
     width: 0%;
     height: 2px;
-    background-color: var(--font-color);
+    background-color: var(--accent-color);
     animation: center-expand 0.5s 2.6s forwards ease-out;
+}
+
+.project_technologies {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(105, 105, 105, 0.582);
+    box-sizing: border-box;
+    padding: 0.5vw;
+    border-radius: 5%;
+    justify-content: space-evenly;
+}
+
+.project_technologies a{
+    margin: 0.5vw;
+}
+
+.project_links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.project_text {
+    box-sizing: border-box;
+    padding: 0 2vw;
+    font-size: 1.1vw;
+    font-weight:  600;
+    line-height: 1.6vw;
+    opacity: 0.9;
 }
 
 #cover {
@@ -95,7 +158,7 @@ export default {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0;
     background-color: transparent;
     cursor: default;
 }
@@ -107,7 +170,7 @@ export default {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 135%;
-    z-index: 0;
+    z-index: -1;
     opacity: 0;
     animation: fadeIn 0.5s 1.8s forwards;
     filter: brightness(0.3) saturate(0.85);

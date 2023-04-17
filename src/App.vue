@@ -18,7 +18,8 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: black;
+  background-color: var(--background-color);
+  transition: var(--bg-transition);
 }
 
 #app {
@@ -28,5 +29,11 @@ body {
   text-align: center;
   background-color: white;
   color: var(--font-color);
+}
+
+a {
+  color: var(--accent-color);
+  font-weight: 600;
+  text-decoration: none;
 }
 </style>

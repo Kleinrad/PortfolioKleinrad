@@ -1,0 +1,23 @@
+{
+    "Vue.js" : "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg",
+    "C++": "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
+    "Java": "https://upload.wikimedia.org/wikipedia/de/e/e1/Java-Logo.svg",
+    "Python": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+    "C#": "https://cdn.worldvectorlogo.com/logos/c--4.svg",
+    "JavaScript": "https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg",
+    "ROS": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Ros_logo.svg",
+    "HTML5": "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg",
+    "CSS3": "https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg",
+    "PHP": "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg",
+    "SQL": "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
+    "MySQL": "https://upload.wikimedia.org/wikipedia/commons/6/62/MySQL.svg",
+    "Git": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg",
+    "GitHub": "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
+    "GitLab": "https://upload.wikimedia.org/wikipedia/commons/1/18/GitLab_Logo.svg",
+    "Oracle": "https://upload.wikimedia.org/wikipedia/commons/3/38/Oracle_Logo.svg",
+    "SQLServer": "https://upload.wikimedia.org/wikipedia/commons/9/97/Microsoft_SQL_Server_Logo.svg",
+    "LaTeX": "https://upload.wikimedia.org/wikipedia/commons/9/92/LaTeX_logo.svg",
+    "Protocol Buffers": "https://plugins.jetbrains.com/files/14004/307849/icon/pluginIcon.svg",
+    "Socket.io": "https://upload.wikimedia.org/wikipedia/commons/9/96/Socket-io.svg",
+    "Node.js": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg"
+}
