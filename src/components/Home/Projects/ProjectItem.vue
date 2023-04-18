@@ -93,9 +93,8 @@ export default {
 .project_item_active {
     width: v-bind(maxWidth);
     height: v-bind(maxHeight);
-    box-shadow: 0px 4px 100px #5affcb1f;
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out, box-shadow 1s 0.5s ease-in-out;
-    animation: morph-size 2s forwards, 20s morph 2s alternate-reverse infinite !important;
+    animation: morph-size 2s forwards, gooey 20s 2s infinite !important;
 }
 
 .project_name{
@@ -176,37 +175,26 @@ export default {
     filter: brightness(0.3) saturate(0.85);
 }
 
-@keyframes morph {
-    0%, 100%{
-        border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%;
-    }
-    10%{
-        border-radius: 30% 40% 10% 5% / 5% 10% 40% 30%;
-    }
-    20%{
-        border-radius: 40% 50% 5% 10% / 10% 5% 50% 40%;
-    }
-    30%{
-        border-radius: 50% 40% 10% 15% / 15% 10% 60% 50%;
-    }
-    40%{
-        border-radius: 30% 30% 15% 20% / 50% 20% 10% 15%;
-    }
-    50%{
-        border-radius: 40% 50% 20% 25% / 25% 20% 50% 40%;
-    }
-    60%{
-        border-radius: 50% 20% 25% 30% / 30% 25% 20% 50%;
-    }
-    70%{
-        border-radius: 30% 40% 30% 35% / 35% 30% 40% 30%;
-    }
-    80%{
-        border-radius: 40% 50% 35% 40% / 40% 35% 50% 40%;
-    }
-    90%{
-        border-radius: 50% 20% 40% 45% / 45% 40% 20% 50%;
-    }
+
+@keyframes gooey {
+  0%, 100% {
+    border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%; /* Set the initial and final border radius */
+  }
+  10%, 90% {
+    border-radius: 30% 40% 10% 5% / 5% 10% 40% 30%; /* Add some variation to the border radius */
+  }
+  20%, 80% {
+    border-radius: 40% 50% 5% 10% / 10% 5% 50% 40%; /* Add some variation to the border radius */
+  }
+  30%, 70% {
+    border-radius: 50% 40% 10% 15% / 15% 10% 60% 50%; /* Add some variation to the border radius */
+  }
+  40%, 60% {
+    border-radius: 30% 30% 15% 20% / 50% 20% 10% 15%; /* Add some variation to the border radius */
+  }
+  50% {
+    border-radius: 40% 50% 20% 25% / 25% 20% 50% 40%; /* Add some variation to the border radius */
+  }
 }
 
 @keyframes morph-size{
@@ -228,7 +216,6 @@ export default {
         border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%;
         transform: scale(1);
     }
-
 }
 
 @keyframes morph-size-reverse{

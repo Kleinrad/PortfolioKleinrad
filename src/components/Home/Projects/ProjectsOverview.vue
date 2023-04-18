@@ -4,6 +4,10 @@
         <div class="item_wrapper" v-for="project, i in projects">
             <ProjectItem  :key="project.id" :fullSize="false" :project="project" :full-size="i == activeVideo" maxHeight="30vw" maxWidth="60vw"></ProjectItem>
         </div>
+        <div v-if="dark"  class="project_bg"></div>
+        <video v-if="dark" id="project_bg_video" autoplay muted loop playbackRate="0.8">
+            <source :src="bgVidPath" type="video/mp4"/>
+        </video>
     </div>
 </template>
 
@@ -48,13 +52,15 @@ export default {
                     technologies: ["HTML5", "CSS3", "JavaScript", "Node.js", "Socket.io", "GitHub"],
                     text: "AmongHTL is a web-based multiplayer game, inspired by the popular game Among Us. It is built with HTML5, CSS3, JavaScript, Node.js, and Socket.io.",
                     links: {
-                        "GitHub": "https://github.com/AmongHTBLuVA/AmongHTL"
+                        "GitHub": "https://github.com/AmongHTBLuVA/AmongHTL",
+                        "Game": "localhost:8079"
                     }
                 },
             ],
             project_count: 0,
             edgeLine: true,
             activeVideo: -1,
+            bgVidPath: process.env.BASE_URL + "ProjectBgVid.mp4",
         };
     },
     props: {
@@ -65,6 +71,10 @@ export default {
         dotDistance: {
             type: Number,
             default: 0,
+        },
+        dark : {
+            type: Boolean,
+            default: false,
         }
     },
     components: {
@@ -93,16 +103,41 @@ ProjectLine {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 2;
 }
+
+#project_bg_video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    transition: var(--bg-transition);
+    opacity: 0.1;
+    opacity: 0;
+    animation: fadeIn-vid 0.5s 0.4s forwards;
+}
+
 
 .projects_wrapper {
     position: relative;
     scroll-snap-align: start;
     width: 100%;
     height: calc(45vw*v-bind(project_count));
-    background-color:  var(--background-color);
-    transition: var(--bg-transition);
+    transition: var(--bg-transition) 0.5s;
+}
+
+.project_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, var(--background-color) 0%, rgba(255,255,255,0) 5%, rgba(255,255,255,0) 95%, var(--background-color) 100%);
+    opacity: 0;
+    animation: fadeIn 0.5s  0.4s forwards;
 }
 
 .item_wrapper {
@@ -122,6 +157,24 @@ ProjectLine {
 
 .item_wrapper:nth-child(odd) {
     transform: translateX(-12%);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn-vid {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.1;
+    }
 }
 
 

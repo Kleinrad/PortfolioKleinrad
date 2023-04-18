@@ -5,5 +5,5 @@
     --background-color: #fff;
     --font-color: #000;
 
-    --bg-transition: background-color 0.5s ease;
+    --bg-transition: background-color .5s ease;
   }

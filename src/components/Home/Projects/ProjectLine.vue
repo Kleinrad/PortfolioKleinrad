@@ -44,6 +44,25 @@ export default {
         },
     },
     methods: {
+        animate() {
+            this.bezierPoints = [];
+            this.segmentParams = [];
+            this.lastReal = {x: 0, y: 0}
+            this.lastBr = {x: 0, y: 0}
+
+            this.lastDst = Math.min(this.lastDst + 0.4, this.lineLength);
+            
+            let dotDelta = Math.abs(Math.max((this.dotDist - this.lastDotDst)*0.1, 0.2));
+            this.lastDotDst = this.dotDist < this.lastDotDst ? Math.max(this.lastDotDst - dotDelta, this.dotDist) 
+                                : Math.min(this.lastDotDst + dotDelta, this.dotDist)
+
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.drawLine(this.lastDst);
+            this.connectBezier();
+            this.drawCircle(this.lastDotDst);
+
+            requestAnimationFrame(this.animate);
+        },
         updateSize() {
             let width = Math.round(this.$el.offsetWidth);
             let height = Math.round(width * 0.45 * this.projectCount);
@@ -90,15 +109,10 @@ export default {
             }
         },
         drawLine(dst){
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             if (dst <= 0) return;
             this.ctx.beginPath();
             this.ctx.strokeStyle = this.lineColor;
             this.ctx.lineWidth = this.lineWidth;
-            this.bezierPoints = [];
-            this.segmentParams = [];
-            this.lastReal = {x: 0, y: 0}
-            this.lastBr = {x: 0, y: 0}
             let len_c = 0;
             let len_m = (dst/100) * (100+76*(this.projectCount-1));
             let right_b = 8 * this.resolution;
@@ -126,8 +140,6 @@ export default {
                 }
             }
             this.ctx.stroke();
-            this.connectBezier();
-            this.drawCircle(this.lastDotDst);
         },
         connectBezier(){
             for(let i = 0; i < this.bezierPoints.length-1; i++){
@@ -254,15 +266,6 @@ export default {
                 x: Math.pow(1-t,2) * sx + 2 * t * (1 - t) * cp1x + t * t * ex,
                 y: Math.pow(1-t,2) * sy + 2 * t * (1 - t) * cp1y + t * t * ey
             };
-        },
-
-        update(){
-            this.lastDst = Math.min(this.lastDst + 0.4, this.lineLength);
-            
-            let dotDelta = Math.abs(Math.max((this.dotDist - this.lastDotDst)*0.1, 0.2));
-            this.lastDotDst = this.dotDist < this.lastDotDst ? Math.max(this.lastDotDst - dotDelta, this.dotDist) 
-                                : Math.min(this.lastDotDst + dotDelta, this.dotDist)
-            this.drawLine(this.lastDst);
         }
     },
     mounted() {
@@ -275,20 +278,9 @@ export default {
         for (let i = 0; i < (this.projectCount-1)*2+1; i++) {
             this.segments.push(i % 2 == 0 ? 100/this.projectCount : 50);
         }
-    },
-    watch: {
-        lineLength: function(newVal){
-            if (newVal > 0 && this.interval == null) {
-                this.interval = setInterval(this.update, 20);
-            }else if (newVal == 0 && this.interval != null) {
-                clearInterval(this.interval);
-                this.interval = null;
-                this.drawLine(0);
-                this.lastDst = 0;
-                this.lastDotDst = 0;
-            }
-        },
-    },
+
+        this.animate();
+    }
 }
 </script>
 
@@ -298,6 +290,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
 }

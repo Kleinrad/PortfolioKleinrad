@@ -15,7 +15,7 @@
       <Transition name="fade">
         <div class="mainPage" v-if="!showMenu">
           <HomeBanner id="banner"></HomeBanner>
-          <ProjectsOverview id="projects" :lineLength="pLine" :dotDistance="project_Dot_pos" :active-video="item_active"></ProjectsOverview>
+          <ProjectsOverview id="projects" :lineLength="pLine" :dark="darkMode" :dotDistance="project_Dot_pos" :active-video="item_active"></ProjectsOverview>
         </div>
       </Transition>
     </div>
@@ -39,6 +39,7 @@ export default {
       showHeaderBase: true,
       dynamic_cursor: true,
       show_cursor: true,
+      darkMode: false,
 
       scrollInput: 0, //raw scroll distance
       scrollCounter: 0, //scroll distance in 100px * scrollSpeed increments
@@ -139,6 +140,7 @@ export default {
             this.currMenuPoint = 0;
             this.showHeaderBase = false;
             this.dynamic_cursor = false;
+            this.darkMode = true;
             document.documentElement.style.setProperty("--accent-color", this.colors.accentColor[1]);
             document.documentElement.style.setProperty("--secondary-color", this.colors.secondaryColor[1]);
             document.documentElement.style.setProperty("--background-color", this.colors.backgroundColor[1]);
@@ -148,6 +150,7 @@ export default {
             this.item_active = -1;
             this.dynamic_cursor = true;
             this.showHeaderBase = true;
+            this.darkMode = false;
             this.currMenuPoint = -1;
             this.pLine = 0;
             document.documentElement.style.setProperty("--accent-color", this.colors.accentColor[0]);
