@@ -57,4 +57,13 @@ export default {
     margin: 0.5vw 0;
 }
 
+@media screen and (max-width: 768px) {
+    .banner_text{
+        width: 80vw;
+        height: 20vw;
+        font-size: 4.5vw;
+        font-weight: 600;
+    }    
+}
+
 </style>

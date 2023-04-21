@@ -8,6 +8,8 @@
         <SideMenu v-if="isOpen" 
         :menu_points="menu_points" :menu_point="menu_point" 
         @closeMenu="isOpen = false"
+        @scroll-projects="scrollProjects"
+        @scroll-about="scrollAbout"
         ></SideMenu>
     </Transition>
 </template>
@@ -19,7 +21,7 @@ import SideMenu from '@/components/HeaderSide/SideMenu.vue'
 export default {
     data() {
         return {
-            menu_points: ["projects", "technologies", "about"],
+            menu_points: ["projects", "about"],
             isHovered: false,
             isOpen: false,
         }
@@ -30,6 +32,15 @@ export default {
     components: {
         MenuPoint,
         SideMenu,
+    },
+    emits: ["scroll-projects", "scroll-about"],
+    methods: {
+        scrollProjects() {
+            this.$emit("scroll-projects");
+        },
+        scrollAbout() {
+            this.$emit("scroll-about");
+        },
     },
 }
 </script>

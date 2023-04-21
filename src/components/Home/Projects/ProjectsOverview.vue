@@ -32,6 +32,7 @@ export default {
                     links: {
                         "GitHub": "https://github.com/F-WuTS/Autumn",
                         "Paper": process.env.BASE_URL + "Autumn_Paper.pdf",
+                        "Video": "https://www.youtube.com/watch?v=OxoY1ocx72U"
                     }
                 }, 
                 {
@@ -126,6 +127,7 @@ ProjectLine {
     scroll-snap-align: start;
     width: 100%;
     height: calc(45vw*v-bind(project_count));
+    box-shadow: 0px 20px 10px rgba(31, 31, 31, 0.096);
     transition: var(--bg-transition) 0.5s;
 }
 
@@ -142,6 +144,7 @@ ProjectLine {
 
 .item_wrapper {
     position: relative;
+    z-index: 3;
     width: 100%;
     height: 35vw;
     padding: 5vw  0;
@@ -177,5 +180,16 @@ ProjectLine {
     }
 }
 
+@media only screen and (max-width: 768px) {
+    .item_wrapper {
+        height: 80svh;
+    }
+    .projects_wrapper {
+        height: calc(80svh*v-bind(project_count));
+    }
+    .item_wrapper {
+        transform: translateX(0%) !important;
+    }
+}
 
 </style>

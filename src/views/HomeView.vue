@@ -6,16 +6,21 @@
       <HeaderBar 
       @menu-close="showMenu=false" 
       @menu-open="showMenu=true"
+      @scroll-projects="scrollTo('projects')"
+      @scroll-about="scrollTo('about')"
       v-if="showHeaderBase"
       ></HeaderBar>
       <HeaderSideBar 
       :menu_point="currMenuPoint"
+      @scroll-projects="scrollTo('projects')"
+      @scroll-about="scrollTo('about')"
       v-if="!showHeaderBase"
       ></HeaderSideBar>
       <Transition name="fade">
         <div class="mainPage" v-if="!showMenu">
           <HomeBanner id="banner"></HomeBanner>
           <ProjectsOverview id="projects" :lineLength="pLine" :dark="darkMode" :dotDistance="project_Dot_pos" :active-video="item_active"></ProjectsOverview>
+          <AboutMe id="about" :visible="showAbout"></AboutMe>
         </div>
       </Transition>
     </div>
@@ -28,6 +33,7 @@ import HeaderSideBar from "@/components/HeaderSide/HeaderSideBar.vue";
 import MenuFull from "@/components/MenuFull.vue";
 import HomeBanner from "@/components/Home/HomeBanner.vue";
 import ProjectsOverview from "@/components/Home/Projects/ProjectsOverview.vue";
+import AboutMe from "@/components/AboutMe.vue";
 
 import CursorDot from "@/components/CursorDot.vue";
 
@@ -56,6 +62,7 @@ export default {
       viewHeight: 0,
 
       scrollEvents: [],
+      showAbout: false,
 
       touchStart: -1,
       colors: {
@@ -73,23 +80,24 @@ export default {
     ProjectsOverview,
     HeaderSideBar,
     CursorDot,
+    AboutMe,
   },
   methods: {
     handleScroll(scrollDelta) {
       this.checkEvent()
       if(scrollDelta == undefined) return;
-      this.scrollInput = Math.min(Math.max(this.scrollInput + scrollDelta*this.scrollSpeed, 0), this.height);
+      this.scrollInput = Math.min(Math.max(this.scrollInput + scrollDelta*this.scrollSpeed, 0), this.height+1100);
       this.scrollCounter = Math.floor(this.scrollInput/(100*this.scrollSpeed))*(100*this.scrollSpeed);
       this.wrapper_top = this.scrollInput;
       this.scrollSpeed = 0.5;
       return;
     },
-    checkEvent() {
+    checkEvent(jump = false) {
       this.scrollEvents.every((event, i) => {
         let elementBounds = document.getElementById(event.id).getBoundingClientRect();
         let currScore = Math.floor((elementBounds.height+event.top) / (this.scrollSpeed*100))*(this.scrollSpeed*100)-this.scrollCounter;
         let triggerPoint = Math.floor((elementBounds.height*(1-event.trigger)) / (this.scrollSpeed*100))*(this.scrollSpeed*100);
-        if(currScore == triggerPoint || event.permenent){
+        if(currScore == triggerPoint || event.permenent || (jump && currScore+jump >= triggerPoint && currScore <= triggerPoint)){
           
           if((this.scrollDirection == 1 && event.on_down_scroll && !event.permenent)
             || currScore < triggerPoint){
@@ -130,6 +138,15 @@ export default {
       this.touchStart = -1;
       this.scrollDirection = 0;
     },
+    scrollTo(id){
+      let elementBounds = document.getElementById(id).getBoundingClientRect();
+      this.scrollInput = Math.min(Math.max(this.scrollInput + elementBounds.top, 0), this.height);
+      this.scrollCounter = Math.floor(this.scrollInput/(100*this.scrollSpeed))*(100*this.scrollSpeed);
+      this.wrapper_top = this.scrollInput;
+      this.checkEvent(elementBounds.top);
+      this.scrollSpeed = 0.5;
+      return;
+    },
   },
   mounted() {
     this.scrollEvents =  [
@@ -137,7 +154,9 @@ export default {
          trigger: 0.4,
          permenent: true,
           on_down_scroll: ()=>{
-            this.currMenuPoint = 0;
+            if (this.currMenuPoint == -1){
+              this.currMenuPoint = 0;
+            }
             this.showHeaderBase = false;
             this.dynamic_cursor = false;
             this.darkMode = true;
@@ -181,6 +200,20 @@ export default {
             this.scrollSpeed = 0.2;
           },
         },
+        {id: "about",
+         trigger: -0.3,
+         downScroll: false,
+          on_down_scroll: ()=>{
+            this.scrollEvents[2].downScroll = true;
+            this.currMenuPoint = 1;
+            this.item_active = -1;
+            this.showAbout = true;
+          },
+          on_up_scroll: ()=>{
+            this.scrollEvents[2].downScroll = false;
+            this.showAbout = false;
+          },
+        },
       ],
 
     window.addEventListener("scroll", this.scrollIntercept, { passive: false });
@@ -193,13 +226,21 @@ export default {
     this.height = document.getElementsByClassName("scroll_wrapper")[0].scrollHeight;
     this.viewHeight = window.innerHeight;
 
-    for(let i=0; i<this.scrollEvents.length; i++){
-      this.scrollEvents[i]['top'] = document.getElementById(this.scrollEvents[i].id).getBoundingClientRect().top;
-    }
-
     this.handleScroll();
     setInterval(() => {
       this.wrapperY += (this.wrapper_top - this.wrapperY) * 0.1;
+    }, 1000 / 60);
+    
+    this.wrapperY = 1
+
+    setTimeout(() => {
+      if(!this.scrollEvents[0].top){
+        for(let i=0; i<this.scrollEvents.length; i++){
+          this.scrollEvents[i]['top'] = document.getElementById(this.scrollEvents[i].id).getBoundingClientRect().top;
+        }
+      }
+      console.log(document.getElementById('about').getBoundingClientRect());
+      this.scrollTo('about')
     }, 1000 / 60);
   },
 };

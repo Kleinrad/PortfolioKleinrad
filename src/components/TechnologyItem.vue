@@ -81,4 +81,12 @@ export default {
         opacity: 1;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .tech_item_wrapper {
+        width: 15vw;
+        height: 9vw;
+        line-height: 7vw;
+    }
+}
 </style>

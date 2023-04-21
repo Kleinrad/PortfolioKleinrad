@@ -55,4 +55,10 @@ export default {
     transform: rotate3d(0, 1, 0, 90deg);
     opacity: 0;
 }
+
+@media screen and (max-width: 768px) {
+    .arrow {
+        font-size: 5vw;
+    }
+}
 </style>

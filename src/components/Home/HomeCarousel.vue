@@ -88,4 +88,24 @@ export default {
         transform: translate(0, 0);
     } 
 }
+
+@media screen and (max-width: 768px) {
+    .carousel_container {
+        font-size: 10vw;
+        width: 200vw;
+    }
+
+    .carousel_container > span{
+        margin: 0vw 3vw;
+    }
+
+    .carousel_container:first-child {
+        animation: carousel_first 10s linear infinite;
+    }
+
+    .carousel_container:last-child {
+        animation: carousel_second 10s linear infinite;
+    }
+
+}
 </style>

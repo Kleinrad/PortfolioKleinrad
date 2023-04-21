@@ -21,7 +21,7 @@ export default {
   display: flex;
   align-items: flex-end;
   min-width: fit-content;
-  font-size: 1.2em;
+  font-size: 1.5vw;
   margin: 0vw 2.5vw;
 }
 
@@ -38,6 +38,28 @@ export default {
   opacity: 0.4;
   cursor: pointer !important;
   transition: 0.1s;
+}
+
+@media screen and (max-width: 768px) {
+  .header_language {
+    margin: 0 5vw;
+    font-size: 4.5vw;
+  }
+
+  .header_language > span {
+    margin: 0 2vw;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .header_language {
+    margin: 0 2.5vw;
+    font-size: 2vw;
+  }
+
+  .header_language > span {
+    margin: 0 1vw;
+  }
 }
 
 </style>

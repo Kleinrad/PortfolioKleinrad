@@ -95,4 +95,20 @@ export default {
         width: 100%;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .banner_contact {
+        bottom: 15%;
+        left: 5%;
+        font-size: 3.5vw;
+    }
+    .circle{
+        width: 20vw;
+        height: 20vw;
+        transform: translate(-30%, 10%);
+    }
+    .hover_circle {
+        transform: scale(.8) translate(-40%, 10%);; 
+    }
+}
 </style>

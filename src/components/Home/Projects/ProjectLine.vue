@@ -70,7 +70,7 @@ export default {
             this.canvas.height = height;
         },
         drawCircle(t){
-            let t_rel = ((100+(this.segments[1] ? this.segments[1] : 0 )*(this.projectCount-1)) * (t/100))-(this.circleR/this.canvas.height);
+            let t_rel = ((100+(this.segments[1] ? this.segments[1] : 0 )*(this.projectCount-1)) * (t/100))+(this.circleR/this.canvas.height);
             let seg = -1
             let seg_c = 0
             this.segments.every((s, i) => {
@@ -201,7 +201,7 @@ export default {
         },
         brezierTo(x,y, forceEnd=false){
             let x_rel = x / (100*this.resolution) * this.canvas.width;
-            let y_rel = y / (100*this.resolution) * this.canvas.height - (forceEnd ? this.circleR : 0);
+            let y_rel = y / (100*this.resolution) * this.canvas.height + (forceEnd ? this.circleR : 0);
 
             let timeFactor = 1;
             //calculate random control points use time as seed

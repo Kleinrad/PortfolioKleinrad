@@ -110,4 +110,12 @@
         opacity: 0;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .banner_typing{
+        font-size: 10vw;
+        height: 35vw;
+        margin-bottom: 5vw;
+    }
+}
 </style>

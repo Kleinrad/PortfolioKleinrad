@@ -4,7 +4,10 @@
       <div class="header_logo">
         <span class="header_logo_text">#demosite</span>
       </div>
-      <HeaderNav :class="{'close_header': menu_open, 'open_header': !menu_open}"></HeaderNav>
+      <HeaderNav :class="{'close_header': menu_open, 'open_header': !menu_open}"
+        @scroll-projects="scrollProjects"
+        @scroll-about="scrollAbout"
+      ></HeaderNav>
       <HeaderLang :class="{'close_header': menu_open, 'open_header': !menu_open}"></HeaderLang>
       <MenuButton @menu-open="menuOpen" @menu-close="menuClose"></MenuButton>
     </div>
@@ -29,7 +32,7 @@ export default {
     HeaderNav,
     HeaderLang,
   },
-  emits: ["menu-open", "menu-close"],
+  emits: ["menu-open", "menu-close", "scroll-projects", "scroll-about"],
   methods: {
     menuOpen() {
       this.$emit("menu-open");
@@ -38,6 +41,12 @@ export default {
     menuClose() {
       this.$emit("menu-close");
       this.menu_open = false;
+    },
+    scrollProjects() {
+      this.$emit("scroll-projects");
+    },
+    scrollAbout() {
+      this.$emit("scroll-about");
     },
   },
 };
@@ -48,6 +57,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  box-sizing: border-box;
   width: 100%;
   background-color: var(--background-color);
   transition: var(--bg-transition);
@@ -98,6 +108,30 @@ export default {
   100% {
     transform: translateX(0);
     width: fit-content;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 2vw 3vw;
+  }
+  .header_inner {
+    padding: 2vw 3vw;
+  }
+  .header_logo {
+    font-size: 4.5vw;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .header {
+    padding: 1.5vw 2.5vw;
+  }
+  .header_inner {
+    padding: 1.5vw 2.5vw;
+  }
+  .header_logo {
+    font-size: 2vw;
   }
 }
 </style>

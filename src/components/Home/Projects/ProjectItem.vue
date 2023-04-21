@@ -1,6 +1,6 @@
 <template>
     <div id="pItem" :class="{'project_item':true, 'project_item_active': fullSize}" @click="fullSize = !fullSize">
-        <span id="cover"></span>
+        <span id="cover" :style="{'mix-blend-mode': project.media.includes('webp')?'luminosity':'color'}"></span>
         <img id="cover" :class="{'image_background' : project.media.includes('webp') && fullSize}" v-if="project.media.includes('webp') && fullSize" :src="project.media" alt="project image">
         <iframe
             v-if="fullSize && project.media.includes('youtube')"
@@ -74,6 +74,7 @@ export default {
 
 .project_content {
     position: relative;
+    z-index: 1;
     box-sizing: border-box;
     padding: 2vw;
     width: 40vw;
@@ -158,8 +159,9 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 0;
-    background-color: transparent;
+    background-color: var(--secondary-color);
     cursor: default;
+    mix-blend-mode: luminosity;
 }
 
 .project_video {
@@ -265,6 +267,49 @@ export default {
     100% {
         width: 130%;
         transform: translateX(-50%)
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .project_technologies {
+        padding: 1vw;
+        margin-top: 5vw;
+    }
+    .project_text {
+        font-size: 3.5vw;
+        line-height: 4.5vw;
+    }
+    .project_item {
+        width: 100%;
+        height: 100%;
+        animation: none !important;
+    }
+    .project_item_active {
+        animation: none !important;
+    }
+    .project_content {
+        width: 80%;
+        height: 60%;
+        animation: fadeIn 0.5s 1s forwards;
+    }
+
+    .project_name {
+        font-size: 5vw !important;
+    }
+    .project_name_active {
+        animation: slide-up 0.8s forwards cubic-bezier( 0.17, 0, 0.38, 1.01 ) !important;
+    }
+
+    .project_name_active::before{
+        animation: center-expand 0.5s .6s forwards ease-out;
+    }
+    @keyframes slide-up {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-900%);
+        }
     }
 }
 </style>
