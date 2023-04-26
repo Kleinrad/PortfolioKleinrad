@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header_inner">
       <div class="header_logo">
-        <span class="header_logo_text">#demosite</span>
+        <span class="header_logo_text">/&lt;leinrad</span>
       </div>
       <HeaderNav :class="{'close_header': menu_open, 'open_header': !menu_open}"
         @scroll-projects="scrollProjects"

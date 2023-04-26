@@ -1,15 +1,17 @@
 <template>
-    <div class="banner_contact" @mouseover="onHover" @mouseleave="onLeave">
-        <span :class="{
-            'hover_circle': hover,
-            'circle': true,
-        }"></span>
-        <span :class="{
-            'hover_text': hover
-        }">Reach out to me</span>
-        <ArrowButton :hover="hover"></ArrowButton>
-    </div>
-
+    <a href="mailto:fabiankleinrad.fk@gmail.com">
+        <div class="banner_contact" @mouseover="onHover" @mouseleave="onLeave">
+                <span :class="{
+                    'hover_circle': hover,
+                    'circle': true,
+                }"></span>
+                <span :class="{
+                    'hover_text': hover
+                }">Reach out to me</span>
+            <ArrowButton :hover="hover"></ArrowButton>
+            
+        </div>
+    </a>
 </template>
 
 <script>
@@ -46,6 +48,7 @@ export default {
 
     display: flex;
     align-items: center;
+    color: var(--font-color) !important;
 
     font-size: 1.1vw;
     font-weight: 700;
@@ -68,6 +71,7 @@ export default {
 
 .hover_text {
     position: relative;
+    color: var(--font-color) !important;
     transition: 0.2s ease;
 }
 .hover_text::after {

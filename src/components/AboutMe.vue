@@ -3,9 +3,7 @@
         <TimeLine v-if="visible" :screenType="screenType"></TimeLine>
         <AboutText v-if="visible" :scrollCount="scrollCount" :screenType="screenType" ></AboutText>
         <div class="about_more">
-            <div class="more_links">
-                <a href="">CV</a>
-            </div>
+            <p>The hero section has been replicated from <a href="https://sharobella.at">#sharobella</a> due to an application. This will be replaced in the near future</p>
         </div>
     </div>
 </template>
@@ -54,7 +52,7 @@ export default {
 
 .about_more {
     position: absolute;
-    bottom: 0%;
+    bottom: 2%;
     left: 50%;
     transform: translate(-50%, 0%);
     width: 100vw;
@@ -64,13 +62,15 @@ export default {
     background: linear-gradient(0deg, #080E0E 50%, #080E0E00 100%);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
 .about_more p {
     font-size: 1vw;
+    opacity: 0.7;
     width: 50vw;
+    margin-bottom: 2vw;
 }
 
 .more_links {

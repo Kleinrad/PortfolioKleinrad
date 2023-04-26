@@ -7,9 +7,11 @@
             </div>
         </div>
         <Transition name="fade">
-            <div class="contact_me" v-if="active_text == text_count-1">
-                get in touch
-            </div>
+            <a href="mailto:fabiankleinrad.fk@gmail.com" v-if="active_text == text_count-1">
+                <div class="contact_me">
+                    get in touch
+                </div>
+            </a>
         </Transition>
         <!-- <div class="cite">
             <span>The only thing that is constant is change.</span>
@@ -200,7 +202,7 @@ export default {
     transform: translate(-2%, -2%);
     opacity: 1;
     z-index: 1;
-    animation: reveal 1s 0.8s ease-in-out forwards;
+    animation: reveal 1.58s 0.8s ease-in-out forwards;
 }
 
 .contact_me::after {
@@ -215,7 +217,7 @@ export default {
     border-radius: 5vw;
     opacity: 0;
     transition: 1s;
-    animation: border-rotate 0.5s 0.8s;
+    animation: border-rotate 1s 0.8s;
 }
 
 .contact_me:hover::after {
@@ -312,6 +314,27 @@ export default {
 
     .cite span:last-child{
         font-size: 6vw;
+    }
+
+    .contact_me {
+        transform: translate(-50%, -50%) scale(2);
+        font-size: 4vw;
+        bottom: 28%;
+        left: 50%;
+        opacity: .98;
+    }
+    .contact_me:hover {
+        transform: translate(-50%, -50%) scale(2.03);
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .contact_me {
+        bottom: auto;
+        top: 60%;
+        transform: translate(-50%, -50%) scale(1.5);
+        font-size: 2.5vw;
+        opacity: .98;
     }
 }
 </style>

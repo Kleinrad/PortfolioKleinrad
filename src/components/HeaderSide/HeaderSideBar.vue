@@ -131,8 +131,8 @@ export default {
 
     .header_icons {
         left: auto;
-        right: 0%;
-        height: 13vw;
+        right: 2%;
+        height: 11vw;
         width: fit-content;
         flex-direction: row;
         transform: rotate(0deg);
@@ -146,6 +146,7 @@ export default {
 
     .header_icons img {
         height: 100%;
+        margin: 0 1vw;
         width: auto;
     }
 }

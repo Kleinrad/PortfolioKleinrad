@@ -1,6 +1,5 @@
 <template>
     <div class="header_language">
-        <span :class="[en_selected ? 'not_selected': '']" @click="en_selected = false">de</span>
         <span :class="[!en_selected ? 'not_selected' : '']" @click="en_selected = true">en</span>
     </div>
 </template>
@@ -10,7 +9,7 @@ export default {
   name: "HeaderLang",
   data() {
     return {
-      en_selected: false,
+      en_selected: true,
     };
   },
 };

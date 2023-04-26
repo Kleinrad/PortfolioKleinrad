@@ -269,7 +269,7 @@ export default {
       }
       this.height = document.getElementsByClassName("scroll_wrapper")[0].scrollHeight;
       this.viewHeight = window.innerHeight;
-      this.scrollTo('about')
+      //this.scrollTo("about");
     }, 1000 / 60);
   },
 };
