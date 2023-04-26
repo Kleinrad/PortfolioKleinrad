@@ -87,6 +87,7 @@ export default {
         width: 15vw;
         height: 9vw;
         line-height: 7vw;
+        margin: 1.5vw .5vw;
     }
 }
 </style>

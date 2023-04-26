@@ -8,7 +8,7 @@
                 <img id="linkedIn" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png">
             </a>
             <a href="mailto:fabiankleinrad.fk@gmail.com">
-                <img id="email" src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Android_Emoji_2709.svg">
+                <img id="email" src="https://upload.wikimedia.org/wikipedia/commons/7/7f/OOjs_UI_icon_message.svg">
             </a>
         </div>
     </div>
@@ -91,9 +91,9 @@ export default {
 
 .header_icons {
     position: absolute;
-    left: 2%;
+    left: 4%;
     margin-bottom: -0.5vw;
-    width: 2.5vw;
+    width: 2vw;
     display: flex;
     flex-direction: column;
     transform: rotate(90deg);
@@ -103,17 +103,8 @@ export default {
 .header_icons img{
     aspect-ratio: 1/1;
     opacity: 0.3;
-    transition: opacity 0.5s;
-}
-
-#linkedIn {
-    width: 70%;
-    aspect-ratio: 1/1;
-}
-
-#email {
     width: 100%;
-    aspect-ratio: 1/1;
+    transition: opacity 0.5s;
 }
 
 .header_icons img:hover {
@@ -153,16 +144,9 @@ export default {
         align-items: center;
     }
 
-    #linkedIn {
-        height: 58%;
-        width: auto;
-        aspect-ratio: 1/1;
-    }
-
-    #email {
+    .header_icons img {
         height: 100%;
         width: auto;
-        aspect-ratio: 1/1;
     }
 }
 </style>

@@ -1,9 +1,8 @@
 <template>
     <div class="about_wrapper">
         <TimeLine v-if="visible" :screenType="screenType"></TimeLine>
-        <AboutText v-if="visible" :scrollCount="scrollCount"></AboutText>
+        <AboutText v-if="visible" :scrollCount="scrollCount" :screenType="screenType" ></AboutText>
         <div class="about_more">
-            <p>If you liked what you saw reach out to me I would love to see what we can create together</p>
             <div class="more_links">
                 <a href="">CV</a>
             </div>
@@ -59,7 +58,7 @@ export default {
     left: 50%;
     transform: translate(-50%, 0%);
     width: 100vw;
-    height: 30vw;
+    height: 10vw;
     box-sizing: border-box;
     padding-top: 20vw;
     background: linear-gradient(0deg, #080E0E 50%, #080E0E00 100%);

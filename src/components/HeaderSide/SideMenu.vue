@@ -11,7 +11,7 @@
                 <img id="linkedIn_menu" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png">
             </a>
             <a href="https://www.linkedin.com/in/fabian-kleinrad-27892522b/">
-                <img id="email_menu" src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Android_Emoji_2709.svg">
+                <img id="email_menu" src="https://upload.wikimedia.org/wikipedia/commons/7/7f/OOjs_UI_icon_message.svg">
             </a>
         </div>
     </div>
@@ -80,7 +80,7 @@ export default {
 .menu_icons {
     position: absolute;
     bottom: 1%;
-    height: 3vw;
+    height: 2vw;
     width: 100%;
     filter: invert(1) saturate(0) brightness(1.4);
     display: flex;
@@ -92,7 +92,7 @@ export default {
 .menu_icons a {
     display: flex;
     align-items: center;
-    opacity: 0.7;
+    opacity: 0.5;
     transition: opacity 0.5s ease-in-out;
 }
 
@@ -101,7 +101,7 @@ export default {
 }
 
 #linkedIn_menu {
-    height: 65%;
+    height: 100%;
     aspect-ratio: 1/1;
 }
 

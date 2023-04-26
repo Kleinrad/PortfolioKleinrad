@@ -133,9 +133,6 @@ export default {
     justify-content: space-evenly;
 }
 
-.project_technologies div{
-    margin: 1.5vw .5vw;
-}
 
 .project_links {
     display: flex;
