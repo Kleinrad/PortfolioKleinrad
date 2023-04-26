@@ -162,7 +162,7 @@ class Line {
 }
 
 class FutureTimeLine {
-    constructor (ctx, x, y, width, height, color) {
+    constructor (ctx, x, y, width, height, screenType, color) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
@@ -171,6 +171,10 @@ class FutureTimeLine {
         this.dataWidth = 140;
         this.dataHeight = 150;
         this.color = color;
+        if (screenType == 0){
+            this.dataWidth = 60
+        }
+        this.screenType = screenType;
         this.particles= [];
         
         this.initParticles(this.getNewLineData());
@@ -218,14 +222,14 @@ class FutureTimeLine {
         this.lines.push(new Line(this.ctx, this.dataWidth/2+offsetX, offsetY, 
                         Math.floor(50)
                         , 1, "white" , 40, 3, this.dataWidth/4, 
-                        this.dataWidth, this.dataHeight, offsetX, offsetY, false));
+                        this.dataWidth, this.dataHeight, offsetX, offsetY, this.screenType == 0));
         this.lines.forEach(line => {
             line.draw();
         });
         //scan canvas for particles
         let lineData = this.ctx.getImageData(offsetX, offsetY, this.dataWidth, this.dataHeight);
-        //this.ctx.strokeRect(offsetX, offsetY, this.dataWidth, this.dataHeight);
-        this.ctx.clearRect(offsetX, offsetY, this.dataWidth, this.dataHeight);
+        //this.ctx.strokeRect(offsetX, offsetY, this.dataWidth, this.dataHeight*(this.screenType==0?2.45:1));
+        this.ctx.clearRect(offsetX, offsetY, this.dataWidth, this.dataHeight*(this.screenType==0?2.45:1));
         return lineData;
     }
     draw(){   
@@ -236,7 +240,7 @@ class FutureTimeLine {
 }
 
 class ConnectionTimeLine {
-    constructor (ctx, x, y, width, height, color) {
+    constructor (ctx, x, y, width, height, color, screenType) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
@@ -244,6 +248,7 @@ class ConnectionTimeLine {
         this.height = height;
         this.color = color;
         this.full = false;
+        this.screenType = screenType;
         this.particles = [];
     }
     addParticle (pos) {
@@ -252,6 +257,10 @@ class ConnectionTimeLine {
     getNewLineData(){
         let dataWidth = 100;
         let dataHeight = 100;
+        if (this.screenType == 1){
+            dataWidth = 100;
+            dataHeight = 80;
+        }
         let offsetX = this.width-dataWidth;
         let offsetY = 200;
         
@@ -261,11 +270,6 @@ class ConnectionTimeLine {
         let timeFactor = 1;
         let time_ms = new Date().getTime();
 
-        // let c1x = ((((Math.cos(time_ms/(1000/timeFactor))+1) * (Math.cos(time_ms/(1500/timeFactor))+1) * (Math.cos(time_ms/(3000/timeFactor))+1))/8)*.2+.8);
-        // let c1y = ((((Math.cos(time_ms/(800/timeFactor))+1) * (Math.cos(time_ms/(1700/timeFactor))+1) * (Math.cos(time_ms/(2700/timeFactor))+1))/8)*.2+0.8);
-        // let c2x = ((((Math.sin(time_ms/(1000/timeFactor))+1) * (Math.sin(time_ms/(1500/timeFactor))+1) * (Math.sin(time_ms/(3000/timeFactor))+1))/8)*.2+0.8);
-        // let c2y = ((((Math.sin(time_ms/(800/timeFactor))+1) * (Math.sin(time_ms/(1700/timeFactor))+1) * (Math.sin(time_ms/(2700/timeFactor))+1))/8)*.2+.8);
-
         let c1x = dataWidth/3 + offsetX;
         let c1y =  dataHeight/2 + offsetY;
         let c2x =  dataWidth/1.5 + offsetX;
@@ -273,6 +277,15 @@ class ConnectionTimeLine {
 
         let ex = offsetX + dataWidth-29.5;
         let ey = offsetY + dataHeight-5;
+        if (this.screenType == 1){
+            ex = offsetX + dataWidth-41;
+            c2x =  dataWidth/1.7 + offsetX;
+            c2y =  dataHeight/1.7  + offsetY;
+        }else if(this.screenType == 0){
+            ex = offsetX + dataWidth-74;
+            c2x =  dataWidth/2.5 + offsetX;
+            c2y =  dataHeight/1.9  + offsetY;
+        }
         
         this.ctx.beginPath();
         this.ctx.clearRect(offsetX, offsetY, dataWidth, dataHeight);
@@ -317,6 +330,10 @@ export default {
         }
     },
     props: {
+        screenType: {
+            type: Number,
+            default: 0
+        }
     },
     methods: {
         drawTimeLine(){
@@ -348,8 +365,18 @@ export default {
         this.canvas.width = canvasWidth = this.$el.offsetWidth;
         this.canvas.height = canvasHeight = this.$el.offsetHeight;
         
-        this.FTL = new FutureTimeLine(this.ctx, 0, this.canvas.height/2.5, this.canvas.width, this.canvas.height);
-        this.CTL = new ConnectionTimeLine(this.ctx, 0, 0, this.canvas.width, this.canvas.height, "rgba(255,255,255,1)");
+        let ftlOffset = {x: 0, y: 0}
+        if(this.screenType == 1){
+            ftlOffset.y = 600;
+            ftlOffset.x = -90
+        }else if (this.screenType == 2){
+            ftlOffset.y = 750;
+        }else{
+            ftlOffset.y = 760;
+            ftlOffset.x = -40
+        }
+        this.FTL = new FutureTimeLine(this.ctx, ftlOffset.x, ftlOffset.y, this.canvas.width, this.canvas.height, this.screenType);
+        this.CTL = new ConnectionTimeLine(this.ctx, 0, 0, this.canvas.width, this.canvas.height, "rgba(255,255,255,1)", this.screenType);
 
         window.addEventListener('resize', this.updateSize);
         this.canvas.addEventListener('mousemove', this.getMouseCords);
@@ -389,6 +416,10 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 0;
+}
+
+@media screen and (max-width: 768px) {
+    
 }
 
 </style>

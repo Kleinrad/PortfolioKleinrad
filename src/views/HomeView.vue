@@ -19,8 +19,8 @@
       <Transition name="fade">
         <div class="mainPage" v-if="!showMenu">
           <HomeBanner id="banner"></HomeBanner>
-          <ProjectsOverview id="projects" :lineLength="pLine" :dark="darkMode" :dotDistance="project_Dot_pos" :active-video="item_active"></ProjectsOverview>
-          <AboutMe id="about" :visible="showAbout"></AboutMe>
+          <ProjectsOverview id="projects" :lineLength="pLine" :dark="darkMode" :dotDistance="project_Dot_pos" :active-video="item_active" :screenType="screenType"></ProjectsOverview>
+          <AboutMe id="about" :visible="showAbout" :screenType="screenType" :scrollCount="aboutCount"></AboutMe>
         </div>
       </Transition>
     </div>
@@ -34,6 +34,7 @@ import MenuFull from "@/components/MenuFull.vue";
 import HomeBanner from "@/components/Home/HomeBanner.vue";
 import ProjectsOverview from "@/components/Home/Projects/ProjectsOverview.vue";
 import AboutMe from "@/components/AboutMe.vue";
+import { useMediaQuery } from '@vueuse/core'
 
 import CursorDot from "@/components/CursorDot.vue";
 
@@ -46,6 +47,7 @@ export default {
       dynamic_cursor: true,
       show_cursor: true,
       darkMode: false,
+      screenType: 0, //0 = mobile, 1 = tablet, 2 = desktop
 
       scrollInput: 0, //raw scroll distance
       scrollCounter: 0, //scroll distance in 100px * scrollSpeed increments
@@ -65,6 +67,7 @@ export default {
       showAbout: false,
 
       touchStart: -1,
+      aboutCount: 0,
       colors: {
         accentColor: ["#4eeed9", "#A1CEB3"],
         secondaryColor: ["#97b1bb", "#1B2626"],
@@ -86,10 +89,11 @@ export default {
     handleScroll(scrollDelta) {
       this.checkEvent()
       if(scrollDelta == undefined) return;
-      this.scrollInput = Math.min(Math.max(this.scrollInput + scrollDelta*this.scrollSpeed, 0), this.height+1100);
+      this.scrollInput = Math.min(Math.max(this.scrollInput + scrollDelta*this.scrollSpeed, 0), this.height-this.viewHeight);
       this.scrollCounter = Math.floor(this.scrollInput/(100*this.scrollSpeed))*(100*this.scrollSpeed);
       this.wrapper_top = this.scrollInput;
       this.scrollSpeed = 0.5;
+      this.updateAboutCount();
       return;
     },
     checkEvent(jump = false) {
@@ -112,7 +116,7 @@ export default {
           if(event.on_scroll){
             event.on_scroll({bounds: elementBounds, triggerPoint: triggerPoint, currScore: currScore});
           }
-          if(currScore == 0 && event.on_scroll_end){
+          if(currScore <= 100 && event.on_scroll_end){
             event.on_scroll_end();
           }
         }
@@ -146,6 +150,17 @@ export default {
       this.checkEvent(elementBounds.top);
       this.scrollSpeed = 0.5;
       return;
+    },
+    updateAboutCount(){
+      let elementBounds = document.getElementById("about").getBoundingClientRect();
+      let top = this.scrollEvents[2].top;
+      if(this.scrollCounter - top < 0){
+        this.aboutCount = 0;
+      }else if(this.scrollCounter - (top + (elementBounds.height-this.viewHeight)) > 0){
+        this.aboutCount = 100;
+      }else{
+        this.aboutCount = Math.floor((this.scrollCounter - top)/(elementBounds.height-this.viewHeight)*100);
+      }
     },
   },
   mounted() {
@@ -195,17 +210,20 @@ export default {
           },
           on_scroll: (obj)=>{
             if(!this.scrollEvents[1].downScroll) this.scrollEvents[1].on_down_scroll();
+            this.currMenuPoint = 0;
             let offCenter = Math.max(((obj.bounds.height-(obj.currScore))/obj.bounds.height),0) * (this.viewHeight/2);
             this.project_Dot_pos = Math.min(100,Math.max((obj.triggerPoint-(obj.currScore - offCenter))/obj.triggerPoint*100, 0.2));
-            this.scrollSpeed = 0.2;
+            this.scrollSpeed = 0.4;
           },
+          on_scroll_end: ()=>{
+            this.currMenuPoint=1;
+          }
         },
         {id: "about",
-         trigger: -0.3,
+         trigger: -0.2,
          downScroll: false,
           on_down_scroll: ()=>{
             this.scrollEvents[2].downScroll = true;
-            this.currMenuPoint = 1;
             this.item_active = -1;
             this.showAbout = true;
           },
@@ -223,8 +241,14 @@ export default {
     window.addEventListener("touchstart", this.startTouchScroll, { passive: false });
     window.addEventListener("touchend", this.endTouchScroll, { passive: false });
 
-    this.height = document.getElementsByClassName("scroll_wrapper")[0].scrollHeight;
-    this.viewHeight = window.innerHeight;
+
+    if (useMediaQuery('(max-width: 768px)').value) {
+      this.screenType = 0;
+    }else if (useMediaQuery('(max-width: 1050px)').value) {
+      this.screenType = 1;
+    }else{
+      this.screenType = 2;
+    }
 
     this.handleScroll();
     setInterval(() => {
@@ -239,7 +263,8 @@ export default {
           this.scrollEvents[i]['top'] = document.getElementById(this.scrollEvents[i].id).getBoundingClientRect().top;
         }
       }
-      console.log(document.getElementById('about').getBoundingClientRect());
+      this.height = document.getElementsByClassName("scroll_wrapper")[0].scrollHeight;
+      this.viewHeight = window.innerHeight;
       this.scrollTo('about')
     }, 1000 / 60);
   },

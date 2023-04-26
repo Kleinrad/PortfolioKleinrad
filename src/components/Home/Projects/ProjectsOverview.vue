@@ -1,6 +1,6 @@
 <template>
     <div class="projects_wrapper" @mouseenter="edgeLine=false" @mouseleave="edgeLine=true">
-        <ProjectLine :lineLength="lineLength" :projectCount="projects.length" :dotDist="dotDistance"></ProjectLine>
+        <ProjectLine :lineLength="lineLength" :projectCount="projects.length" :dotDist="dotDistance" :screenType="screenType"></ProjectLine>
         <div class="item_wrapper" v-for="project, i in projects">
             <ProjectItem  :key="project.id" :fullSize="false" :project="project" :full-size="i == activeVideo" maxHeight="30vw" maxWidth="60vw"></ProjectItem>
         </div>
@@ -76,7 +76,11 @@ export default {
         dark : {
             type: Boolean,
             default: false,
-        }
+        },
+        screenType: {
+            type: Number,
+            default: 0,
+        },
     },
     components: {
         ProjectItem,
@@ -146,7 +150,8 @@ ProjectLine {
     position: relative;
     z-index: 3;
     width: 100%;
-    height: 35vw;
+    height: 45vw;
+    box-sizing: border-box;
     padding: 5vw  0;
     display: flex;
     justify-content: center;
@@ -187,8 +192,14 @@ ProjectLine {
     .projects_wrapper {
         height: calc(80svh*v-bind(project_count));
     }
-    .item_wrapper {
-        transform: translateX(0%) !important;
+    .item_wrapper:nth-child(even) {
+        transform: translateX(-7%);
+        justify-content: right;
+    }
+
+    .item_wrapper:nth-child(odd) {
+        transform: translateX(0%);
+        justify-content: left;
     }
 }
 

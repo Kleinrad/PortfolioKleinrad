@@ -6,6 +6,14 @@
         :style="{'opacity' : menu_point == index ? 1 : 0.3, 'margin-left' : menu_point == index ? '4vw' : '3vw'}">
             {{point}}
         </span>
+        <div class="menu_icons">
+            <a href="https://www.linkedin.com/in/fabian-kleinrad-27892522b/">
+                <img id="linkedIn_menu" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png">
+            </a>
+            <a href="https://www.linkedin.com/in/fabian-kleinrad-27892522b/">
+                <img id="email_menu" src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Android_Emoji_2709.svg">
+            </a>
+        </div>
     </div>
 </template>
 
@@ -68,6 +76,40 @@ export default {
     transition: 0.5s ease-in-out;
     cursor: pointer;
 }
+
+.menu_icons {
+    position: absolute;
+    bottom: 1%;
+    height: 3vw;
+    width: 100%;
+    filter: invert(1) saturate(0) brightness(1.4);
+    display: flex;
+    box-sizing: border-box;
+    padding-left: 3vw;
+    justify-content: left;
+}
+
+.menu_icons a {
+    display: flex;
+    align-items: center;
+    opacity: 0.7;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.menu_icons a:hover {
+    opacity: 1;
+}
+
+#linkedIn_menu {
+    height: 65%;
+    aspect-ratio: 1/1;
+}
+
+#email_menu {
+    height: 100%;
+    aspect-ratio: 2/1;
+}
+
 
 @keyframes slide-In {
     0% {

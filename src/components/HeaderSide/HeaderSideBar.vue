@@ -3,6 +3,14 @@
         <div class="menu_point" v-for="point, i in menu_points"  :key="i" :style="{'display': i == menu_point ? 'flex' : 'none'}">
             <MenuPoint :point="point" :isHovered="isHovered"></MenuPoint>
         </div>
+        <div class="header_icons">
+            <a href="https://www.linkedin.com/in/fabian-kleinrad-27892522b/">
+                <img id="linkedIn" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png">
+            </a>
+            <a href="mailto:fabiankleinrad.fk@gmail.com">
+                <img id="email" src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Android_Emoji_2709.svg">
+            </a>
+        </div>
     </div>
     <Transition name="sideMenu">
         <SideMenu v-if="isOpen" 
@@ -12,6 +20,7 @@
         @scroll-about="scrollAbout"
         ></SideMenu>
     </Transition>
+
 </template>
 
 <script>
@@ -79,4 +88,36 @@ export default {
         box-shadow: 0px -4px 20px 0px rgba(92, 92, 92, 0.45);
     }
 }
+
+.header_icons {
+    position: absolute;
+    left: 2%;
+    margin-bottom: -0.5vw;
+    width: 2.5vw;
+    display: flex;
+    flex-direction: column;
+    transform: rotate(90deg);
+    filter: invert(1) saturate(0) brightness(1.4);
+}
+
+.header_icons img{
+    aspect-ratio: 1/1;
+    opacity: 0.3;
+    transition: opacity 0.5s;
+}
+
+#linkedIn {
+    width: 70%;
+    aspect-ratio: 1/1;
+}
+
+#email {
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.header_icons img:hover {
+    opacity: 1;
+}
+
 </style>

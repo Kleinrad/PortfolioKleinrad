@@ -42,6 +42,10 @@ export default {
             type: Number,
             default: 10,
         },
+        screenType: {
+            type: Number,
+            default: 0,
+        },
     },
     methods: {
         animate() {
@@ -65,7 +69,7 @@ export default {
         },
         updateSize() {
             let width = Math.round(this.$el.offsetWidth);
-            let height = Math.round(width * 0.45 * this.projectCount);
+            let height = Math.round(this.$el.offsetHeight);
             this.canvas.width = width;
             this.canvas.height = height;
         },
@@ -113,10 +117,15 @@ export default {
             this.ctx.beginPath();
             this.ctx.strokeStyle = this.lineColor;
             this.ctx.lineWidth = this.lineWidth;
+            let left_p = 76;
+            let right_p = 8;
+            if(this.screenType == 0){
+                left_p = 85;
+            }
             let len_c = 0;
-            let len_m = (dst/100) * (100+76*(this.projectCount-1));
-            let right_b = 8 * this.resolution;
-            let left_b = 84 * this.resolution;
+            let len_m = (dst/100) * (100+left_p*(this.projectCount-1));
+            let right_b = right_p * this.resolution;
+            let left_b = (left_p+right_p) * this.resolution;
 
             let v_seg = (100*this.resolution) / this.projectCount;
 
@@ -131,9 +140,9 @@ export default {
                     break
                 }
 
-                if (i != this.projectCount-1 && len_m - len_c > 76){
+                if (i != this.projectCount-1 && len_m - len_c > left_p){
                     this.drawTo(i%2 != 0 ? right_b : left_b, v_seg * (i+1));
-                    len_c += 76;
+                    len_c += left_p;
                 }else if (i != this.projectCount-1){
                     this.drawTo(x + (i%2==0 ? (len_m-len_c) : -(len_m-len_c)), v_seg * (i+1));
                     break
@@ -205,11 +214,15 @@ export default {
 
             let timeFactor = 1;
             //calculate random control points use time as seed
+            let amplifier = 0.5;
+            if (this.screenType == 0){
+                amplifier = 0.15;
+            }
             let time_ms = new Date().getTime();
-            let x1 = (((Math.cos(time_ms/(1000/timeFactor))+1) * (Math.cos(time_ms/(1500/timeFactor))+1) * (Math.cos(time_ms/(3000/timeFactor))+1))/8)*.5+.25;
-            let x2 = (((Math.cos(time_ms/(800/timeFactor))+1) * (Math.cos(time_ms/(1700/timeFactor))+1) * (Math.cos(time_ms/(2700/timeFactor))+1))/8)*.5+.25;
-            let y1 = (((Math.sin(time_ms/(1000/timeFactor))+1) * (Math.sin(time_ms/(1500/timeFactor))+1) * (Math.sin(time_ms/(3000/timeFactor))+1))/8)*.5+.25;
-            let y2 = (((Math.sin(time_ms/(800/timeFactor))+1) * (Math.sin(time_ms/(1700/timeFactor))+1) * (Math.sin(time_ms/(2700/timeFactor))+1))/8)*.5+.25;
+            let x1 = (((Math.cos(time_ms/(1000/timeFactor))+1) * (Math.cos(time_ms/(1500/timeFactor))+1) * (Math.cos(time_ms/(3000/timeFactor))+1))/8)*amplifier+(1-amplifier)/2;
+            let x2 = (((Math.cos(time_ms/(800/timeFactor))+1) * (Math.cos(time_ms/(1700/timeFactor))+1) * (Math.cos(time_ms/(2700/timeFactor))+1))/8)*amplifier+(1-amplifier)/2;
+            let y1 = (((Math.sin(time_ms/(1000/timeFactor))+1) * (Math.sin(time_ms/(1500/timeFactor))+1) * (Math.sin(time_ms/(3000/timeFactor))+1))/8)*amplifier+(1-amplifier)/2;
+            let y2 = (((Math.sin(time_ms/(800/timeFactor))+1) * (Math.sin(time_ms/(1700/timeFactor))+1) * (Math.sin(time_ms/(2700/timeFactor))+1))/8)*amplifier+(1-amplifier)/2;
 
             let abs_para = this.normBrezier(x1, y1, x2, y2, x_rel, y_rel, 250, forceEnd);
             
@@ -271,15 +284,23 @@ export default {
     mounted() {
         this.canvas = document.getElementById("project_canvas");
         this.ctx = this.canvas.getContext("2d");
-        this.updateSize();
         window.addEventListener("resize", this.updateSize);
-        this.circleR = (this.canvas.width)*0.0075;
 
         for (let i = 0; i < (this.projectCount-1)*2+1; i++) {
             this.segments.push(i % 2 == 0 ? 100/this.projectCount : 50);
         }
 
         this.animate();
+        setTimeout(() => {
+            this.updateSize();
+            if (this.screenType == 2){
+                this.circleR = (this.canvas.width)*0.0075;
+            }else if (this.screenType == 1){
+                this.circleR = (this.canvas.width)*0.01;
+            }else{
+                this.circleR = (this.canvas.width)*0.03;
+            }
+        }, 1000/60);
     }
 }
 </script>

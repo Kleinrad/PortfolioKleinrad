@@ -20,6 +20,7 @@ body {
   overflow-x: hidden;
   background-color: var(--background-color);
   transition: var(--bg-transition);
+  overscroll-behavior: contain;
 }
 
 #app {

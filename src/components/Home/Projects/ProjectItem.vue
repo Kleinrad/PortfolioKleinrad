@@ -132,8 +132,8 @@ export default {
     justify-content: space-evenly;
 }
 
-.project_technologies a{
-    margin: 0.5vw;
+.project_technologies div{
+    margin: 1.5vw .5vw;
 }
 
 .project_links {
@@ -271,44 +271,84 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
-    .project_technologies {
-        padding: 1vw;
-        margin-top: 5vw;
-    }
-    .project_text {
-        font-size: 3.5vw;
-        line-height: 4.5vw;
-    }
     .project_item {
-        width: 100%;
-        height: 100%;
-        animation: none !important;
+        height: 50%;
+        width: 60%;
+        opacity: 0.9;
     }
-    .project_item_active {
-        animation: none !important;
+    .project_item_active{
+        height: 85%;
+        width: 80%;
     }
     .project_content {
-        width: 80%;
-        height: 60%;
-        animation: fadeIn 0.5s 1s forwards;
+        width: 90%;
+        height: 80%;
+        padding: 6%;
+        margin-top: 15vw;
+        justify-content: space-evenly;
     }
 
-    .project_name {
-        font-size: 5vw !important;
-    }
-    .project_name_active {
-        animation: slide-up 0.8s forwards cubic-bezier( 0.17, 0, 0.38, 1.01 ) !important;
+    .project_name{
+        font-size: 5vw;
     }
 
-    .project_name_active::before{
-        animation: center-expand 0.5s .6s forwards ease-out;
+    .project_name_active{
+        font-size: 7vw !important;
     }
+
+    .project_text {
+        font-size: 4vw;
+        line-height: 4.6vw;
+    }
+
     @keyframes slide-up {
         0% {
             transform: translateY(0%);
         }
         100% {
-            transform: translateY(-900%);
+            transform: translateY(-600%);
+        }
+    }
+
+    @keyframes gooey {
+        0%, 100% {
+            border-radius: 10% 6% 4% 2% / 2% 4% 6% 10%; /* Set the initial and final border radius */
+        }
+        10%, 90% {
+            border-radius: 6% 8% 2% 1% / 1% 2% 8% 6%; /* Add some variation to the border radius */
+        }
+        20%, 80% {
+            border-radius: 8% 10% 1% 2% / 2% 1% 10% 8%; /* Add some variation to the border radius */
+        }
+        30%, 70% {
+            border-radius: 10% 8% 2% 3% / 3% 2% 12% 10%; /* Add some variation to the border radius */
+        }
+        40%, 60% {
+            border-radius: 6% 6% 3% 4% / 10% 4% 2% 3%; /* Add some variation to the border radius */
+        }
+        50% {
+            border-radius: 8% 10% 4% 5% / 5% 4% 10% 8%; /* Add some variation to the border radius */
+        }
+    }
+
+    @keyframes morph-size{
+        0%{
+            border-radius: 0%;
+            transform: scale(1);
+        }
+        20%{
+            border-radius: 40% 35% 41% 33% / 40% 35% 41% 33%;
+            transform: scale(0.5);
+        }
+        35%{
+            border-radius: 40% 36% 43% 34% / 40% 36% 43% 34%;
+        }
+        60%{
+            border-radius: 20% 18% 16% 7% / 20% 18% 16% 7%;
+        }
+        100%{
+            border-radius: 10% 6% 4% 2% / 2% 4% 6% 10%;
+            transform: scale(1);
         }
     }
 }
