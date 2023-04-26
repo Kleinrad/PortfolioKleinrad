@@ -95,4 +95,16 @@ export default {
         transform: translate(0, 0);
     }    
 }
+
+@media screen and (max-width: 768px) {
+    .menu_point {
+        font-size: 5vw;
+        left: 5%;
+        transform: translate(0%, -50%);
+    }
+
+    .side_menu_text{
+        padding: 10px;
+    }
+}
 </style>

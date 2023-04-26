@@ -342,7 +342,7 @@ export default {
             this.CTL.draw();
             setTimeout(() =>{
                 requestAnimationFrame(this.drawTimeLine)
-            }, 1000/30);
+            }, this.screenType == 0 ? 1000/15 : 1000/30);
         },
         spawnParticle (pos){
             this.CTL.addParticle(pos);

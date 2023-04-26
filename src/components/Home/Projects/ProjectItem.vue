@@ -1,9 +1,9 @@
 <template>
-    <div id="pItem" :class="{'project_item':true, 'project_item_active': fullSize}" @click="fullSize = !fullSize">
+    <div id="pItem" :class="{'project_item':true, 'project_item_active': fullSize}">
         <span id="cover" :style="{'mix-blend-mode': project.media.includes('webp')?'luminosity':'color'}"></span>
-        <img id="cover" :class="{'image_background' : project.media.includes('webp') && fullSize}" v-if="project.media.includes('webp') && fullSize" :src="project.media" alt="project image">
+        <img id="cover" :class="{'image_background' : project.media.includes('webp') && fullSize}" v-if="project.media.includes('webp') && fullSize && screenType != 0" :src="project.media" alt="project image">
         <iframe
-            v-if="fullSize && project.media.includes('youtube')"
+            v-if="fullSize && project.media.includes('youtube') && screenType != 0"
             :class="{'project_video': fullSize}"
             :src="project.media"
             frameborder="0"
@@ -42,6 +42,7 @@ export default {
         },
         "maxWidth": String,
         "maxHeight": String,
+        "screenType": Number,
     },
     components: {
         TechnologyItem,

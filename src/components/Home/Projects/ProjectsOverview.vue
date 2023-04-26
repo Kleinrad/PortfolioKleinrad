@@ -2,7 +2,7 @@
     <div class="projects_wrapper" @mouseenter="edgeLine=false" @mouseleave="edgeLine=true">
         <ProjectLine :lineLength="lineLength" :projectCount="projects.length" :dotDist="dotDistance" :screenType="screenType"></ProjectLine>
         <div class="item_wrapper" v-for="project, i in projects">
-            <ProjectItem  :key="project.id" :fullSize="false" :project="project" :full-size="i == activeVideo" maxHeight="30vw" maxWidth="60vw"></ProjectItem>
+            <ProjectItem :screenType="screenType" :key="project.id" :fullSize="false" :project="project" :full-size="i == activeVideo" maxHeight="30vw" maxWidth="60vw"></ProjectItem>
         </div>
         <div v-if="dark"  class="project_bg"></div>
         <video v-if="dark" id="project_bg_video" autoplay muted loop playbackRate="0.8">

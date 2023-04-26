@@ -127,7 +127,7 @@ export default {
       let scrollDelta = 0;
       if (this.touchStart != -1) {
         this.scrollDirection = this.touchStart - e.touches[0].pageY > 0 ? 1 : -1;
-        scrollDelta = Math.round((this.touchStart - e.touches[0].pageY)*2);
+        scrollDelta = Math.round((this.touchStart - e.touches[0].pageY)*4);
         this.touchStart = e.touches[0].pageY;
       }else{
         this.scrollDirection = e.deltaY > 0 ? 1 : -1;
@@ -222,6 +222,7 @@ export default {
         {id: "about",
          trigger: -0.2,
          downScroll: false,
+         continuous: true,
           on_down_scroll: ()=>{
             this.scrollEvents[2].downScroll = true;
             this.item_active = -1;
@@ -231,6 +232,9 @@ export default {
             this.scrollEvents[2].downScroll = false;
             this.showAbout = false;
           },
+          on_scroll: ()=>{
+            this.scrollSpeed = 0.3;
+          }
         },
       ],
 

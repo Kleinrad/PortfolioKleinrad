@@ -40,16 +40,6 @@ export default {
   transition: 0.1s;
 }
 
-@media screen and (max-width: 768px) {
-  .header_language {
-    margin: 0 5vw;
-    font-size: 4.5vw;
-  }
-
-  .header_language > span {
-    margin: 0 2vw;
-  }
-}
 
 @media screen and (max-width: 1050px) {
   .header_language {
@@ -59,6 +49,17 @@ export default {
 
   .header_language > span {
     margin: 0 1vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header_language {
+    margin: 0 5vw;
+    font-size: 4.5vw;
+  }
+
+  .header_language > span {
+    margin: 0 2vw;
   }
 }
 

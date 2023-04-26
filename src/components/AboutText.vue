@@ -6,6 +6,10 @@
                 <span v-for="textObj in list" :class="{highlight: textObj.highlight}">{{ textObj.text }}</span>    
             </div>
         </div>
+        <div class="cite">
+            <span>The only thing that is constant is change.</span>
+            <span> - Heraclitus</span>
+        </div>
     </div>
     <svg id="filters">
         <defs>
@@ -46,6 +50,10 @@ export default {
         scrollCount : {
             type: Number,
             default: 0
+        },
+        screenType: {
+            type: Number,
+            default: 0
         }
     },
     mounted() {
@@ -53,13 +61,14 @@ export default {
     watch: {
         scrollCount: function (newVal, oldVal) {
             let tmp = this.active_text;
-            this.active_text = Math.min(Math.floor((newVal+15) / (0.8/this.text_arr.length*100)), this.text_arr.length);
+            let offset = this.screenType == 0 ? 15 : 15;
+            this.active_text = Math.min(Math.floor((newVal+offset) / (0.8/this.text_arr.length*100)), this.text_arr.length);
             if ((tmp != this.active_text || Math.abs(this.last_active_text - this.active_text) != 1)
                 && (new Date() - this.last_text_change) > 800) {
                 this.last_active_text = tmp;
                 this.last_text_change = new Date();
             }
-            this.textTop = (0.5/this.text_arr.length * this.active_text*10000) + "%";
+            this.textTop = ((this.screenType==0?0.7:0.5)/this.text_arr.length * this.active_text*10000) + "%";
         }
     }
 }
@@ -67,7 +76,6 @@ export default {
 
 <style scoped>
 .about_text_wrapper {
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -85,9 +93,29 @@ export default {
     transform: translate(-50%, v-bind(textTop));
     z-index: 1;
     filter: url(#c_matrix) blur(0.5px);
-    transition: transform 0s 0.6s ease-in-out;
+    transition: transform 0s 0.5s ease-in-out;
 }
 
+.cite {
+    position: absolute;
+    left: 32%;
+    transform: translate(-50%, 0%);
+    bottom: 0;
+    margin-bottom: 25vw;
+    font-size: 3vw;
+    font-weight: 400;
+    display: flex;
+    color: var(--font-color);
+    flex-direction: column;
+    mix-blend-mode: difference;
+    opacity: 0.8;
+}
+
+.cite span:last-child {
+    font-size: 2vw;
+    margin-top: 1vw;
+    opacity: 0.5;
+}
 
 .split_text_container div {
     position: absolute;
@@ -107,13 +135,13 @@ export default {
 .blur_out {
     visibility: visible !important;
     opacity: 1;
-    animation: blurOut 0.7s ease-in forwards;
+    animation: blurOut 0.6s ease-in forwards;
 }
 
 .blur_in {
     visibility: visible !important;
     opacity: 0;
-    animation: blurIn 0.7s .6s ease-out forwards;
+    animation: blurIn 0.6s .5s ease-out forwards;
 }
 
 @keyframes blurOut {
@@ -145,6 +173,16 @@ export default {
     .split_text_container {
         left: 50%;
         width: 80vw;
+    }
+
+    .cite {
+        left: 50%;
+        font-size: 10vw;
+        margin-bottom: 50vw;
+    }
+
+    .cite span:last-child{
+        font-size: 6vw;
     }
 }
 </style>

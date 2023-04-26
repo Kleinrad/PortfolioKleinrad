@@ -82,5 +82,23 @@ export default {
     .about_wrapper {
         height: 250svh;
     }
+    .about_more {
+        padding-top: 17vw;
+    }
+    .about_more p {
+        font-size: 2vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .about_more {
+        padding-top: 35vw;
+        height: 60vw;
+    }
+
+    .about_more p {
+        font-size: 3.5vw;
+        width: 80vw;
+    }
 }
 </style>

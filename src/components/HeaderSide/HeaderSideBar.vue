@@ -120,4 +120,49 @@ export default {
     opacity: 1;
 }
 
+@media screen and (max-width: 1050px) {
+    .header_wrapper {
+        height: 6vw;
+    }
+
+    .header_icons {
+        width: 3.5vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header_wrapper {
+        height: 15vw;
+        width: 100vw;
+        transform: none;
+        box-shadow: -4px 0px 20px 0px rgba(34, 34, 34, 0.25);
+    }
+
+    .header_icons {
+        left: auto;
+        right: 0%;
+        height: 13vw;
+        width: fit-content;
+        flex-direction: row;
+        transform: rotate(0deg);
+    }
+
+    .header_icons a{
+        display: flex;
+        padding: 1vw;
+        align-items: center;
+    }
+
+    #linkedIn {
+        height: 58%;
+        width: auto;
+        aspect-ratio: 1/1;
+    }
+
+    #email {
+        height: 100%;
+        width: auto;
+        aspect-ratio: 1/1;
+    }
+}
 </style>

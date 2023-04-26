@@ -111,17 +111,6 @@ export default {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .header {
-    padding: 2vw 3vw;
-  }
-  .header_inner {
-    padding: 2vw 3vw;
-  }
-  .header_logo {
-    font-size: 4.5vw;
-  }
-}
 
 @media screen and (max-width: 1050px) {
   .header {
@@ -132,6 +121,18 @@ export default {
   }
   .header_logo {
     font-size: 2vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 2vw 3vw;
+  }
+  .header_inner {
+    padding: 2vw 3vw;
+  }
+  .header_logo {
+    font-size: 4.5vw;
   }
 }
 </style>

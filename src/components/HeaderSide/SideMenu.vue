@@ -54,7 +54,7 @@ export default {
     align-items: flex-start;
     flex-direction: column;
     transform: translateX(16vw);
-    animation: slide-In 0.6s ease-in-out forwards;
+    animation: slide-In 0.6s cubic-bezier(.56,-0.01,.76,.98) forwards;
 
     font-size: 2vw;
 }
@@ -113,10 +113,58 @@ export default {
 
 @keyframes slide-In {
     0% {
-        transform: translateX(80%);
+        transform: translateX(100%);
     }
     100% {
         transform: translateX(0%);
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .menu_wrapper {
+        width: 20vw;
+        height: 100svh;
+        transform: translateX(20vw);
+    }
+
+    .menu_wrapper > span {
+        font-size: 3vw;
+    }
+
+    .menu_icons {
+        height: 5vw;
+        padding-left: 5vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .menu_wrapper {
+        width: 100vw;
+        height: 100svh;
+        transform: translateY(100vw);
+        pointer-events: all;
+        align-items: center;
+    }
+
+    .menu_bg{
+        opacity: 0.95;
+    }
+    .menu_wrapper > span {
+        font-size: 15vw;
+    }
+
+    .menu_icons {
+        height: 12vw;
+        justify-content: center;
+    }
+
+    @keyframes slide-In {
+        0% {
+            transform: translateY(-100%);
+        }
+        100% {
+            transform: translateY(0%);
+        }
     }
 }
 </style>
