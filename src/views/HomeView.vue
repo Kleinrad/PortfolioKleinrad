@@ -233,6 +233,7 @@ export default {
             this.showAbout = false;
           },
           on_scroll: ()=>{
+            if(!this.scrollEvents[2].downScroll) this.scrollEvents[2].on_down_scroll();
             this.scrollSpeed = 0.3;
           }
         },

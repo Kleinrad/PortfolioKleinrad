@@ -54,7 +54,7 @@ export default {
                     text: "AmongHTL is a web-based multiplayer game, inspired by the popular game Among Us. It is built with HTML5, CSS3, JavaScript, Node.js, and Socket.io.",
                     links: {
                         "GitHub": "https://github.com/AmongHTBLuVA/AmongHTL",
-                        "Game": "localhost:8079"
+                        //"Game": "localhost:8079"
                     }
                 },
             ],
