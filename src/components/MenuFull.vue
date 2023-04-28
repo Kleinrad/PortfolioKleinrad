@@ -114,6 +114,7 @@ export default {
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     box-sizing: border-box;
     padding: 4vw;
     width: 100%;

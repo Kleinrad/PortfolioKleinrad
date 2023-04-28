@@ -180,6 +180,7 @@ class FutureTimeLine {
         this.particles= [];
         
         this.initParticles(this.getNewLineData());
+        this.updateParticles(this.getNewLineData());
         setInterval(() => {
             this.updateParticles(this.getNewLineData());
         }, 4000);
@@ -187,11 +188,7 @@ class FutureTimeLine {
     initParticles (lineData) {
         for (let i = 0; i < lineData.data.length; i+=4) {
             if (lineData.data[i] > 40) {
-                let x = (i/4) % this.dataWidth;
-                let y = Math.floor((i/4) / this.dataWidth);
-                if (x == 0 || y == 0) continue;
-                let alpha = (lineData.data[i+3]-alphaOffset) / (255-alphaOffset) * 255;
-                this.particles.push(new Particle(this.ctx, x*sizing+this.x, y*sizing+this.y, particleSize, "rgba(255,255,255,"+(alpha/255)+")"));
+                this.particles.push(new Particle(this.ctx, 0*sizing+this.x, 0*sizing+this.y, particleSize, "rgba(255,255,255,"+(1)+")"));
             }
         }
     }
