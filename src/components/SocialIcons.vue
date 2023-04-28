@@ -29,11 +29,11 @@ export default {
 <style scoped>
 
 .dark {
+    position: absolute;
     -webkit-filter: invert(1) saturate(0) brightness(1.4) !important;
             filter: invert(1) saturate(0) brightness(1.4) !important;
 }
 .menu_icons {
-    position: absolute;
     bottom: 1%;
     height: 2vw;
     width: 100%;
