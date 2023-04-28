@@ -7,14 +7,30 @@
         </div>
         <div class="menu_footer">
             <span>Say Hello (:</span>
-            <span>fabiankleinrad.fk@gmail.com</span>
-            <div class="socials">placeholder</div>
+            <div class="socials"><SocialIcons/></div>
         </div>
     </div>
 </template>
 
 <script>
+import SocialIcons from '@/components/SocialIcons.vue'
 
+export default {
+    name: "MenuFull",
+    data() {
+        return {
+        }
+    },
+    props: {
+    },
+    mounted() {
+    },
+    methods: {
+    },
+    components: {
+        SocialIcons,
+    },
+}
 </script>
 
 <style scoped>
@@ -35,9 +51,9 @@
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -webkit-box-pack: space;
+        -ms-flex-pack: space;
+            justify-content: space-between;
     padding-left: 5vw;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -97,14 +113,11 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 4vw;
     width: 100%;
-    margin-bottom: 10svh;
-}
-
-.menu_footer > div {
-    display: inline;
-    margin-left: auto;
-    margin-right: 5vw;
+    margin-bottom: 1svh;
 }
 
 @-webkit-keyframes slide-together {
@@ -136,6 +149,12 @@
     }
     100% {
         opacity: 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .menu_inner {
+        font-size: 3em;
     }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="projects_wrapper" @mouseenter="edgeLine=false" @mouseleave="edgeLine=true">
-        <ProjectLine :lineLength="lineLength" :projectCount="projects.length" :dotDist="dotDistance" :screenType="screenType"></ProjectLine>
+        <ProjectLine :active="show" :lineLength="lineLength" :projectCount="projects.length" :dotDist="dotDistance" :screenType="screenType"></ProjectLine>
         <div class="item_wrapper" v-for="project, i in projects">
             <ProjectItem :screenType="screenType" :key="project.id" :fullSize="false" :project="project" :full-size="i == activeVideo" maxHeight="30vw" maxWidth="60vw"></ProjectItem>
         </div>
@@ -81,6 +81,10 @@ export default {
             type: Number,
             default: 0,
         },
+        show: {
+            type: Boolean,
+            default: true,
+        },
     },
     components: {
         ProjectItem,
@@ -91,7 +95,8 @@ export default {
     },
     watch: {
         dotDistance: function(newVal, oldVal) {
-            this.activeVideo = Math.floor(Math.max(0,newVal-5)/100 * this.project_count);
+            let offset = this.screenType == 0 ? 0 : 5;
+            this.activeVideo = Math.floor(Math.max(0,newVal-offset)/100 * this.project_count);
             if(newVal < 5) {
                 this.activeVideo = -1;
             }

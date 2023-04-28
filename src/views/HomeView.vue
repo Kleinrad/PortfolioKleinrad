@@ -2,7 +2,7 @@
   <div class="wrapper" :style="{'position': 'fixed'}">
     <MenuFull v-if="showMenu"></MenuFull>
     <div class="scroll_wrapper" :style="{'position': 'absolute', 'top': Math.min(-wrapperY,0) + 'px'}">
-      <CursorDot :dynamic="dynamic_cursor" :pos="{x:8, y:103}" v-if="show_cursor" :abs_top_offset="Math.min(-wrapperY,0)" />
+      <CursorDot :dynamic="dynamic_cursor" :pos="{x:8, y:103}" :screenType="screenType" v-if="show_cursor" :abs_top_offset="Math.min(-wrapperY,0)" />
       <HeaderBar 
       @menu-close="showMenu=false" 
       @menu-open="showMenu=true"
@@ -18,8 +18,8 @@
       ></HeaderSideBar>
       <Transition name="fade">
         <div class="mainPage" v-if="!showMenu">
-          <HomeBanner id="banner"></HomeBanner>
-          <ProjectsOverview id="projects" :lineLength="pLine" :dark="darkMode" :dotDistance="project_Dot_pos" :active-video="item_active" :screenType="screenType"></ProjectsOverview>
+          <HomeBanner id="banner" :screenType="screenType"></HomeBanner>
+          <ProjectsOverview :show="showProjects" id="projects" :lineLength="pLine" :dark="darkMode" :dotDistance="project_Dot_pos" :active-video="item_active" :screenType="screenType"></ProjectsOverview>
           <AboutMe id="about" :visible="showAbout" :screenType="screenType" :scrollCount="aboutCount"></AboutMe>
         </div>
       </Transition>
@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       showMenu: false,
+      showProjects: true,
       showHeaderBase: true,
       dynamic_cursor: true,
       show_cursor: true,
@@ -54,7 +55,7 @@ export default {
       wrapper_top: 0, //positon of wrapper to transition to
       wrapperY: 0,  //wrapper top offset
       scrollDirection: 0, //1 = down, -1 = up, 0 = no scroll
-      scrollSpeed: 0.5, //scroll speed multiplier
+      scrollSpeed: 0.8, //scroll speed multiplier
 
       currMenuPoint: -1,
       pLine: -1,
@@ -127,7 +128,7 @@ export default {
       let scrollDelta = 0;
       if (this.touchStart != -1) {
         this.scrollDirection = this.touchStart - e.touches[0].pageY > 0 ? 1 : -1;
-        scrollDelta = Math.round((this.touchStart - e.touches[0].pageY)*4);
+        scrollDelta = Math.round((this.touchStart - e.touches[0].pageY)*3);
         this.touchStart = e.touches[0].pageY;
       }else{
         this.scrollDirection = e.deltaY > 0 ? 1 : -1;
@@ -161,6 +162,10 @@ export default {
       }else{
         this.aboutCount = Math.floor((this.scrollCounter - top)/(elementBounds.height-this.viewHeight)*100);
       }
+    },
+    updateWrapperY(){
+      this.wrapperY += (this.wrapper_top - this.wrapperY) * 0.08;
+      requestAnimationFrame(this.updateWrapperY);
     },
   },
   mounted() {
@@ -213,10 +218,12 @@ export default {
             this.currMenuPoint = 0;
             let offCenter = Math.max(((obj.bounds.height-(obj.currScore))/obj.bounds.height),0) * (this.viewHeight/2);
             this.project_Dot_pos = Math.min(100,Math.max((obj.triggerPoint-(obj.currScore - offCenter))/obj.triggerPoint*100, 0.2));
-            this.scrollSpeed = 0.4;
+            this.scrollSpeed = 0.6;
+            this.showProjects = true;
           },
           on_scroll_end: ()=>{
             this.currMenuPoint=1;
+            this.showProjects = false;
           }
         },
         {id: "about",
@@ -230,11 +237,12 @@ export default {
           },
           on_up_scroll: ()=>{
             this.scrollEvents[2].downScroll = false;
+            this.showProjects = true;
             this.showAbout = false;
           },
           on_scroll: ()=>{
             if(!this.scrollEvents[2].downScroll) this.scrollEvents[2].on_down_scroll();
-            this.scrollSpeed = 0.3;
+            this.scrollSpeed = 0.6;
           }
         },
       ],
@@ -256,9 +264,7 @@ export default {
     }
 
     this.handleScroll();
-    setInterval(() => {
-      this.wrapperY += (this.wrapper_top - this.wrapperY) * 0.1;
-    }, 1000 / 60);
+    this.updateWrapperY();
     
     this.wrapperY = 1
 

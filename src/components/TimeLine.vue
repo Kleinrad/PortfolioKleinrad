@@ -1,7 +1,7 @@
 <template>
     <div class="animation_wrapper">
         <Transition name="fade">
-            <DripIng v-if="!CTL || !CTL.full" :drip="!CTL || !CTL.full" @newParticle="spawnParticle"></DripIng>
+            <DripIng v-if="!CTL || !CTL.full" :drip="!CTL || !CTL.full && false" @newParticle="spawnParticle"></DripIng>
         </Transition>
         <canvas id="timeline_canvas"></canvas>
     </div>
@@ -15,6 +15,8 @@ var canvasHeight = 0;
 
 var mouseX = 0;
 var mouseY = 0;
+
+var resolution = 1;
 
 var sizing = 8;
 var particleSize =2;
@@ -42,7 +44,7 @@ function mixColors(colorA, colorB, value) {
 
 
 class Particle {
-    constructor (ctx, x, y, radius, color, speed=0.01, accelerator=15) {
+    constructor (ctx, x, y, radius, color, speed=0.01, accelerator=10) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
@@ -250,6 +252,17 @@ class ConnectionTimeLine {
         this.full = false;
         this.screenType = screenType;
         this.particles = [];
+        if (true){
+            while (!this.full){
+                for (let i = 0; i < 10; i++) {
+                    this.particles.push(new Particle(this.ctx, this.x, this.y, particleSize, this.color, 0.1));
+                }
+                this.updateParticles(this.getNewLineData());
+            }
+        }
+        setTimeout(() => {
+            this.updateParticles(this.getNewLineData());
+        }, 10);
     }
     addParticle (pos) {
         this.particles.push(new Particle(this.ctx, pos.x, pos.y, particleSize, this.color, 0.1));
@@ -312,7 +325,6 @@ class ConnectionTimeLine {
         }
     }
     draw () {
-        this.updateParticles(this.getNewLineData());
         for (let i = 0; i < this.particles.length; i++) {
             this.particles[i].draw();
         };
@@ -340,9 +352,7 @@ export default {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
             this.FTL.draw();
             this.CTL.draw();
-            setTimeout(() =>{
-                requestAnimationFrame(this.drawTimeLine)
-            }, this.screenType == 0 ? 1000/15 : 1000/30);
+            requestAnimationFrame(this.drawTimeLine)
         },
         spawnParticle (pos){
             this.CTL.addParticle(pos);
@@ -362,29 +372,35 @@ export default {
         this.canvas = document.getElementById('timeline_canvas');
         this.ctx = this.canvas.getContext('2d', { willReadFrequently: true });
 
-        this.canvas.width = canvasWidth = this.$el.offsetWidth;
-        this.canvas.height = canvasHeight = this.$el.offsetHeight;
-        
-        let ftlOffset = {x: 0, y: 0}
-        if(this.screenType == 1){
-            ftlOffset.y = 600;
-            ftlOffset.x = -90
-        }else if (this.screenType == 2){
-            ftlOffset.y = 750;
-        }else{
-            ftlOffset.y = 760;
-            ftlOffset.x = -40
-        }
-        this.FTL = new FutureTimeLine(this.ctx, ftlOffset.x, ftlOffset.y, this.canvas.width, this.canvas.height, this.screenType);
-        this.CTL = new ConnectionTimeLine(this.ctx, 0, 0, this.canvas.width, this.canvas.height, "rgba(255,255,255,1)", this.screenType);
+        setTimeout(() => {
+            resolution = this.screenType == 0 ? 2.5 : 1;
+            sizing *= resolution;
+            particleSize *= resolution;
 
-        window.addEventListener('resize', this.updateSize);
-        this.canvas.addEventListener('mousemove', this.getMouseCords);
+            this.canvas.width = canvasWidth = this.$el.offsetWidth*resolution;
+            this.canvas.height = canvasHeight = this.$el.offsetHeight*resolution;
+            
+            let ftlOffset = {x: 0, y: 0}
+            if(this.screenType == 1){
+                ftlOffset.y = 600*resolution;
+                ftlOffset.x = -90*resolution;
+            }else if (this.screenType == 2){
+                ftlOffset.y = 750*resolution;
+            }else{
+                ftlOffset.y = 760*resolution;
+                ftlOffset.x = -40*resolution;
+            }
+            this.FTL = new FutureTimeLine(this.ctx, ftlOffset.x, ftlOffset.y, this.canvas.width, this.canvas.height, this.screenType);
+            this.CTL = new ConnectionTimeLine(this.ctx, 0, 0, this.canvas.width, this.canvas.height, "rgba(255,255,255,1)", this.screenType);
 
-        //draw rect to test canvas size
-        this.ctx.strokeStyle = "white";
-        this.ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height);
-        this.drawTimeLine();
+            window.addEventListener('resize', this.updateSize);
+            this.canvas.addEventListener('mousemove', this.getMouseCords);
+
+            //draw rect to test canvas size
+            this.ctx.strokeStyle = "white";
+            this.ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height);
+            this.drawTimeLine();
+        }, 100);
     },
     components: {
         DripIng

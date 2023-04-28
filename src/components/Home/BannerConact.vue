@@ -8,7 +8,7 @@
                 <span :class="{
                     'hover_text': hover
                 }">Reach out to me</span>
-            <ArrowButton :hover="hover"></ArrowButton>
+            <ArrowButton :hover="hover" :screenType="screenType"></ArrowButton>
             
         </div>
     </a>
@@ -23,6 +23,9 @@ export default {
         return {
             hover: false,
         };
+    },
+    props: {
+        'screenType': Number,
     },
     mounted() {
     },

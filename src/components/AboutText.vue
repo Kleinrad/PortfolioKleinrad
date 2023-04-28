@@ -1,17 +1,19 @@
 <template>
     <div class="about_text_wrapper">
-        <div class="split_text_container">
+        <div :class="{'split_text_container':true, 'split_text_container_notMobile':screenType!=0}">
             <div v-for="list, i in text_arr" :key="i"
                 :class="{'blur_out': i == last_active_text, 'blur_in': active_text == i}">
                 <span v-for="textObj in list" :class="{highlight: textObj.highlight}">{{ textObj.text }}</span>    
             </div>
         </div>
         <Transition name="fade">
-            <a href="mailto:fabiankleinrad.fk@gmail.com" v-if="active_text == text_count-1">
-                <div class="contact_me">
-                    get in touch
-                </div>
-            </a>
+            <div class="contact_wrapper" v-if="active_text == text_count-1">
+                <a href="mailto:fabiankleinrad.fk@gmail.com" >
+                    <div class="contact_me">
+                        get in touch
+                    </div>
+                </a>
+            </div>
         </Transition>
         <!-- <div class="cite">
             <span>The only thing that is constant is change.</span>
@@ -57,6 +59,7 @@ export default {
             last_active_text: -1,
             last_text_change: new Date(),
             textTop: 0,
+            textTopMax: 0,
             text_count: 0
         }
     },
@@ -72,6 +75,9 @@ export default {
     },
     mounted() {
         this.text_count = this.text_arr.length;
+        setTimeout(() => {
+            this.textTopMax = ((this.screenType==0?0.7:0.5)/this.text_arr.length * (this.text_arr.length-1)*10000) + "%";
+        }, 100);
     },
     watch: {
         scrollCount: function (newVal, oldVal) {
@@ -116,6 +122,11 @@ export default {
     pointer-events: none;
 }
 
+.split_text_container_notMobile{
+    -webkit-filter: url(#c_matrix) blur(0.5px) !important;
+            filter: url(#c_matrix) blur(0.5px) !important;
+}
+
 .split_text_container {
     position: absolute;
     top: 5%;
@@ -126,8 +137,8 @@ export default {
         -ms-transform: translate(-50%, v-bind(textTop));
             transform: translate(-50%, v-bind(textTop));
     z-index: 1;
-    -webkit-filter: url(#c_matrix) blur(0.5px);
-            filter: url(#c_matrix) blur(0.5px);
+    -webkit-filter: url(#c_matrix) blur(0.1px);
+            filter: url(#c_matrix) blur(0.1px);
     -webkit-transition: -webkit-transform 0s 0.5s ease-in-out;
     transition: -webkit-transform 0s 0.5s ease-in-out;
     -o-transition: transform 0s 0.5s ease-in-out;
@@ -192,17 +203,27 @@ export default {
             animation: blurIn 0.6s .5s ease-out forwards;
 }
 
-.contact_me {
+.contact_wrapper {
     position: absolute;
+    top: 30vw;
     z-index: 0;
-    bottom: 25%;
     right: 18%;
+    height: 1%;
+    -webkit-transform: translate(-50%, v-bind(textTopMax));
+        -ms-transform: translate(-50%, v-bind(textTopMax));
+            transform: translate(-50%, v-bind(textTopMax));
+    -webkit-transition: -webkit-transform 0s 0.5s ease-in-out;
+}
+
+.contact_me {
+    position: relative;
     font-size: 1.5vw;
     color: var(--accent-color);
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
-    padding: 2% 3%;
+    padding: 13% 13%;
+    width: 12vw;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     pointer-events: all;
@@ -426,6 +447,22 @@ export default {
     }
 }
 
+@media screen and (max-width: 1050px) {
+    .contact_me {
+        -webkit-transform: translate(-50%, -50%) scale(1.5);
+            -ms-transform: translate(-50%, -50%) scale(1.5);
+                transform: translate(-50%, -50%) scale(1.5);
+        font-size: 2vw;
+        opacity: .98;
+        padding: 10% 10%;
+        width: 15vw;
+    }
+
+    .contact_wrapper {
+        top: 38vw;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .split_text_container div {
         font-size: 9.5vw;
@@ -449,10 +486,13 @@ export default {
         -webkit-transform: translate(-50%, -50%) scale(2);
             -ms-transform: translate(-50%, -50%) scale(2);
                 transform: translate(-50%, -50%) scale(2);
-        font-size: 4vw;
-        bottom: 28%;
+        font-size: 3vw;
         left: 50%;
         opacity: .98;
+        width: 30vw;
+    }
+    .contact_wrapper {
+        top: 75vw;
     }
     .contact_me:hover {
         -webkit-transform: translate(-50%, -50%) scale(2.03);
@@ -461,15 +501,4 @@ export default {
     }
 }
 
-@media screen and (max-width: 1050px) {
-    .contact_me {
-        bottom: auto;
-        top: 60%;
-        -webkit-transform: translate(-50%, -50%) scale(1.5);
-            -ms-transform: translate(-50%, -50%) scale(1.5);
-                transform: translate(-50%, -50%) scale(1.5);
-        font-size: 2.5vw;
-        opacity: .98;
-    }
-}
 </style>

@@ -52,7 +52,7 @@ export default {
 
 .about_more {
     position: absolute;
-    bottom: 2%;
+    bottom: 0%;
     left: 50%;
     -webkit-transform: translate(-50%, 0%);
         -ms-transform: translate(-50%, 0%);

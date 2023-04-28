@@ -3,11 +3,11 @@
         <span :class="{
             'hover_arrow': hover,
             'arrow': true,
-        }">&#129130;</span>
+        }" v-html="arrow_char"></span>
         <span :class="{
             'hover_arrow': hover,
             'arrow': true,
-        }">&#129130;</span>
+        }" v-html="arrow_char"></span>
     </div>
 </template>
 
@@ -16,10 +16,17 @@ export default {
     name: "ArrowButton",
     data() {
         return {
+            arrow_char: "&#x1F862;",
         };
     },
     props: {
         'hover': Boolean,
+        'screenType': Number,
+    },
+    mounted() {
+        setTimeout(() => {
+            this.arrow_char = this.screenType == 0 ? ">" : "&#x1F862;";
+        }, 20);
     },
 };
 </script>

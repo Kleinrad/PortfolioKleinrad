@@ -3,6 +3,8 @@
 </template>
 
 <script>
+var resolution = 1;
+
 export default {
     data() {
         return {
@@ -17,6 +19,7 @@ export default {
             segments: [],
             segmentParams: [],
             circleR: 0,
+            lineWidth: 2,
 
             interval: null,
         };
@@ -34,10 +37,6 @@ export default {
             type: String,
             default: "#fff",
         },
-        lineWidth: {
-            type: Number,
-            default: 2,
-        },
         dotDist: {
             type: Number,
             default: 10,
@@ -46,9 +45,23 @@ export default {
             type: Number,
             default: 0,
         },
+        active: {
+            type: Boolean,
+            default: true,
+        },
+    },
+    watch: {
+        active: function(newVal, oldVal) {
+            if(newVal) {
+                this.animate();
+            }
+        },
     },
     methods: {
         animate() {
+            if (!this.active) {
+                return;
+            }
             this.bezierPoints = [];
             this.segmentParams = [];
             this.lastReal = {x: 0, y: 0}
@@ -289,17 +302,20 @@ export default {
         for (let i = 0; i < (this.projectCount-1)*2+1; i++) {
             this.segments.push(i % 2 == 0 ? 100/this.projectCount : 50);
         }
-
-        this.animate();
         setTimeout(() => {
             this.updateSize();
+            resolution = this.screenType == 0 ? 2.5 : 1;
             if (this.screenType == 2){
-                this.circleR = (this.canvas.width)*0.0075;
+                this.circleR = (this.canvas.width)*0.0075 * resolution;
             }else if (this.screenType == 1){
-                this.circleR = (this.canvas.width)*0.01;
+                this.circleR = (this.canvas.width)*0.01 * resolution;
             }else{
-                this.circleR = (this.canvas.width)*0.03;
+                this.circleR = (this.canvas.width)*0.03 * resolution;
             }
+            this.lineWidth *= resolution;
+            this.canvas.width = this.canvas.width * resolution;
+            this.canvas.height = this.canvas.height * resolution;
+            this.animate();
         }, 1000/60);
     }
 }

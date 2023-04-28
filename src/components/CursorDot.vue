@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'cursor_wrapper': dynamic, 'wrapper_pointer': pointer, 'absolute_wrapper': !dynamic}">
+  <div v-if="screenType != 0" :class="{'cursor_wrapper': dynamic, 'wrapper_pointer': pointer, 'absolute_wrapper': !dynamic}">
     <div 
         :style="{top: cursor.y + 'px', left: cursor.x + 'px', width: this.width + 'vw', height: this.height + 'vw'}"
         :class="{'cursor-pointer': pointer, 'abs_trans' : !dynamic}"
@@ -40,6 +40,7 @@ export default {
     'dynamic' : Boolean,
     'pos': Object,
     'abs_top_offset': Number,
+    'screenType': Number,
   },
   mounted() {
     document.addEventListener("mousemove", this.onMouseMove);
@@ -103,7 +104,7 @@ export default {
   },
   watch: {
     dynamic: function (val) {
-      if (!val){
+      if (!val && this.screenType != 0){
         this.preDynamic.x = this.cursor.x;
         this.preDynamic.y = this.cursor.y;
         let width = document.getElementsByClassName("cursor_wrapper")[0].offsetWidth;
@@ -115,7 +116,7 @@ export default {
         this.abs_trans_y = pos_diff.y+"px";
         this.last_point_abs = point_b;
         this.updateCursor();
-      }else{
+      }else if (this.screenType != 0){
         this.cursor = this.preDynamic;
         this.preDynamic = {x: 0, y: 0};
       }

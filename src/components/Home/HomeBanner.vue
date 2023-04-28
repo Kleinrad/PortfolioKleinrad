@@ -6,7 +6,7 @@
             <span>As a developer, I am eager to showcase my skills and passion for coding. With a focus on web development and a commitment to delivering high-quality solutions.</span>
             <span>Let's create something great together!</span>
         </div>
-        <BannerConact/>
+        <BannerConact :screenType="screenType"/>
     </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
     data() {
         return {
         };
+    },
+    props: {
+        'screenType': Number,
     },
     components: {
         HomeTyping,

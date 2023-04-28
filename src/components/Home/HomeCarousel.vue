@@ -51,8 +51,7 @@ export default {
     /* outline text in black*/
     color: black;
     -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .carousel_container:first-child {
@@ -81,7 +80,7 @@ export default {
     -webkit-transform: translateY(-1svh);
         -ms-transform: translateY(-1svh);
             transform: translateY(-1svh);
-    text-shadow: 0px 1svh 0px var(--accent-color);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 0px 1svh 0px var(--accent-color);
     -webkit-transition: 0.5s ease-in-out;
     -o-transition: 0.5s ease-in-out;
     transition: 0.5s ease-in-out;
@@ -134,6 +133,7 @@ export default {
 @media screen and (max-width: 768px) {
     .carousel_container {
         font-size: 10vw;
+        letter-spacing: 0.5vw;
         width: 200vw;
     }
 
