@@ -73,9 +73,15 @@
 
 <style scoped>
 .banner_typing{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
     font-size: 5vw;
     letter-spacing: 0.02em;
     font-weight: bold;
@@ -87,7 +93,29 @@
 
 .typing_cursor{
     font-weight: 100;
-    animation: cursor_blink 1s infinite;
+    -webkit-animation: cursor_blink 1s infinite;
+            animation: cursor_blink 1s infinite;
+}
+
+@-webkit-keyframes cursor_blink {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes cursor_blink {

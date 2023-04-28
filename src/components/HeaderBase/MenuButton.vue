@@ -52,11 +52,15 @@ export default {
   margin: auto;
   width: 20px;
   height: 7px;
+  -webkit-transition: .15s ease-in-out;
+  -o-transition: .15s ease-in-out;
   transition: .15s ease-in-out;
 }
 
 .menu_default:hover {
   height: 15px;
+  -webkit-transition: .15s ease-in-out;
+  -o-transition: .15s ease-in-out;
   transition: .15s ease-in-out;
 }
 
@@ -68,6 +72,8 @@ export default {
   width: 100%;
   height: 2px;
   background-color: var(--font-color);
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
   transition: 0.2s;
 }
 
@@ -84,14 +90,20 @@ export default {
 
 .menu_default_active::before, .menu_default_active::after {
   opacity: 0;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
   transition: 0.2s;
 }
 
 .menu_default_active::before {
-  transform: translate(-1vw, 0);
+  -webkit-transform: translate(-1vw, 0);
+      -ms-transform: translate(-1vw, 0);
+          transform: translate(-1vw, 0);
 }
 .menu_default_active::after {
-  transform: translate(1vw, 0);
+  -webkit-transform: translate(1vw, 0);
+      -ms-transform: translate(1vw, 0);
+          transform: translate(1vw, 0);
 }
 
 .menu_focus {
@@ -100,7 +112,11 @@ export default {
 }
 
 .menu_focus:hover {
-  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-transition: .15s ease-in-out;
+  -o-transition: .15s ease-in-out;
   transition: .15s ease-in-out;
 }
 
@@ -113,12 +129,18 @@ export default {
   width: 100%;
   height: 2px;
   background-color: black;
-  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
 }
 
 .menu_focus::after{
-  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
 
 .menu_focus_active {
@@ -127,14 +149,20 @@ export default {
 
 .menu_focus_active::after, .menu_focus_active::before {
   opacity: 0;
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
 }
 
 .menu_focus_active::before {
-  transform: translate(-1vw, -1vw) rotate(45deg);
+  -webkit-transform: translate(-1vw, -1vw) rotate(45deg);
+      -ms-transform: translate(-1vw, -1vw) rotate(45deg);
+          transform: translate(-1vw, -1vw) rotate(45deg);
 }
 
 .menu_focus_active::after {
-  transform: translate(1vw, -1vw) rotate(-45deg);
+  -webkit-transform: translate(1vw, -1vw) rotate(-45deg);
+      -ms-transform: translate(1vw, -1vw) rotate(-45deg);
+          transform: translate(1vw, -1vw) rotate(-45deg);
 }
 </style>

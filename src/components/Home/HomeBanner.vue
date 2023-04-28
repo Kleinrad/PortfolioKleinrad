@@ -38,15 +38,24 @@ export default {
     z-index: 0;
     overflow: hidden;
     background-color: var(--background-color);
+    -webkit-transition: var(--bg-transition);
+    -o-transition: var(--bg-transition);
     transition: var(--bg-transition);
 }
 
 .banner_text{
     width: 45vw;
     height: 10vw;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     text-align: left;
     font-weight: 700;
     font-size: 1.6vw;
@@ -65,5 +74,4 @@ export default {
         font-weight: 600;
     }    
 }
-
 </style>

@@ -51,13 +51,14 @@ export default {
 </script>
 
 <style scoped>
-
 .image_background {
     background-size: cover;
     background-position: center;
     opacity: 0;
-    animation: fadeIn 0.5s 1.8s forwards;
-    filter: brightness(0.3) saturate(0.85);
+    -webkit-animation: fadeIn 0.5s 1.8s forwards;
+            animation: fadeIn 0.5s 1.8s forwards;
+    -webkit-filter: brightness(0.3) saturate(0.85);
+            filter: brightness(0.3) saturate(0.85);
 }
 .project_item {
     position: relative;
@@ -66,37 +67,60 @@ export default {
     overflow: hidden;
     cursor: pointer;
     background-color: var(--secondary-color);
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
     transition: 0.5s;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: morph-size-reverse 2s forwards;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-animation: morph-size-reverse 2s forwards;
+            animation: morph-size-reverse 2s forwards;
 }
 
 .project_content {
     position: relative;
     z-index: 1;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     padding: 2vw;
     width: 40vw;
     height: 20vw;
     margin-top: 3vw;
     border-radius: 10%;
     background-color: rgba(16, 16, 16, 0.531);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     mix-blend-mode: normal;
     cursor: default;
     opacity: 0;
-    animation: fadeIn 0.5s 3s forwards;
+    -webkit-animation: fadeIn 0.5s 3s forwards;
+            animation: fadeIn 0.5s 3s forwards;
 }
 
 .project_item_active {
     width: v-bind(maxWidth);
     height: v-bind(maxHeight);
+    -webkit-transition: width 0.5s ease-in-out, height 0.5s ease-in-out, -webkit-box-shadow 1s 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out, -webkit-box-shadow 1s 0.5s ease-in-out;
+    -o-transition: width 0.5s ease-in-out, height 0.5s ease-in-out, box-shadow 1s 0.5s ease-in-out;
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out, box-shadow 1s 0.5s ease-in-out;
-    animation: morph-size 2s forwards, gooey 20s 2s infinite !important;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out, box-shadow 1s 0.5s ease-in-out, -webkit-box-shadow 1s 0.5s ease-in-out;
+    -webkit-animation: morph-size 2s forwards, gooey 20s 2s infinite !important;
+            animation: morph-size 2s forwards, gooey 20s 2s infinite !important;
 }
 
 .project_name{
@@ -109,7 +133,8 @@ export default {
 
 .project_name_active{
     font-size: 3.5vw !important;
-    animation: slide-up 0.8s 2s forwards cubic-bezier( 0.17, 0, 0.38, 1.01 );
+    -webkit-animation: slide-up 0.8s 2s forwards cubic-bezier( 0.17, 0, 0.38, 1.01 );
+            animation: slide-up 0.8s 2s forwards cubic-bezier( 0.17, 0, 0.38, 1.01 );
 }
 
 .project_name_active::before{
@@ -120,28 +145,41 @@ export default {
     width: 0%;
     height: 2px;
     background-color: var(--accent-color);
-    animation: center-expand 0.5s 2.6s forwards ease-out;
+    -webkit-animation: center-expand 0.5s 2.6s forwards ease-out;
+            animation: center-expand 0.5s 2.6s forwards ease-out;
 }
 
 .project_technologies {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     background-color: rgba(105, 105, 105, 0.582);
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     padding: 0.5vw;
     border-radius: 5%;
-    justify-content: space-evenly;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
 }
 
 
 .project_links {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
 }
 
 .project_text {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     padding: 0 2vw;
     font-size: 1.1vw;
     font-weight:  600;
@@ -153,7 +191,9 @@ export default {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     z-index: 0;
@@ -166,13 +206,39 @@ export default {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     width: 100%;
     height: 135%;
     z-index: -1;
     opacity: 0;
-    animation: fadeIn 0.5s 1.8s forwards;
-    filter: brightness(0.3) saturate(0.85);
+    -webkit-animation: fadeIn 0.5s 1.8s forwards;
+            animation: fadeIn 0.5s 1.8s forwards;
+    -webkit-filter: brightness(0.3) saturate(0.85);
+            filter: brightness(0.3) saturate(0.85);
+}
+
+
+@-webkit-keyframes gooey {
+  0%, 100% {
+    border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%; /* Set the initial and final border radius */
+  }
+  10%, 90% {
+    border-radius: 30% 40% 10% 5% / 5% 10% 40% 30%; /* Add some variation to the border radius */
+  }
+  20%, 80% {
+    border-radius: 40% 50% 5% 10% / 10% 5% 50% 40%; /* Add some variation to the border radius */
+  }
+  30%, 70% {
+    border-radius: 50% 40% 10% 15% / 15% 10% 60% 50%; /* Add some variation to the border radius */
+  }
+  40%, 60% {
+    border-radius: 30% 30% 15% 20% / 50% 20% 10% 15%; /* Add some variation to the border radius */
+  }
+  50% {
+    border-radius: 40% 50% 20% 25% / 25% 20% 50% 40%; /* Add some variation to the border radius */
+  }
 }
 
 
@@ -197,14 +263,16 @@ export default {
   }
 }
 
-@keyframes morph-size{
+@-webkit-keyframes morph-size{
     0%{
         border-radius: 0%;
-        transform: scale(1);
+        -webkit-transform: scale(1);
+                transform: scale(1);
     }
     20%{
         border-radius: 40% 35% 41% 33% / 40% 35% 41% 33%;
-        transform: scale(0.5);
+        -webkit-transform: scale(0.5);
+                transform: scale(0.5);
     }
     35%{
         border-radius: 40% 36% 43% 34% / 40% 36% 43% 34%;
@@ -214,14 +282,64 @@ export default {
     }
     100%{
         border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%;
-        transform: scale(1);
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+}
+
+@keyframes morph-size{
+    0%{
+        border-radius: 0%;
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+    20%{
+        border-radius: 40% 35% 41% 33% / 40% 35% 41% 33%;
+        -webkit-transform: scale(0.5);
+                transform: scale(0.5);
+    }
+    35%{
+        border-radius: 40% 36% 43% 34% / 40% 36% 43% 34%;
+    }
+    60%{
+        border-radius: 35% 28% 16% 7% / 35% 28% 16% 7%;
+    }
+    100%{
+        border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%;
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+}
+
+@-webkit-keyframes morph-size-reverse{
+    0%{
+        border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%;
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+    20%{
+        border-radius: 35% 28% 16% 7% / 35% 28% 16% 7%;
+    }
+    35%{
+        border-radius: 40% 36% 43% 34% / 40% 36% 43% 34%;
+    }
+    60%{
+        border-radius: 40% 35% 41% 33% / 40% 35% 41% 33%;
+        -webkit-transform: scale(0.8);
+                transform: scale(0.8);
+    }
+    100%{
+        border-radius: 0%;
+        -webkit-transform: scale(1);
+                transform: scale(1);
     }
 }
 
 @keyframes morph-size-reverse{
     0%{
         border-radius: 50% 30% 20% 10% / 10% 20% 30% 50%;
-        transform: scale(1);
+        -webkit-transform: scale(1);
+                transform: scale(1);
     }
     20%{
         border-radius: 35% 28% 16% 7% / 35% 28% 16% 7%;
@@ -231,11 +349,22 @@ export default {
     }
     60%{
         border-radius: 40% 35% 41% 33% / 40% 35% 41% 33%;
-        transform: scale(0.8);
+        -webkit-transform: scale(0.8);
+                transform: scale(0.8);
     }
     100%{
         border-radius: 0%;
-        transform: scale(1);
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 
@@ -248,23 +377,51 @@ export default {
     }
 }
 
-@keyframes slide-up {
+@-webkit-keyframes slide-up {
     0% {
-        transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+                transform: translateY(0%);
     }
     100% {
-        transform: translateY(-300%);
+        -webkit-transform: translateY(-300%);
+                transform: translateY(-300%);
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        -webkit-transform: translateY(0%);
+                transform: translateY(0%);
+    }
+    100% {
+        -webkit-transform: translateY(-300%);
+                transform: translateY(-300%);
+    }
+}
+
+@-webkit-keyframes center-expand {
+    0% {
+        width: 0%;
+        -webkit-transform: translateX(-50%);
+                transform: translateX(-50%)
+    }
+    100% {
+        width: 130%;
+        -webkit-transform: translateX(-50%);
+                transform: translateX(-50%)
     }
 }
 
 @keyframes center-expand {
     0% {
         width: 0%;
-        transform: translateX(-50%)
+        -webkit-transform: translateX(-50%);
+                transform: translateX(-50%)
     }
     100% {
         width: 130%;
-        transform: translateX(-50%)
+        -webkit-transform: translateX(-50%);
+                transform: translateX(-50%)
     }
 }
 
@@ -283,7 +440,9 @@ export default {
         height: 80%;
         padding: 6%;
         margin-top: 15vw;
-        justify-content: space-evenly;
+        -webkit-box-pack: space-evenly;
+            -ms-flex-pack: space-evenly;
+                justify-content: space-evenly;
     }
 
     .project_name{
@@ -299,12 +458,46 @@ export default {
         line-height: 4.6vw;
     }
 
-    @keyframes slide-up {
+    @-webkit-keyframes slide-up {
         0% {
-            transform: translateY(0%);
+            -webkit-transform: translateY(0%);
+                    transform: translateY(0%);
         }
         100% {
-            transform: translateY(-600%);
+            -webkit-transform: translateY(-600%);
+                    transform: translateY(-600%);
+        }
+    }
+
+    @keyframes slide-up {
+        0% {
+            -webkit-transform: translateY(0%);
+                    transform: translateY(0%);
+        }
+        100% {
+            -webkit-transform: translateY(-600%);
+                    transform: translateY(-600%);
+        }
+    }
+
+    @-webkit-keyframes gooey {
+        0%, 100% {
+            border-radius: 10% 6% 4% 2% / 2% 4% 6% 10%; /* Set the initial and final border radius */
+        }
+        10%, 90% {
+            border-radius: 6% 8% 2% 1% / 1% 2% 8% 6%; /* Add some variation to the border radius */
+        }
+        20%, 80% {
+            border-radius: 8% 10% 1% 2% / 2% 1% 10% 8%; /* Add some variation to the border radius */
+        }
+        30%, 70% {
+            border-radius: 10% 8% 2% 3% / 3% 2% 12% 10%; /* Add some variation to the border radius */
+        }
+        40%, 60% {
+            border-radius: 6% 6% 3% 4% / 10% 4% 2% 3%; /* Add some variation to the border radius */
+        }
+        50% {
+            border-radius: 8% 10% 4% 5% / 5% 4% 10% 8%; /* Add some variation to the border radius */
         }
     }
 
@@ -329,14 +522,16 @@ export default {
         }
     }
 
-    @keyframes morph-size{
+    @-webkit-keyframes morph-size{
         0%{
             border-radius: 0%;
-            transform: scale(1);
+            -webkit-transform: scale(1);
+                    transform: scale(1);
         }
         20%{
             border-radius: 40% 35% 41% 33% / 40% 35% 41% 33%;
-            transform: scale(0.5);
+            -webkit-transform: scale(0.5);
+                    transform: scale(0.5);
         }
         35%{
             border-radius: 40% 36% 43% 34% / 40% 36% 43% 34%;
@@ -346,7 +541,32 @@ export default {
         }
         100%{
             border-radius: 10% 6% 4% 2% / 2% 4% 6% 10%;
-            transform: scale(1);
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+        }
+    }
+
+    @keyframes morph-size{
+        0%{
+            border-radius: 0%;
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+        }
+        20%{
+            border-radius: 40% 35% 41% 33% / 40% 35% 41% 33%;
+            -webkit-transform: scale(0.5);
+                    transform: scale(0.5);
+        }
+        35%{
+            border-radius: 40% 36% 43% 34% / 40% 36% 43% 34%;
+        }
+        60%{
+            border-radius: 20% 18% 16% 7% / 20% 18% 16% 7%;
+        }
+        100%{
+            border-radius: 10% 6% 4% 2% / 2% 4% 6% 10%;
+            -webkit-transform: scale(1);
+                    transform: scale(1);
         }
     }
 }

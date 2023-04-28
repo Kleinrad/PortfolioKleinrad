@@ -21,10 +21,17 @@
 </script>
 
 <style scoped>
+
 .header_nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-evenly;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   width: 30vw;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
   min-width: fit-content;
   font-size: 1vw;
   font-weight: 600;
@@ -32,8 +39,12 @@
 
 .header_nav > span {
   margin: 0 3vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   cursor: pointer;
 }
 
@@ -53,5 +64,4 @@
     margin: 0 2vw;
   }
 }
-
 </style>

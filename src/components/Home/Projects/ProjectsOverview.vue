@@ -101,7 +101,6 @@ export default {
 </script>
 
 <style scoped>
-
 ProjectLine {
     position: absolute;
     top: 0;
@@ -118,11 +117,15 @@ ProjectLine {
     width: 100%;
     height: 100%;
     z-index: -1;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -webkit-transition: var(--bg-transition);
+    -o-transition: var(--bg-transition);
     transition: var(--bg-transition);
     opacity: 0.1;
     opacity: 0;
-    animation: fadeIn-vid 0.5s 0.4s forwards;
+    -webkit-animation: fadeIn-vid 0.5s 0.4s forwards;
+            animation: fadeIn-vid 0.5s 0.4s forwards;
 }
 
 
@@ -131,7 +134,10 @@ ProjectLine {
     scroll-snap-align: start;
     width: 100%;
     height: calc(45vw*v-bind(project_count));
-    box-shadow: 0px 20px 10px rgba(31, 31, 31, 0.096);
+    -webkit-box-shadow: 0px 20px 10px rgba(31, 31, 31, 0.096);
+            box-shadow: 0px 20px 10px rgba(31, 31, 31, 0.096);
+    -webkit-transition: var(--bg-transition) 0.5s;
+    -o-transition: var(--bg-transition) 0.5s;
     transition: var(--bg-transition) 0.5s;
 }
 
@@ -141,9 +147,12 @@ ProjectLine {
     left: 0;
     width: 100%;
     height: 100%;
+    background: -webkit-gradient(linear, left bottom, left top, from(var(--background-color)), color-stop(5%, rgba(255,255,255,0)), color-stop(95%, rgba(255,255,255,0)), to(var(--background-color)));
+    background: -o-linear-gradient(bottom, var(--background-color) 0%, rgba(255,255,255,0) 5%, rgba(255,255,255,0) 95%, var(--background-color) 100%);
     background: linear-gradient(0deg, var(--background-color) 0%, rgba(255,255,255,0) 5%, rgba(255,255,255,0) 95%, var(--background-color) 100%);
     opacity: 0;
-    animation: fadeIn 0.5s  0.4s forwards;
+    -webkit-animation: fadeIn 0.5s  0.4s forwards;
+            animation: fadeIn 0.5s  0.4s forwards;
 }
 
 .item_wrapper {
@@ -151,20 +160,40 @@ ProjectLine {
     z-index: 3;
     width: 100%;
     height: 45vw;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     padding: 5vw  0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 /* shift all even 20% right and all odd 20% left */
 .item_wrapper:nth-child(even) {
-    transform: translateX(4%);
+    -webkit-transform: translateX(4%);
+        -ms-transform: translateX(4%);
+            transform: translateX(4%);
 }
 
 .item_wrapper:nth-child(odd) {
-    transform: translateX(-12%);
+    -webkit-transform: translateX(-12%);
+        -ms-transform: translateX(-12%);
+            transform: translateX(-12%);
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
@@ -173,6 +202,15 @@ ProjectLine {
     }
     to {
         opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn-vid {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.1;
     }
 }
 
@@ -193,14 +231,21 @@ ProjectLine {
         height: calc(80svh*v-bind(project_count));
     }
     .item_wrapper:nth-child(even) {
-        transform: translateX(-7%);
-        justify-content: right;
+        -webkit-transform: translateX(-7%);
+            -ms-transform: translateX(-7%);
+                transform: translateX(-7%);
+        -webkit-box-pack: right;
+            -ms-flex-pack: right;
+                justify-content: right;
     }
 
     .item_wrapper:nth-child(odd) {
-        transform: translateX(0%);
-        justify-content: left;
+        -webkit-transform: translateX(0%);
+            -ms-transform: translateX(0%);
+                transform: translateX(0%);
+        -webkit-box-pack: left;
+            -ms-flex-pack: left;
+                justify-content: left;
     }
 }
-
 </style>

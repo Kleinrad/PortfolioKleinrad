@@ -395,6 +395,8 @@ export default {
 <style scoped>
 
 .fade-enter-active, .fade-leave-active {
+    -webkit-transition: opacity .5s;
+    -o-transition: opacity .5s;
     transition: opacity .5s;
 }
 .fade-enter, .fade-leave-to {
@@ -407,8 +409,13 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 #timeline_canvas {

@@ -57,16 +57,23 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   width: 100%;
   background-color: var(--background-color);
+  -webkit-transition: var(--bg-transition);
+  -o-transition: var(--bg-transition);
   transition: var(--bg-transition);
   z-index: 10;
 }
 
 .header_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 100%;
   padding: 3vw 5vw 1.2vw;
 }
@@ -79,34 +86,76 @@ export default {
 
 .close_header {
   visibility: hidden;
-  animation: slide-close 0.5s ease-in-out;
+  -webkit-animation: slide-close 0.5s ease-in-out;
+          animation: slide-close 0.5s ease-in-out;
+  -webkit-transition: visibility 0s 0.5s;
+  -o-transition: visibility 0s 0.5s;
   transition: visibility 0s 0.5s;
 }
 
-@keyframes slide-close {
+@-webkit-keyframes slide-close {
   0% {
-    transform: translateX(0);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    width: -webkit-fit-content;
     width: fit-content;
   }
   100% {
     width: 0px;
     opacity: 0;
-    transform: translateX(10%);
+    -webkit-transform: translateX(10%);
+            transform: translateX(10%);
+  }
+}
+
+@keyframes slide-close {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  100% {
+    width: 0px;
+    opacity: 0;
+    -webkit-transform: translateX(10%);
+            transform: translateX(10%);
   }
 }
 
 .open_header {
-  animation: slide-open 0.5s forwards;
+  -webkit-animation: slide-open 0.5s forwards;
+          animation: slide-open 0.5s forwards;
+}
+
+@-webkit-keyframes slide-open {
+  0% {
+    width: 0px;
+    opacity: 0;
+    -webkit-transform: translateX(10%);
+            transform: translateX(10%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    width: -webkit-fit-content;
+    width: fit-content;
+  }
 }
 
 @keyframes slide-open {
   0% {
     width: 0px;
     opacity: 0;
-    transform: translateX(10%);
+    -webkit-transform: translateX(10%);
+            transform: translateX(10%);
   }
   100% {
-    transform: translateX(0);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
   }
 }

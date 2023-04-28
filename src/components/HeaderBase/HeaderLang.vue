@@ -15,10 +15,15 @@ export default {
 };
 </script>
 
-<style scoped>
-.header_language {
+<style scoped>.header_language {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
   min-width: fit-content;
   font-size: 1.5vw;
   margin: 0vw 2.5vw;
@@ -36,6 +41,8 @@ export default {
 .not_selected {
   opacity: 0.4;
   cursor: pointer !important;
+  -webkit-transition: 0.1s;
+  -o-transition: 0.1s;
   transition: 0.1s;
 }
 

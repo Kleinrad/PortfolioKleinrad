@@ -56,11 +56,15 @@ export default {
 
 <style lang="scss">
 .sideMenu-enter-active, .sideMenu-leave-active {
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
     transition: 0.5s;
 }
 
 .sideMenu-enter, .sideMenu-leave-to {
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+            transform: translateX(-100%);
     opacity: 0;
 }
 
@@ -72,20 +76,34 @@ export default {
     height: 4vw;
     background-color: var(--background-color);
     z-index: 10;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: rotate(-90deg) translateY(-100%);
-    transform-origin: top right;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-transform: rotate(-90deg) translateY(-100%);
+        -ms-transform: rotate(-90deg) translateY(-100%);
+            transform: rotate(-90deg) translateY(-100%);
+    -webkit-transform-origin: top right;
+        -ms-transform-origin: top right;
+            transform-origin: top right;
     padding-bottom: 0.5vw;
-    box-shadow: 0px -4px 20px 0px rgba(34, 34, 34, 0.25);
+    -webkit-box-shadow: 0px -4px 20px 0px rgba(34, 34, 34, 0.25);
+            box-shadow: 0px -4px 20px 0px rgba(34, 34, 34, 0.25);
+    -webkit-transition: 1s, var(--bg-transition);
+    -o-transition: 1s, var(--bg-transition);
     transition: 1s, var(--bg-transition);
 
     font-size: 2vw;
     font-weight: 400;
 
     &:hover { 
-        box-shadow: 0px -4px 20px 0px rgba(92, 92, 92, 0.45);
+        -webkit-box-shadow: 0px -4px 20px 0px rgba(92, 92, 92, 0.45); 
+                box-shadow: 0px -4px 20px 0px rgba(92, 92, 92, 0.45);
     }
 }
 
@@ -94,16 +112,26 @@ export default {
     left: 4%;
     margin-bottom: -0.5vw;
     width: 2vw;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    transform: rotate(90deg);
-    filter: invert(1) saturate(0) brightness(1.4);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-filter: invert(1) saturate(0) brightness(1.4);
+            filter: invert(1) saturate(0) brightness(1.4);
 }
 
 .header_icons img{
     aspect-ratio: 1/1;
     opacity: 0.3;
     width: 100%;
+    -webkit-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
     transition: opacity 0.5s;
 }
 
@@ -125,23 +153,37 @@ export default {
     .header_wrapper {
         height: 15vw;
         width: 100vw;
-        transform: none;
-        box-shadow: -4px 0px 20px 0px rgba(34, 34, 34, 0.25);
+        -webkit-transform: none;
+            -ms-transform: none;
+                transform: none;
+        -webkit-box-shadow: -4px 0px 20px 0px rgba(34, 34, 34, 0.25);
+                box-shadow: -4px 0px 20px 0px rgba(34, 34, 34, 0.25);
     }
 
     .header_icons {
         left: auto;
         right: 2%;
         height: 11vw;
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
         width: fit-content;
-        flex-direction: row;
-        transform: rotate(0deg);
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
     }
 
     .header_icons a{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         padding: 1vw;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
     .header_icons img {

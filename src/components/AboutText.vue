@@ -91,10 +91,14 @@ export default {
 <style scoped>
 
 .fade-enter-active {
+  -webkit-transition: opacity 0.2s .7s ease !important;
+  -o-transition: opacity 0.2s .7s ease !important;
   transition: opacity 0.2s .7s ease !important;
 }
 
 .fade-leave-active {
+  -webkit-transition: opacity 0.2s .2s ease !important;
+  -o-transition: opacity 0.2s .2s ease !important;
   transition: opacity 0.2s .2s ease !important;
 }
 
@@ -118,23 +122,37 @@ export default {
     left: 60%;
     width: 50vw;
     height: 1%;
-    transform: translate(-50%, v-bind(textTop));
+    -webkit-transform: translate(-50%, v-bind(textTop));
+        -ms-transform: translate(-50%, v-bind(textTop));
+            transform: translate(-50%, v-bind(textTop));
     z-index: 1;
-    filter: url(#c_matrix) blur(0.5px);
+    -webkit-filter: url(#c_matrix) blur(0.5px);
+            filter: url(#c_matrix) blur(0.5px);
+    -webkit-transition: -webkit-transform 0s 0.5s ease-in-out;
+    transition: -webkit-transform 0s 0.5s ease-in-out;
+    -o-transition: transform 0s 0.5s ease-in-out;
     transition: transform 0s 0.5s ease-in-out;
+    transition: transform 0s 0.5s ease-in-out, -webkit-transform 0s 0.5s ease-in-out;
 }
 
 .cite {
     position: absolute;
     left: 32%;
-    transform: translate(-50%, 0%);
+    -webkit-transform: translate(-50%, 0%);
+        -ms-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
     bottom: 0;
     margin-bottom: 25vw;
     font-size: 3vw;
     font-weight: 400;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     color: var(--font-color);
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     mix-blend-mode: difference;
     opacity: 0.8;
 }
@@ -163,13 +181,15 @@ export default {
 .blur_out {
     visibility: visible !important;
     opacity: 1;
-    animation: blurOut 0.6s ease-in forwards;
+    -webkit-animation: blurOut 0.6s ease-in forwards;
+            animation: blurOut 0.6s ease-in forwards;
 }
 
 .blur_in {
     visibility: visible !important;
     opacity: 0;
-    animation: blurIn 0.6s .5s ease-out forwards;
+    -webkit-animation: blurIn 0.6s .5s ease-out forwards;
+            animation: blurIn 0.6s .5s ease-out forwards;
 }
 
 .contact_me {
@@ -179,13 +199,18 @@ export default {
     right: 18%;
     font-size: 1.5vw;
     color: var(--accent-color);
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     padding: 2% 3%;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     pointer-events: all;
     border-radius: 5vw;
     background-color: var(--secondary-color);
     opacity: 0.9;
+    -webkit-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
     transition: 0.3s ease-in-out;
 }
 
@@ -198,11 +223,16 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 5vw;
+    background: -webkit-gradient(linear, left bottom, left top, from(#080E0Ef0),  to(#080E0Eb0));
+    background: -o-linear-gradient(bottom, #080E0Ef0 0%,  #080E0Eb0 100%);
     background: linear-gradient(0deg, #080E0Ef0 0%,  #080E0Eb0 100%);
-    transform: translate(-2%, -2%);
+    -webkit-transform: translate(-2%, -2%);
+        -ms-transform: translate(-2%, -2%);
+            transform: translate(-2%, -2%);
     opacity: 1;
     z-index: 1;
-    animation: reveal 1.58s 0.8s ease-in-out forwards;
+    -webkit-animation: reveal 1.58s 0.8s ease-in-out forwards;
+            animation: reveal 1.58s 0.8s ease-in-out forwards;
 }
 
 .contact_me::after {
@@ -210,25 +240,43 @@ export default {
     content: "";
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     background-color: transparent;
     border-radius: 5vw;
     opacity: 0;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
     transition: 1s;
-    animation: border-rotate 1s 0.8s;
+    -webkit-animation: border-rotate 1s 0.8s;
+            animation: border-rotate 1s 0.8s;
 }
 
 .contact_me:hover::after {
     opacity: 1 !important;
-    box-shadow: 4px 0px 2px 0px var(--accent-color);
-    animation: border-rotate 1s infinite linear;
+    -webkit-box-shadow: 4px 0px 2px 0px var(--accent-color);
+            box-shadow: 4px 0px 2px 0px var(--accent-color);
+    -webkit-animation: border-rotate 1s infinite linear;
+            animation: border-rotate 1s infinite linear;
 }
 
 .contact_me:hover {
     border: none;
-    transform: translate(-50%, -50%) scale(1.03);
+    -webkit-transform: translate(-50%, -50%) scale(1.03);
+        -ms-transform: translate(-50%, -50%) scale(1.03);
+            transform: translate(-50%, -50%) scale(1.03);
+}
+
+@-webkit-keyframes reveal {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
 }
 
 @keyframes reveal {
@@ -240,59 +288,140 @@ export default {
     }
 }
 
-@keyframes border-rotate {
+@-webkit-keyframes border-rotate {
     0% {
         opacity: 0.1;
-        box-shadow: 4px 0px 2px 0px var(--accent-color);
+        -webkit-box-shadow: 4px 0px 2px 0px var(--accent-color);
+                box-shadow: 4px 0px 2px 0px var(--accent-color);
     }
     10% {
         opacity: 0.2;
-        box-shadow: 4px 2px 4px 0px var(--accent-color);
+        -webkit-box-shadow: 4px 2px 4px 0px var(--accent-color);
+                box-shadow: 4px 2px 4px 0px var(--accent-color);
     }
     25% {
         opacity: 0.4;
-        box-shadow: 0px 4px 2px 0px var(--accent-color);
+        -webkit-box-shadow: 0px 4px 2px 0px var(--accent-color);
+                box-shadow: 0px 4px 2px 0px var(--accent-color);
     }
     40% {
         opacity: 0.6;
-        box-shadow: -2px 3px 4px 0px var(--accent-color);
+        -webkit-box-shadow: -2px 3px 4px 0px var(--accent-color);
+                box-shadow: -2px 3px 4px 0px var(--accent-color);
     }
     50% {
         opacity: 0.8;
-        box-shadow: -4px 0px 2px 0px var(--accent-color);
+        -webkit-box-shadow: -4px 0px 2px 0px var(--accent-color);
+                box-shadow: -4px 0px 2px 0px var(--accent-color);
     }
     65% {
         opacity: 1;
-        box-shadow: -3px -2px 4px 0px var(--accent-color);
+        -webkit-box-shadow: -3px -2px 4px 0px var(--accent-color);
+                box-shadow: -3px -2px 4px 0px var(--accent-color);
     }
     80% {
         opacity: 0.5;
-        box-shadow: 0px -4px 2px 0px var(--accent-color);
+        -webkit-box-shadow: 0px -4px 2px 0px var(--accent-color);
+                box-shadow: 0px -4px 2px 0px var(--accent-color);
     }
     100% {
         opacity: 0.1;
-        box-shadow: 4px 0px 2px 0px var(--accent-color);
+        -webkit-box-shadow: 4px 0px 2px 0px var(--accent-color);
+                box-shadow: 4px 0px 2px 0px var(--accent-color);
+    }
+}
+
+@keyframes border-rotate {
+    0% {
+        opacity: 0.1;
+        -webkit-box-shadow: 4px 0px 2px 0px var(--accent-color);
+                box-shadow: 4px 0px 2px 0px var(--accent-color);
+    }
+    10% {
+        opacity: 0.2;
+        -webkit-box-shadow: 4px 2px 4px 0px var(--accent-color);
+                box-shadow: 4px 2px 4px 0px var(--accent-color);
+    }
+    25% {
+        opacity: 0.4;
+        -webkit-box-shadow: 0px 4px 2px 0px var(--accent-color);
+                box-shadow: 0px 4px 2px 0px var(--accent-color);
+    }
+    40% {
+        opacity: 0.6;
+        -webkit-box-shadow: -2px 3px 4px 0px var(--accent-color);
+                box-shadow: -2px 3px 4px 0px var(--accent-color);
+    }
+    50% {
+        opacity: 0.8;
+        -webkit-box-shadow: -4px 0px 2px 0px var(--accent-color);
+                box-shadow: -4px 0px 2px 0px var(--accent-color);
+    }
+    65% {
+        opacity: 1;
+        -webkit-box-shadow: -3px -2px 4px 0px var(--accent-color);
+                box-shadow: -3px -2px 4px 0px var(--accent-color);
+    }
+    80% {
+        opacity: 0.5;
+        -webkit-box-shadow: 0px -4px 2px 0px var(--accent-color);
+                box-shadow: 0px -4px 2px 0px var(--accent-color);
+    }
+    100% {
+        opacity: 0.1;
+        -webkit-box-shadow: 4px 0px 2px 0px var(--accent-color);
+                box-shadow: 4px 0px 2px 0px var(--accent-color);
+    }
+}
+
+@-webkit-keyframes blurOut {
+    0% {
+        -webkit-filter: blur(0px);
+                filter: blur(0px);
+        opacity: 1;
+    }
+    100% {
+        -webkit-filter: blur(8px);
+                filter: blur(8px);
+        opacity: 0;
     }
 }
 
 @keyframes blurOut {
     0% {
-        filter: blur(0px);
+        -webkit-filter: blur(0px);
+                filter: blur(0px);
         opacity: 1;
     }
     100% {
-        filter: blur(8px);
+        -webkit-filter: blur(8px);
+                filter: blur(8px);
         opacity: 0;
+    }
+}
+
+@-webkit-keyframes blurIn {
+    0% {
+        opacity: 0;
+        -webkit-filter: blur(8px);
+                filter: blur(8px);
+    }
+    100% {
+        -webkit-filter: blur(0px);
+                filter: blur(0px);
+        opacity: 1;
     }
 }
 
 @keyframes blurIn {
     0% {
         opacity: 0;
-        filter: blur(8px);
+        -webkit-filter: blur(8px);
+                filter: blur(8px);
     }
     100% {
-        filter: blur(0px);
+        -webkit-filter: blur(0px);
+                filter: blur(0px);
         opacity: 1;
     }
 }
@@ -317,14 +446,18 @@ export default {
     }
 
     .contact_me {
-        transform: translate(-50%, -50%) scale(2);
+        -webkit-transform: translate(-50%, -50%) scale(2);
+            -ms-transform: translate(-50%, -50%) scale(2);
+                transform: translate(-50%, -50%) scale(2);
         font-size: 4vw;
         bottom: 28%;
         left: 50%;
         opacity: .98;
     }
     .contact_me:hover {
-        transform: translate(-50%, -50%) scale(2.03);
+        -webkit-transform: translate(-50%, -50%) scale(2.03);
+            -ms-transform: translate(-50%, -50%) scale(2.03);
+                transform: translate(-50%, -50%) scale(2.03);
     }
 }
 
@@ -332,7 +465,9 @@ export default {
     .contact_me {
         bottom: auto;
         top: 60%;
-        transform: translate(-50%, -50%) scale(1.5);
+        -webkit-transform: translate(-50%, -50%) scale(1.5);
+            -ms-transform: translate(-50%, -50%) scale(1.5);
+                transform: translate(-50%, -50%) scale(1.5);
         font-size: 2.5vw;
         opacity: .98;
     }

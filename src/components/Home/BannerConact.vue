@@ -46,8 +46,14 @@ export default {
     margin-top: 2.5vw;
     margin-left: 7vw;
 
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     color: var(--font-color) !important;
 
     font-size: 1.1vw;
@@ -64,7 +70,11 @@ export default {
     border-radius: 50%;
     opacity: 0.7;
     background-color: var(--accent-color);
-    transform: translate(-30%, 10%);
+    -webkit-transform: translate(-30%, 10%);
+        -ms-transform: translate(-30%, 10%);
+            transform: translate(-30%, 10%);
+    -webkit-transition: 1s ease;
+    -o-transition: 1s ease;
     transition: 1s ease;
 }
 
@@ -72,6 +82,8 @@ export default {
 .hover_text {
     position: relative;
     color: var(--font-color) !important;
+    -webkit-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
     transition: 0.2s ease;
 }
 .hover_text::after {
@@ -82,11 +94,25 @@ export default {
     width: 0;
     height: 1px;
     background-color: black;
-    animation: underline 0.5s ease forwards;
+    -webkit-animation: underline 0.5s ease forwards;
+            animation: underline 0.5s ease forwards;
 }
 
 .hover_circle {
-    transform: scale(.8) translate(-40%, 10%);; 
+    -webkit-transform: scale(.8) translate(-40%, 10%);
+        -ms-transform: scale(.8) translate(-40%, 10%);
+            transform: scale(.8) translate(-40%, 10%);; 
+}
+
+
+
+@-webkit-keyframes underline {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
 }
 
 
@@ -109,10 +135,14 @@ export default {
     .circle{
         width: 20vw;
         height: 20vw;
-        transform: translate(-30%, 10%);
+        -webkit-transform: translate(-30%, 10%);
+            -ms-transform: translate(-30%, 10%);
+                transform: translate(-30%, 10%);
     }
     .hover_circle {
-        transform: scale(.8) translate(-40%, 10%);; 
+        -webkit-transform: scale(.8) translate(-40%, 10%);
+            -ms-transform: scale(.8) translate(-40%, 10%);
+                transform: scale(.8) translate(-40%, 10%);; 
     }
 }
 </style>

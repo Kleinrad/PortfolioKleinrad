@@ -36,8 +36,12 @@ export default {
 }
 .carousel_container {
     position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-evenly;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
     width: 100vw;
     font-size: 5vw;
     font-weight: 1000;
@@ -52,40 +56,78 @@ export default {
 }
 
 .carousel_container:first-child {
-    transform: translate(0, 0);
-    animation: carousel_first 15s linear infinite;
+    -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+    -webkit-animation: carousel_first 15s linear infinite;
+            animation: carousel_first 15s linear infinite;
 }
 
 .carousel_container:last-child {
-    transform: translate(100%, 0);
-    animation: carousel_second 15s linear infinite;
+    -webkit-transform: translate(100%, 0);
+        -ms-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+    -webkit-animation: carousel_second 15s linear infinite;
+            animation: carousel_second 15s linear infinite;
 }
 .carousel_container > span{ 
+    -webkit-transition: 0.5s ease-in-out; 
+    -o-transition: 0.5s ease-in-out; 
     transition: 0.5s ease-in-out; 
     cursor: default;
 }
 
 .carousel_container > span:hover{
-    transform: translateY(-1svh);
+    -webkit-transform: translateY(-1svh);
+        -ms-transform: translateY(-1svh);
+            transform: translateY(-1svh);
     text-shadow: 0px 1svh 0px var(--accent-color);
+    -webkit-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
     transition: 0.5s ease-in-out;
+}
+
+@-webkit-keyframes carousel_first {
+    0% {
+        -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+    }
+    100% {
+        -webkit-transform: translate(-100%, 0);
+                transform: translate(-100%, 0);
+    } 
 }
 
 @keyframes carousel_first {
     0% {
-        transform: translate(0, 0);
+        -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
     }
     100% {
-        transform: translate(-100%, 0);
+        -webkit-transform: translate(-100%, 0);
+                transform: translate(-100%, 0);
+    } 
+}
+
+@-webkit-keyframes carousel_second {
+    0% {
+        -webkit-transform: translate(100%, 0);
+                transform: translate(100%, 0);
+    }
+    100% {
+        -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
     } 
 }
 
 @keyframes carousel_second {
     0% {
-        transform: translate(100%, 0);
+        -webkit-transform: translate(100%, 0);
+                transform: translate(100%, 0);
     }
     100% {
-        transform: translate(0, 0);
+        -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
     } 
 }
 
@@ -100,11 +142,13 @@ export default {
     }
 
     .carousel_container:first-child {
-        animation: carousel_first 10s linear infinite;
+        -webkit-animation: carousel_first 10s linear infinite;
+                animation: carousel_first 10s linear infinite;
     }
 
     .carousel_container:last-child {
-        animation: carousel_second 10s linear infinite;
+        -webkit-animation: carousel_second 10s linear infinite;
+                animation: carousel_second 10s linear infinite;
     }
 
 }

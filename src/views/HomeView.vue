@@ -280,6 +280,8 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
+  -webkit-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
 
@@ -312,7 +314,17 @@ MenuFull {
 }
 
 .fade-out {
-  animation: fadeOut .2s forwards;
+  -webkit-animation: fadeOut .2s forwards;
+          animation: fadeOut .2s forwards;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }  
 }
 
 @keyframes fadeOut {

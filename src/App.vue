@@ -17,10 +17,15 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   overflow-x: hidden;
   background-color: var(--background-color);
+  -webkit-transition: var(--bg-transition);
+  -o-transition: var(--bg-transition);
   transition: var(--bg-transition);
-  overscroll-behavior: contain;
+  -ms-scroll-chaining: none;
+      overscroll-behavior: contain;
 }
 
 #app {

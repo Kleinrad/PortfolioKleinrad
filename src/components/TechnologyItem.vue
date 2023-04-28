@@ -28,6 +28,13 @@ export default {
 </script>
 
 <style>
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 .tech_item_wrapper {
     display: inline-block;
     width: 5vw;
@@ -47,7 +54,8 @@ export default {
 }
 
 .tech_item_wrapper:hover .tech_logo::before {
-    animation: fadeOut 0.5s forwards;
+    -webkit-animation: fadeOut 0.5s forwards;
+            animation: fadeOut 0.5s forwards;
 }
 
 /* .tech_logo::before {
@@ -64,12 +72,30 @@ export default {
     animation: fadeIn 0.5s forwards;
 } */
 
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 @keyframes fadeOut {
     0% {
         opacity: 1;
     }
     100% {
         opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 

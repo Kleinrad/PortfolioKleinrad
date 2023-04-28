@@ -26,33 +26,41 @@ export default {
 
 <style scoped>
 .arrow_turn {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-left: 1vw;
 }
 
 .arrow {
     font-size: 1.5vw;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
     transition: 0.5s;
 }
 
 .arrow:first-child {
-    transform: rotate3d(0, 1, 0, -90deg);
+    -webkit-transform: rotate3d(0, 1, 0, -90deg);
+            transform: rotate3d(0, 1, 0, -90deg);
     opacity: 0;
     color: var(--accent-color);
 }
 
 .arrow:last-child {
-    transform: rotate3d(0, 1, 0, 0deg) translate(-70%, 0);
+    -webkit-transform: rotate3d(0, 1, 0, 0deg) translate(-70%, 0);
+            transform: rotate3d(0, 1, 0, 0deg) translate(-70%, 0);
     opacity: 1;
 }
 
 .hover_arrow:first-child {
-    transform: rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: rotate3d(0, 1, 0, 0deg);
+            transform: rotate3d(0, 1, 0, 0deg);
     opacity: 1;
 }
 
 .hover_arrow:last-child {
-    transform: rotate3d(0, 1, 0, 90deg);
+    -webkit-transform: rotate3d(0, 1, 0, 90deg);
+            transform: rotate3d(0, 1, 0, 90deg);
     opacity: 0;
 }
 

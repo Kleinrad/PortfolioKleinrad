@@ -150,7 +150,11 @@ export default {
 
 .abs_trans{
   background-color: var(--font-color) !important;
-  transform: translate(-50%, -50%) translateX(v-bind(abs_trans_x)) translateY(v-bind(abs_trans_y)) scale(1.4) !important;
+  -webkit-transform: translate(-50%, -50%) translateX(v-bind(abs_trans_x)) translateY(v-bind(abs_trans_y)) scale(1.4) !important;
+      -ms-transform: translate(-50%, -50%) translateX(v-bind(abs_trans_x)) translateY(v-bind(abs_trans_y)) scale(1.4) !important;
+          transform: translate(-50%, -50%) translateX(v-bind(abs_trans_x)) translateY(v-bind(abs_trans_y)) scale(1.4) !important;
+  -webkit-transition: 1s cubic-bezier(.15,-0.03,.19,.83);
+  -o-transition: 1s cubic-bezier(.15,-0.03,.19,.83);
   transition: 1s cubic-bezier(.15,-0.03,.19,.83);
 }
 
@@ -165,14 +169,22 @@ export default {
   cursor: pointer;
   border-radius: 50%;
   z-index: 100;
-  backface-visibility: hidden;
-  transform: translate(-50%, -50%);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transition: background-color 0.1s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  transition: background-color 0.1s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  -o-transition: transform 0.3s ease-in-out, background-color 0.1s ease-in-out;
   transition: transform 0.3s ease-in-out, background-color 0.1s ease-in-out;
+  transition: transform 0.3s ease-in-out, background-color 0.1s ease-in-out, -webkit-transform 0.3s ease-in-out;
 }
 
 .cursor-pointer {
     background-color: var(--accent-color) !important;
-    transform: scale(2.2) translate(-22.5%, -22.5%) !important;
+    -webkit-transform: scale(2.2) translate(-22.5%, -22.5%) !important;
+        -ms-transform: scale(2.2) translate(-22.5%, -22.5%) !important;
+            transform: scale(2.2) translate(-22.5%, -22.5%) !important;
 }
-
 </style>

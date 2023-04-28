@@ -54,16 +54,30 @@ export default {
     position: absolute;
     bottom: 2%;
     left: 50%;
-    transform: translate(-50%, 0%);
+    -webkit-transform: translate(-50%, 0%);
+        -ms-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
     width: 100vw;
     height: 10vw;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     padding-top: 20vw;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(50%, #080E0E), to(#080E0E00));
+    background: -o-linear-gradient(bottom, #080E0E 50%, #080E0E00 100%);
     background: linear-gradient(0deg, #080E0E 50%, #080E0E00 100%);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .about_more p {
