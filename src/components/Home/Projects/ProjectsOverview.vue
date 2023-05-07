@@ -15,8 +15,6 @@
 import ProjectItem from "@/components/Home/Projects/ProjectItem.vue";
 import ProjectLine from "@/components/Home/Projects/ProjectLine.vue";
 
-import MapReduceImg from "@/assets/images/MapReduce.webp";
-
 export default {
     name: "ProjectsOverview",
     data() {
@@ -38,7 +36,7 @@ export default {
                 {
                     id: 2,
                     name: "MapReduce",
-                    media: MapReduceImg,
+                    media: process.env.BASE_URL + "images/MapReduce.webp",
                     text: "The project simulates MapReduce technology using a simple system built with C++17 and meson. It utilizes TCP protocol, asio library, and protocol buffers for efficient data structure serialization.",
                     technologies: ["C++", "Protocol Buffers", "GitHub", "LaTeX"],
                     links: {
@@ -57,6 +55,27 @@ export default {
                         //"Game": "localhost:8079"
                     }
                 },
+                {
+                    id: 4,
+                    name: "Lines",
+                    media: "https://www.youtube.com/embed/7I9TvGfEwtw?controls=0&autoplay=1&mute=1&loop=1",
+                    technologies: ["HTML5", "CSS3", "JavaScript"],
+                    text: "The purpose of this project is to create visually pleasing and dynamic animations. The inspiration behind this project was laser shows from big festivals.",
+                    links: {
+                        "Try it out": "https://lines.kleinrad.com"
+                    }
+                },
+                {
+                    id: 5,
+                    name: "MedQuest",
+                    media: process.env.BASE_URL + "images/MedQuest.webp",
+                    technologies: ["HTML5", "CSS3", "JavaScript", "GitHub"],
+                    text: "MedQuest is a quiz that contains questions from previous MedAT exams. It was an effort to support my girlfriend in her preparation for the MedAT exam.",
+                    links: {
+                        "GitHub": "https://github.com/Kleinrad/MedQuest",
+                        "Try it out": "https://medquest.kleinrad.com"
+                    }
+                }
             ],
             project_count: 0,
             edgeLine: true,
@@ -95,7 +114,7 @@ export default {
     },
     watch: {
         dotDistance: function(newVal, oldVal) {
-            let offset = this.screenType == 0 ? 0 : 5;
+            let offset = this.screenType == 0 ? -5 : 5;
             this.activeVideo = Math.floor(Math.max(0,newVal-offset)/100 * this.project_count);
             if(newVal < 5) {
                 this.activeVideo = -1;

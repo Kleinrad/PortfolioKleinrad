@@ -24,7 +24,6 @@ export default {
   name: "HeaderBar",
   data() {
     return {
-      menu_open: false,
     };
   },
   components: {
@@ -32,15 +31,16 @@ export default {
     HeaderNav,
     HeaderLang,
   },
+  props: {
+      menu_open: Boolean,
+  },
   emits: ["menu-open", "menu-close", "scroll-projects", "scroll-about"],
   methods: {
     menuOpen() {
       this.$emit("menu-open");
-      this.menu_open = true;
     },
     menuClose() {
       this.$emit("menu-close");
-      this.menu_open = false;
     },
     scrollProjects() {
       this.$emit("scroll-projects");

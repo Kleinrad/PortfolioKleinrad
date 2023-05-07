@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper" :style="{'position': 'fixed'}">
-    <MenuFull v-if="showMenu"></MenuFull>
+  <div class="wrapper" :style="{'position': 'fixed', 'pointer-events': cookieAccept ? 'all' : 'none'}">
+    <MenuFull v-if="showMenu" @scroll-projects="scrollTo('projects')" @scroll-about="scrollTo('about')" @closemenu="showMenu=false"></MenuFull>
     <div class="scroll_wrapper" :style="{'position': 'absolute', 'top': Math.min(-wrapperY,0) + 'px'}">
       <CursorDot :dynamic="dynamic_cursor" :pos="{x:8, y:103}" :screenType="screenType" v-if="show_cursor" :abs_top_offset="Math.min(-wrapperY,0)" />
       <HeaderBar 
@@ -8,6 +8,7 @@
       @menu-open="showMenu=true"
       @scroll-projects="scrollTo('projects')"
       @scroll-about="scrollTo('about')"
+      :menu_open="showMenu"
       v-if="showHeaderBase"
       ></HeaderBar>
       <HeaderSideBar 
@@ -42,6 +43,8 @@ export default {
   name: "HomeView",
   data() {
     return {
+      cookieAccept: false,
+
       showMenu: false,
       showProjects: true,
       showHeaderBase: true,
@@ -125,6 +128,8 @@ export default {
       });
     },
     scrollIntercept(e) {
+      if(!this.cookieAccept) return;
+
       let scrollDelta = 0;
       if (this.touchStart != -1) {
         this.scrollDirection = this.touchStart - e.touches[0].pageY > 0 ? 1 : -1;
@@ -144,12 +149,17 @@ export default {
       this.scrollDirection = 0;
     },
     scrollTo(id){
-      let elementBounds = document.getElementById(id).getBoundingClientRect();
-      this.scrollInput = Math.min(Math.max(this.scrollInput + elementBounds.top, 0), this.height);
-      this.scrollCounter = Math.floor(this.scrollInput/(100*this.scrollSpeed))*(100*this.scrollSpeed);
-      this.wrapper_top = this.scrollInput;
-      this.checkEvent(elementBounds.top);
-      this.scrollSpeed = 0.5;
+      this.showMenu = false;
+      setTimeout(() => {
+        //check if element exists
+        if(!document.getElementById(id)) return;
+        let elementBounds = document.getElementById(id).getBoundingClientRect();
+        this.scrollInput = Math.min(Math.max(this.scrollInput + elementBounds.top, 0), this.height);
+        this.scrollCounter = Math.floor(this.scrollInput/(100*this.scrollSpeed))*(100*this.scrollSpeed);
+        this.wrapper_top = this.scrollInput;
+        this.checkEvent(elementBounds.top);
+        this.scrollSpeed = 0.5;
+      }, 50);
       return;
     },
     updateAboutCount(){
@@ -169,6 +179,13 @@ export default {
     },
   },
   mounted() {
+      window.addEventListener("CookiebotOnAccept", () => {
+        this.cookieAccept = true;
+      });
+      window.addEventListener("CookiebotOnDecline", () => {
+        this.cookieAccept = !false;
+      });
+
     this.scrollEvents =  [
         {id: "banner", 
          trigger: 0.4,

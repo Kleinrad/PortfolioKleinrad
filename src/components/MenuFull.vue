@@ -1,9 +1,8 @@
 <template>
     <div class="menu_wrapper">
         <div class="menu_inner">
-            <span>projects</span>
-            <span>technologies</span>
-            <span>about me</span>
+            <span @click="scrollProjects">projects</span>
+            <span @click="scrollAbout">about</span>
         </div>
         <div class="menu_footer">
             <span>Say Hello (:</span>
@@ -25,7 +24,16 @@ export default {
     },
     mounted() {
     },
+    emits: ['scroll-projects', 'scroll-about', 'closemenu'],
     methods: {
+        scrollProjects() {
+            this.$emit("scroll-projects");
+            this.$emit("closemenu");
+        },
+        scrollAbout() {
+            this.$emit("scroll-about");
+            this.$emit("closemenu");
+        },
     },
     components: {
         SocialIcons,
